@@ -1,4 +1,4 @@
-# PG Atlas Dashboard — User Stories
+# PG Atlas Dashboard — UX & Data Mapping
 
 This document summarizes user stories for the **PG Atlas frontend dashboard**, derived from the [PG Atlas architecture docs](https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io) (dashboard, overview, API) and the [pg-atlas-backend](https://github.com/SCF-Public-Goods-Maintenance/pg-atlas-backend) API. The dashboard is public, read-only, and would consumes the FastAPI backend via REST (and eventually the OpenAPI-generated TypeScript SDK).
 
@@ -65,6 +65,51 @@ This document summarizes user stories for the **PG Atlas frontend dashboard**, d
 | Export | `GET /export/projects`, `GET /export/repos`, `GET /export/graph` |
 
 *Note: Backend may implement these incrementally; health and ingestion (SBOM) exist first. Dashboard UI should handle missing or placeholder endpoints gracefully.*
+
+---
+
+## DB field <> UI element mapping proposal
+
+This section sketches how core backend fields map onto the dashboard UI. It is intentionally opinionated but v0-friendly; refine it once the OpenAPI schema is finalized.
+
+### Projects / Repos (entities shown in leaderboard and detail)
+
+| Entity | Example fields (backend) | UI element(s) | Screen(s) |
+|--------|--------------------------|---------------|-----------|
+| `Project` | `canonical_id`, `name`, `slug`, `project_type`, `activity_status`, `homepage_url`, `repo_count` | Leaderboard row label (name), secondary badge (type), activity pill, link-out icon (homepage), small text for repo count | Landing (top PGs), Leaderboard, PG detail header |
+| `Project` | `description`, `tags` | Tooltip / expandable "About" panel; chips for tags | PG detail (overview tab) |
+| `Project` | `ecosystem` / `language` fields (if present) | Filter chips and column pills | Leaderboard filters, PG detail metadata |
+| `Repo` | `canonical_id`, `name`, `host`, `owner`, `stars`, `forks`, `is_pg_root` | Nested table rows / list under "Repos" section; badges for `is_pg_root`, star count display | PG detail (repos section) |
+
+### Scores (metrics / risk signals)
+
+| Entity | Example fields (backend) | UI element(s) | Screen(s) |
+|--------|--------------------------|---------------|-----------|
+| `Score` | `criticality`, `min_criticality`, `p95_criticality` | Numeric column + colored bar; sort handles on leaderboard | Landing (top PGs), Leaderboard, PG detail (score summary) |
+| `Score` | `pony_factor` | Numeric column; red risk flag icon when `pony_factor == 1`; tooltip explaining pony factor | Leaderboard, PG detail (risk panel) |
+| `Score` | `adoption_count`, `adoption_trend` | Sparkline in row + numeric count; trend arrow (↑/→/↓) | Leaderboard, PG detail (adoption section) |
+| `Score` | `bus_factor`, `maintainer_count`, `commit_frequency` (or similar) | Small "maintenance health" composite widget (stacked bars or pill list) | PG detail (maintenance tab/section) |
+
+### Metadata / Ecosystem summary
+
+| Entity | Example fields (backend) | UI element(s) | Screen(s) |
+|--------|--------------------------|---------------|-----------|
+| `Metadata` | `total_projects`, `active_projects`, `inactive_projects` | KPI cards (big numbers) and donut chart of active vs inactive | Landing |
+| `Metadata` | `dependency_coverage_pct` | Progress bar with label; tooltip with definition | Landing hero |
+| `Metadata` | distribution buckets (e.g. `pony_factor_histogram`, `criticality_histogram`) | Small multiples / histogram charts; click to filter leaderboard | Landing, Leaderboard (filter side panel) |
+
+### Graph / Dependencies
+
+| Entity | Example fields (backend) | UI element(s) | Screen(s) |
+|--------|--------------------------|---------------|-----------|
+| `Dependency` edge | `from_canonical_id`, `to_canonical_id`, `edge_type` (`direct`, `transitive`, `blast_radius`) | Edges in interactive sub-graph; edge color/style by `edge_type`; hover tooltip with IDs | PG detail (sub-graph explorer) |
+| `Project`/`Repo` node | `canonical_id`, `name`, `is_pg_root`, `role` (if present) | Graph nodes with shape/color encoding (PG root, dependent, focal PG); label on hover | PG detail (sub-graph explorer) |
+| Export | any graph node/edge attributes | "Download CSV" / "Download PNG/SVG" actions on table/graph; reuse same field names in exported files | Leaderboard tables, PG detail graph/table exports |
+
+**Notes for implementation**:
+
+- **Naming alignment**: Prefer keeping UI prop names close to backend field names (e.g. `criticality`, `pony_factor`) and adapt only where needed for display (e.g. `criticalityDisplay`, `ponyFactorFlag`).
+- **Resilience to missing data**: Where fields may be `null` or not yet implemented, show graceful placeholders (`—`, "N/A") and retain tooltips explaining when data will appear.
 
 ---
 
