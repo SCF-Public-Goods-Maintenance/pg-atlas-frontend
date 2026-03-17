@@ -6,14 +6,6 @@ repos:
       - id: conventional-pre-commit
         stages: [commit-msg]
         args: [feat, fix, perf, deps, chore, refactor, test, build, ci, docs, style, revert]
-
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.6
-    hooks:
-      - id: ruff
-        args: [--fix]
-      - id: ruff-format
-
   - repo: local
     hooks:
       - id: eslint
