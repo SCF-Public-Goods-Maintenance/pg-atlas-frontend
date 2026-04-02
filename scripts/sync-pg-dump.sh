@@ -19,9 +19,12 @@ if [ "$(docker ps -aq -f name=$CONTAINER_NAME)" ]; then
 fi
 
 echo "🆕 Creating new PG17 container on port $PORT..."
+DB_PASSWORD="${PG_ATLAS_PASSWORD:-changeme}"
+
+echo "🆕 Creating new PG17 container on port $PORT..."
 docker run --name $CONTAINER_NAME \
     -e POSTGRES_USER=$DB_USER \
-    -e POSTGRES_PASSWORD=changeme \
+    -e POSTGRES_PASSWORD="$DB_PASSWORD" \
     -e POSTGRES_DB=$DB_NAME \
     -p $PORT:5432 \
     -d postgres:17
@@ -46,20 +49,27 @@ sleep 5
 
 
 # 2. Reset Schema & Restore Dump
-echo "🧹 Wiping public schema for a clean restore..."
-docker exec -i $CONTAINER_NAME psql -U $DB_USER -d $DB_NAME -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
-
 echo "🌱 Pre-seeding missing Enums (Fix for all missing type errors)..."
 docker exec -i $CONTAINER_NAME psql -U $DB_USER -d $DB_NAME -c "
   DO \$\$ BEGIN
     CREATE TYPE public.vertex_type AS ENUM ('repo', 'external-repo');
+  EXCEPTION WHEN duplicate_object THEN null; END \$\$;
+  DO \$\$ BEGIN
     CREATE TYPE public.project_type AS ENUM ('public-good', 'scf-project');
-
+  EXCEPTION WHEN duplicate_object THEN null; END \$\$;
+  DO \$\$ BEGIN
     CREATE TYPE public.activity_status AS ENUM ('live', 'in-dev', 'discontinued', 'non-responsive');
+  EXCEPTION WHEN duplicate_object THEN null; END \$\$;
+  DO \$\$ BEGIN
     CREATE TYPE public.visibility AS ENUM ('public', 'private');
+  EXCEPTION WHEN duplicate_object THEN null; END \$\$;
+  DO \$\$ BEGIN
     CREATE TYPE public.edge_confidence AS ENUM ('verified-sbom', 'inferred-shadow');
+  EXCEPTION WHEN duplicate_object THEN null; END \$\$;
+  DO \$\$ BEGIN
     CREATE TYPE public.submission_status AS ENUM ('pending', 'processed', 'failed');
-  EXCEPTION
+  EXCEPTION WHEN duplicate_object THEN null; END \$\$;
+"
     WHEN duplicate_object THEN null;
   END \$\$;
 "
