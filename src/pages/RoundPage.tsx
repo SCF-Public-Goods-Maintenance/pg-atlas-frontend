@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link, useRouterState, useParams } from '@tanstack/react-router'
+import { Link, useParams } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { getRoundProjects } from '../lib/apiClient'
+import type { ProjectSummary } from '../types/api'
 import { Trophy, ArrowUpRight, Github, ExternalLink, ShieldCheck } from 'lucide-react'
 
 export default function RoundPage() {
@@ -18,12 +19,12 @@ export default function RoundPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
         <div className="flex items-center gap-2">
-          <Trophy className="h-6 w-6 text-[#914cff]" />
-          <h2 className="text-2xl font-bold text-[#0f0f21] dark:text-white">
+          <Trophy className="h-6 w-6 text-primary-500" />
+          <h2 className="text-2xl font-bold text-surface-dark dark:text-white">
             {data?.name || 'PG Award'} {roundId}
           </h2>
         </div>
-        <p className="text-sm text-[#0f0f21]/70 dark:text-white/70">
+        <p className="text-sm text-surface-dark/70 dark:text-white/70">
           Voting Closed: {data?.voting_closed || 'TBD'}
         </p>
       </div>
@@ -32,7 +33,7 @@ export default function RoundPage() {
         <div className="flex h-64 items-center justify-center rounded-2xl border border-gray-200 bg-white/50 backdrop-blur-sm dark:bg-white/5 dark:border-white/10">
           <div className="flex flex-col items-center gap-2">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary-500 border-t-transparent" />
-            <span className="text-sm font-medium text-[#0f0f21]/50 dark:text-white/50">Loading leaderboard...</span>
+            <span className="text-sm font-medium text-surface-dark/50 dark:text-white/50">Loading leaderboard...</span>
           </div>
         </div>
       ) : error ? (
@@ -44,15 +45,15 @@ export default function RoundPage() {
         </div>
       ) : projects.length === 0 ? (
         <div className="rounded-2xl border border-gray-200 bg-white p-10 text-center shadow-sm dark:bg-white/5 dark:border-white/15">
-          <Trophy className="mx-auto h-12 w-12 text-[#0f0f21]/10 dark:text-white/10" />
-          <h3 className="mt-4 text-lg font-semibold text-[#0f0f21] dark:text-white">No round projects found</h3>
-          <p className="mt-2 text-sm text-[#0f0f21]/70 dark:text-white/70">
+          <Trophy className="mx-auto h-12 w-12 text-surface-dark/10 dark:text-white/10" />
+          <h3 className="mt-4 text-lg font-semibold text-surface-dark dark:text-white">No round projects found</h3>
+          <p className="mt-2 text-sm text-surface-dark/70 dark:text-white/70">
             We couldn't find any projects matching Round "{roundId}" in your local database dump.
           </p>
           <div className="mt-6">
             <Link
               to="/rounds"
-              className="px-4 py-2 text-sm font-medium text-[#914cff] hover:underline"
+              className="px-4 py-2 text-sm font-medium text-primary-500 hover:underline"
             >
               ← Choose another round
             </Link>
@@ -62,7 +63,7 @@ export default function RoundPage() {
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:bg-white/5 dark:border-white/15">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
-              <thead className="bg-gray-50 text-xs font-semibold uppercase tracking-wider text-[#0f0f21]/50 dark:bg-white/5 dark:text-white/50">
+              <thead className="bg-gray-50 text-xs font-semibold uppercase tracking-wider text-surface-dark/50 dark:bg-white/5 dark:text-white/50">
                 <tr>
                   <th className="px-6 py-4">Project</th>
                   <th className="px-6 py-4">Status</th>
@@ -74,7 +75,7 @@ export default function RoundPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-white/5">
-                {projects.map((project: any) => (
+                {projects.map((project: ProjectSummary) => (
                   <tr
                     key={project.canonical_id}
                     className="group transition-colors hover:bg-gray-50/50 dark:hover:bg-white/5"
@@ -84,11 +85,11 @@ export default function RoundPage() {
                         <Link
                           to="/projects/$projectId"
                           params={{ projectId: project.canonical_id }}
-                          className="font-semibold text-[#0f0f21] hover:text-[#914cff] dark:text-white"
+                          className="font-semibold text-surface-dark hover:text-primary-500 dark:text-white"
                         >
                           {project.display_name}
                         </Link>
-                        <span className="text-xs text-[#0f0f21]/50 dark:text-white/40">{project.category || 'Uncategorized'}</span>
+                        <span className="text-xs text-surface-dark/50 dark:text-white/40">{project.category || 'Uncategorized'}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -111,22 +112,22 @@ export default function RoundPage() {
                       {project.metadata?.scf_awarded === 'yes' || project.metadata?.scf_awarded === true ? (
                         <ShieldCheck className="mx-auto h-4 w-4 text-green-600 dark:text-green-400" />
                       ) : project.metadata?.scf_awarded === 'ineligible' ? (
-                        <span className="inline-flex items-center rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold uppercase text-red-700 dark:bg-red-900/20 dark:text-red-400">
+                        <span className="inline-flex items-center rounded-full bg-red-100 px-2 py-0.5 text-xs font-bold uppercase text-red-700 dark:bg-red-900/20 dark:text-red-400">
                           Ineligible
                         </span>
                       ) : (
-                        <span className="text-[#0f0f21]/20 dark:text-white/10">—</span>
+                        <span className="text-surface-dark/20 dark:text-white/10">—</span>
                       )}
                     </td>
                     <td className="px-6 py-4">
                       {(project.metadata?.scf_awarded === 'yes' || project.metadata?.scf_awarded === true) && (
                         <div className="flex flex-col gap-1">
-                          <div className="flex justify-between text-[10px] font-medium text-[#0f0f21]/50 dark:text-white/40">
+                          <div className="flex justify-between text-xs font-medium text-surface-dark/50 dark:text-white/40">
                             <span>{Math.round((project.metadata?.scf_tranche_completion || 0) * 100)}%</span>
                           </div>
                           <div className="h-1 w-full rounded-full bg-gray-100 dark:bg-white/10">
                             <div
-                              className="h-1 rounded-full bg-[#914cff]"
+                              className="h-1 rounded-full bg-primary-500"
                               style={{ width: `${(project.metadata?.scf_tranche_completion || 0) * 100}%` }}
                             />
                           </div>
@@ -134,21 +135,21 @@ export default function RoundPage() {
                       )}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="flex justify-end gap-3 text-[#0f0f21]/40 dark:text-white/40">
+                      <div className="flex justify-end gap-3 text-surface-dark/40 dark:text-white/40">
                         {project.git_org_url && (
-                          <a href={project.git_org_url} target="_blank" rel="noopener noreferrer" className="hover:text-[#914cff]" aria-label="View GitHub repository">
+                          <a href={project.git_org_url} target="_blank" rel="noopener noreferrer" className="hover:text-primary-500" aria-label="View GitHub repository">
                             <Github className="h-4 w-4" />
                           </a>
                         )}
                         {project.metadata?.website && (
-                          <a href={project.metadata.website} target="_blank" rel="noopener noreferrer" className="hover:text-[#914cff]" aria-label="Visit project website">
+                          <a href={project.metadata.website} target="_blank" rel="noopener noreferrer" className="hover:text-primary-500" aria-label="Visit project website">
                             <ExternalLink className="h-4 w-4" />
                           </a>
                         )}
                         <Link
                           to="/projects/$projectId"
                           params={{ projectId: project.canonical_id }}
-                          className="hover:text-[#914cff]"
+                          className="hover:text-primary-500"
                           aria-label="View project details"
                         >
                           <ArrowUpRight className="h-4 w-4" />
