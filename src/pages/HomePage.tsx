@@ -13,7 +13,6 @@ import {
 } from 'lucide-react'
 import { getMockDashboardOverview } from '../mocks/dashboardOverviewMock'
 import { getLiveDashboardData } from '../mocks/liveApiMock'
-import { FinancialDistributionChart } from '../components/charts/FinancialDistributionChart'
 import type { DashboardOverviewMock } from '../mocks/dashboardOverviewMock'
 
 export default function HomePage() {
@@ -125,23 +124,6 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="pgx-rotate-target rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:border-white/15 dark:bg-white/5 dark:shadow-none">
-          <div className="flex items-center justify-between">
-            <h3 className="text-sm font-medium text-[#0f0f21]/70 dark:text-white/70">Tranche progress</h3>
-            <Sparkles className="h-5 w-5 text-primary-600 dark:text-white/70 pgx-rotate-icon" aria-hidden="true" />
-          </div>
-          <p className="mt-2 text-2xl font-semibold text-[#0f0f21] dark:text-white">
-            {overview?.headline.averageTrancheCompletion 
-              ? `${(overview.headline.averageTrancheCompletion * 100).toFixed(1)}%` 
-              : '—'}
-          </p>
-          <div className="mt-2 h-1.5 w-full rounded-full bg-gray-100 dark:bg-white/10">
-            <div 
-              className="h-1.5 rounded-full bg-[#914cff]" 
-              style={{ width: `${(overview?.headline.averageTrancheCompletion ?? 0) * 100}%` }}
-            />
-          </div>
-        </div>
       </div>
 
       {/* Current round spotlight + all rounds index */}
@@ -204,13 +186,6 @@ export default function HomePage() {
             )}
           </div>
         </div>
-      </div>
-      {/* Financial health charts */}
-      <div className="mt-8">
-        <FinancialDistributionChart 
-          data={overview?.headline.trancheDistribution || []} 
-          title="Tranche Completion across all Awarded Projects"
-        />
       </div>
 
       {/* Data transparency panel */}

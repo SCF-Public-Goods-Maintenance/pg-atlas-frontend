@@ -28,6 +28,10 @@ def load_db_mapping():
 def extract_tranche(status_str):
     if not status_str:
         return 0
+    # Exactly "Awarded" means 100%
+    if status_str == "Awarded":
+        return 1.0
+        
     # Look for patterns like (50%) or 50%
     match = re.search(r'(\d+)%', status_str)
     if match:
@@ -43,17 +47,21 @@ def map_project(row, db_map):
     canonical_id = db_map.get(cleaned_name, "")
     
     # Logic for Awarded status
-    # In Q1 '26 CSV, there is an 'Awarded' column with 'checked'
-    # In Q4 '25 CSV, 'Status' is 'Awarded'
     status = row.get('Status', '')
-    is_awarded = (row.get('Awarded') == 'checked') or (status == 'Awarded') or ('Awarded' in status)
+    awarded_col = row.get('Awarded', '') # In Q1 '26 CSV
+    
+    awarded_status = "no"
+    if (awarded_col == 'checked') or (status == 'Awarded') or ('Awarded (' in status):
+        awarded_status = "yes"
+    elif status == 'Ineligible':
+        awarded_status = "ineligible"
     
     tranche = extract_tranche(status)
     
     return {
         'canonical_id': canonical_id,
         'name': name,
-        'awarded': is_awarded,
+        'awarded': awarded_status,
         'tranche_completion': tranche
     }
 
@@ -68,7 +76,7 @@ def write_yaml(data, output_path):
             cid = p['canonical_id'] if p['canonical_id'] else ""
             f.write(f"  - canonical_id: {cid}\n")
             f.write(f"    name: \"{p['name']}\"\n")
-            f.write(f"    awarded: {'true' if p['awarded'] else 'false'}\n")
+            f.write(f"    awarded: \"{p['awarded']}\"\n")
             f.write(f"    tranche_completion: {p['tranche_completion']}\n")
 
 def process():

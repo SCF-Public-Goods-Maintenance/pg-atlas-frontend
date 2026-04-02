@@ -1,5 +1,13 @@
 import type { DashboardOverviewMock } from './dashboardOverviewMock'
-import liveData from './liveApiMock.json'
+import type { ProjectSummary, RoundData, RoundProjectData, RoundDetail, MetadataSummary } from '../types/api'
+import liveDataRaw from './liveApiMock.json'
+
+interface LiveApiDump {
+  summary: MetadataSummary
+  projects: any[] // We still use any for the raw inner project fields before mapping
+}
+
+const liveData = liveDataRaw as unknown as LiveApiDump
 import { rounds, roundList } from '../data/rounds'
 
 /**
@@ -14,15 +22,20 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
     return {} // Return empty to trigger fallback to the existing mock
   }
 
-  const rawProjects = (liveData as any).projects || []
-  const projects = rawProjects.map((p: any) => ({
+  const rawProjects = liveData.projects || []
+  const projects = rawProjects.map((p) => ({
     ...p,
+    git_org_url: p.git_org_url || p.git_owner_url || '',
+    criticality_score: p.criticality_score || 0,
+    pony_factor: p.pony_factor || 0,
+    adoption_score: p.adoption_score || 0,
     updated_at: sanitizeDate(p.updated_at)
-  }))
-  const awardedProjects = projects.filter((p: any) => p.metadata?.scf_awarded === true)
+  })) as ProjectSummary[]
+  
+  const awardedProjects = projects.filter((p) => p.metadata?.scf_awarded === true || p.metadata?.scf_awarded === 'yes')
   
   const totalAwarded = awardedProjects.length
-  const totalCompletion = awardedProjects.reduce((acc: number, p: any) => acc + (p.metadata?.scf_tranche_completion || 0), 0)
+  const totalCompletion = awardedProjects.reduce((acc: number, p) => acc + (p.metadata?.scf_tranche_completion || 0), 0)
   const averageCompletion = totalAwarded > 0 ? (totalCompletion / totalAwarded) : 0
 
   const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString()
@@ -47,9 +60,9 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
           { label: '67-99%', min: 0.66, max: 0.99, color: '#84cc16' },
           { label: '100%', min: 0.99, max: 1.01, color: '#10b981' },
         ]
-        return buckets.map((b: any) => ({
+        return buckets.map((b) => ({
           label: b.label,
-          value: awardedProjects.filter((p: any) => {
+          value: awardedProjects.filter((p) => {
             const val = p.metadata?.scf_tranche_completion || 0
             return val > b.min && val <= b.max
           }).length,
@@ -66,7 +79,7 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
         category: 'Public Goods',
       }
     })(),
-    roundsIndex: roundList.map((r: any) => ({
+    roundsIndex: roundList.map((r) => ({
       roundId: `${r.year}Q${r.quarter}`,
       label: `${r.year} Q${r.quarter}`,
       isCurrent: r === roundList[0]
@@ -78,24 +91,34 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
  * Filter projects from the round data.
  * Cross-references with the DB dump if a canonical_id is present.
  */
-export async function getProjectsForRound(roundId: string): Promise<any> {
+export async function getProjectsForRound(roundId: string): Promise<RoundDetail | null> {
   const round = rounds[roundId]
   if (!round) return null
 
-  const rawProjects = (liveData as any).projects || []
-  const dbProjects = rawProjects.map((p: any) => ({
+  const rawProjects = liveData.projects || []
+  const dbProjects = rawProjects.map((p) => ({
     ...p,
+    git_org_url: p.git_org_url || p.git_owner_url || '',
+    criticality_score: p.criticality_score || 0,
+    pony_factor: p.pony_factor || 0,
+    adoption_score: p.adoption_score || 0,
     updated_at: sanitizeDate(p.updated_at)
-  }))
-  const dbMap = new Map(dbProjects.map((p: any) => [p.canonical_id, p]))
+  })) as ProjectSummary[]
+  
+  const dbMap = new Map<string, ProjectSummary>(dbProjects.map((p) => [p.canonical_id, p]))
 
-  const mappedProjects = round.projects.map((p: any) => {
+  const mappedProjects: ProjectSummary[] = round.projects.map((p: RoundProjectData) => {
     const dbProject = p.canonical_id ? dbMap.get(p.canonical_id) : null
     
     if (dbProject) {
       return {
         ...dbProject,
         display_name: p.name,
+        metadata: {
+          ...(dbProject.metadata || {}),
+          scf_awarded: p.awarded,
+          scf_tranche_completion: p.tranche_completion
+        }
       }
     }
 
@@ -107,8 +130,11 @@ export async function getProjectsForRound(roundId: string): Promise<any> {
       criticality_score: 0,
       pony_factor: 0,
       adoption_score: 0,
+      git_org_url: '',
       metadata: {
-        scf_submissions: [{ round: `${round.year}Q${round.quarter}`, title: p.name }]
+        scf_submissions: [{ round: `${round.year}Q${round.quarter}`, title: p.name }],
+        scf_awarded: p.awarded,
+        scf_tranche_completion: p.tranche_completion
       }
     }
   })

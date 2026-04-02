@@ -108,14 +108,18 @@ export default function RoundPage() {
                       {project.adoption_score?.toLocaleString() || '0'}
                     </td>
                     <td className="px-6 py-4 text-center">
-                      {project.metadata?.scf_awarded ? (
+                      {project.metadata?.scf_awarded === 'yes' || project.metadata?.scf_awarded === true ? (
                         <ShieldCheck className="mx-auto h-4 w-4 text-green-600 dark:text-green-400" />
+                      ) : project.metadata?.scf_awarded === 'ineligible' ? (
+                        <span className="inline-flex items-center rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold uppercase text-red-700 dark:bg-red-900/20 dark:text-red-400">
+                          Ineligible
+                        </span>
                       ) : (
                         <span className="text-[#0f0f21]/20 dark:text-white/10">—</span>
                       )}
                     </td>
                     <td className="px-6 py-4">
-                      {project.metadata?.scf_awarded && (
+                      {(project.metadata?.scf_awarded === 'yes' || project.metadata?.scf_awarded === true) && (
                         <div className="flex flex-col gap-1">
                           <div className="flex justify-between text-[10px] font-medium text-[#0f0f21]/50 dark:text-white/40">
                             <span>{Math.round((project.metadata?.scf_tranche_completion || 0) * 100)}%</span>
