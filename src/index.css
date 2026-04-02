@@ -27,7 +27,7 @@ body {
   bottom: -1px;
   height: 2px;
   border-radius: 9999px;
-  background: #914cff;
+  background: theme('colors.primary.500');
   opacity: 0;
   transition: opacity 180ms ease;
   box-shadow: 0 10px 20px rgba(145, 76, 255, 0.35);
@@ -43,7 +43,6 @@ body {
   box-shadow: 0 0 0 2px rgba(145, 76, 255, 0.45);
 }
 
-/* Sidebar nav icon rotation on hover */
 .pgx-nav-icon {
   transition: transform 180ms ease;
   transform-origin: 50% 60%;
@@ -53,7 +52,6 @@ body {
   transform: rotate(-15deg) scale(1.08) translateY(-1px);
 }
 
-/* Dashboard icon rotation on hover (cards/section containers) */
 .pgx-rotate-icon {
   transition: transform 180ms ease;
   transform-origin: 50% 60%;

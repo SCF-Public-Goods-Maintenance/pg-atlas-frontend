@@ -8,22 +8,21 @@ export default function ContributorPage() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-[#0f0f21] dark:text-white">
+      <h2 className="text-2xl font-bold text-surface-dark dark:text-white">
         Contributor {contributorId ?? '—'}
       </h2>
-      <p className="mt-1 text-sm text-[#0f0f21]/70 dark:text-white/70">
-        Contributor detail is wired once the v0 contributor endpoints are defined in the API layer.
+      <p className="mt-1 text-sm text-surface-dark/70 dark:text-white/70">
+        Contributor profile and activity overview
       </p>
 
       <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:bg-white/5 dark:border-white/15">
-        <div className="text-sm font-semibold text-[#0f0f21] dark:text-white">No contributor data loaded yet</div>
-        <p className="mt-1 text-sm text-[#0f0f21]/70 dark:text-white/70">
-          When the backend exposes the contributor endpoints, this route will load:
-          identity linkage, contributed repos/projects, commit stats, and derived fields.
+        <div className="text-sm font-semibold text-surface-dark dark:text-white">No data available yet</div>
+        <p className="mt-1 text-sm text-surface-dark/70 dark:text-white/70">
+          Contributor details will appear here once available.
         </p>
 
         <div className="mt-3 text-sm">
-          <Link to="/contributors" className="underline decoration-primary-500 text-[#0f0f21] dark:text-white/80">
+          <Link to="/contributors" className="underline decoration-primary-500 text-surface-dark dark:text-white/80">
             Back to contributor selection
           </Link>
         </div>

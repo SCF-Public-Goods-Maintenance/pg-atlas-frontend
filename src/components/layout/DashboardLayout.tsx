@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Link, Outlet, useRouterState } from '@tanstack/react-router'
 import {
   LayoutDashboard,
-  Info,
+  Trophy,
+  Users,
+  Share2,
+  BookOpen,
   Menu,
   X,
   Moon,
@@ -17,10 +20,10 @@ interface NavItem {
 
 const navigation: NavItem[] = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
-  { name: 'Rounds', href: '/rounds', icon: Info },
-  { name: 'Contributors', href: '/contributors', icon: Info },
-  { name: 'Graph', href: '/graph', icon: Info },
-  { name: 'About', href: '/about', icon: Info },
+  { name: 'Rounds', href: '/rounds', icon: Trophy },
+  { name: 'Contributors', href: '/contributors', icon: Users },
+  { name: 'Graph', href: '/graph', icon: Share2 },
+  { name: 'About', href: '/about', icon: BookOpen },
 ]
 
 type Theme = 'light' | 'dark'
@@ -54,18 +57,16 @@ export default function DashboardLayout() {
   const currentNav = navigation.find((item) => isActive(item.href)) ?? navigation[0]
   const isDark = theme === 'dark'
 
-  // Sidebar "active" styling driven directly from React state.
-  // This avoids relying on Tailwind `dark:` variants for the active tab look.
   const activeLinkClass = isDark
     ? 'bg-white/8 text-white border-l-4 border-white/30'
-    : 'bg-primary-50 text-[#0f0f21] border-l-4 border-primary-500'
+    : 'bg-primary-50 text-surface-dark border-l-4 border-primary-500'
 
   const inactiveLinkClass = isDark
     ? 'text-white/70 hover:bg-white/5 border-l-4 border-transparent'
-    : 'text-[#0f0f21]/70 hover:bg-gray-50 hover:text-[#0f0f21] border-l-4 border-transparent'
+    : 'text-surface-dark/70 hover:bg-gray-50 hover:text-surface-dark border-l-4 border-transparent'
 
-  const activeIconClass = isDark ? 'text-white' : 'text-[#0f0f21]'
-  const inactiveIconClass = isDark ? 'text-white/70' : 'text-[#0f0f21]/70'
+  const activeIconClass = isDark ? 'text-white' : 'text-surface-dark'
+  const inactiveIconClass = isDark ? 'text-white/70' : 'text-surface-dark/70'
 
   useEffect(() => {
     document.documentElement.classList.toggle(DARK_CLASS, isDark)
@@ -79,8 +80,6 @@ export default function DashboardLayout() {
       const nextTheme: Theme = currentTheme === 'dark' ? 'light' : 'dark'
       const isNextDark = nextTheme === 'dark'
 
-      // Apply immediately for deterministic UX.
-      // Guard against environments where DOM/localStorage writes can throw.
       try {
         document.documentElement.classList.toggle(DARK_CLASS, isNextDark)
         document.body.classList.toggle(DARK_CLASS, isNextDark)
@@ -100,10 +99,10 @@ export default function DashboardLayout() {
   }, [])
 
   return (
-    <div className={`${isDark ? 'dark bg-[#0f0f21] text-white' : 'bg-white text-[#0f0f21]'} min-h-screen flex`}>
+    <div className={`${isDark ? 'dark bg-surface-dark text-white' : 'bg-surface-light text-surface-dark'} min-h-screen flex`}>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-[100] focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:text-[#0f0f21]"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-[100] focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:text-surface-dark"
       >
         Skip to main content
       </a>
@@ -120,7 +119,7 @@ export default function DashboardLayout() {
       {/* Sidebar */}
       <aside
         className={`fixed inset-y-0 left-0 z-50 w-64 border-r shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:relative ${
-          isDark ? 'bg-[#0f0f21] border-white/20' : 'bg-white border-gray-200'
+          isDark ? 'bg-surface-dark border-white/20' : 'bg-surface-light border-gray-200'
         } ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
@@ -129,16 +128,16 @@ export default function DashboardLayout() {
           {/* Logo */}
           <div
             className={`flex items-center justify-between h-16 px-5 border-b bg-gradient-to-r ${
-              isDark ? 'border-white/20 from-[#0f0f21] to-[#0f0f21]' : 'border-gray-100 from-white to-gray-50'
+              isDark ? 'border-white/20 from-surface-dark to-surface-dark' : 'border-gray-100 from-white to-gray-50'
             }`}
           >
             <Link
               to="/"
-              className="flex items-center gap-2 font-semibold text-[#0f0f21] no-underline hover:text-primary-600 transition-colors dark:text-white"
+              className="flex items-center gap-2 font-semibold text-surface-dark no-underline hover:text-primary-600 transition-colors dark:text-white"
             >
               <span className="text-xl tracking-tight">
-                <span className={isDark ? 'text-white' : 'text-[#914cff]'}>PG</span>
-                <span className={isDark ? 'text-[#914cff]' : 'text-[#0f0f21]'}>Atlas</span>
+                <span className={isDark ? 'text-white' : 'text-primary-500'}>PG</span>
+                <span className={isDark ? 'text-primary-500' : 'text-surface-dark'}>Atlas</span>
               </span>
             </Link>
             <button
@@ -160,10 +159,10 @@ export default function DashboardLayout() {
                 data-active={isActive(item.href)}
                 className={`pgx-nav-link group relative flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${
                   isActive(item.href) ? activeLinkClass : inactiveLinkClass
-                } after:absolute after:left-4 after:right-4 after:-bottom-[1px] after:h-[2px] after:rounded after:bg-[#914cff] after:opacity-0 after:transition-opacity after:duration-200 after:shadow-none ${
+                } after:absolute after:left-4 after:right-4 after:-bottom-[1px] after:h-[2px] after:rounded after:bg-primary-500 after:opacity-0 after:transition-opacity after:duration-200 after:shadow-none ${
                   isActive(item.href)
-                    ? 'after:opacity-100 after:shadow-[0_10px_20px_rgba(145,76,255,0.35)]'
-                    : 'group-hover:after:opacity-100 group-hover:after:shadow-[0_10px_20px_rgba(145,76,255,0.35)]'
+                    ? 'after:opacity-100 after:shadow-[0_10px_20px_theme(colors.primary.500/0.35)]'
+                    : 'group-hover:after:opacity-100 group-hover:after:shadow-[0_10px_20px_theme(colors.primary.500/0.35)]'
                 }`}
                 onClick={() => setSidebarOpen(false)}
               >
@@ -178,12 +177,12 @@ export default function DashboardLayout() {
             ))}
           </nav>
 
-          <div className="p-4 border-t border-gray-100 bg-gray-50/50 dark:border-white/20 dark:bg-[#0f0f21]">
+          <div className="p-4 border-t border-gray-100 bg-gray-50/50 dark:border-white/20 dark:bg-surface-dark">
             <button
               type="button"
               onClick={toggleTheme}
               aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-            className="flex items-center w-full px-4 py-3 text-sm font-medium text-[#0f0f21]/80 hover:bg-gray-100 hover:text-[#0f0f21] rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:text-white/90 dark:hover:bg-white/10 dark:hover:text-white"
+              className="flex items-center w-full px-4 py-3 text-sm font-medium text-surface-dark/80 hover:bg-gray-100 hover:text-surface-dark rounded-xl transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 dark:text-white/90 dark:hover:bg-white/10 dark:hover:text-white"
             >
               {isDark ? (
                 <Sun className="h-5 w-5 mr-3 text-amber-400 shrink-0" aria-hidden="true" />
@@ -198,8 +197,8 @@ export default function DashboardLayout() {
 
       {/* Main */}
       <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
-        <header className="bg-white border-b border-gray-100 shrink-0 dark:bg-[#0f0f21] dark:border-white/20">
-          <div className="flex items-center justify-between h-14 px-4 lg:px-6">
+        <header className="bg-surface-light border-b border-gray-100 shrink-0 h-16 dark:bg-surface-dark dark:border-white/20">
+          <div className="flex items-center justify-between h-full px-4 lg:px-6">
             <button
               type="button"
               className="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:text-white/80 dark:hover:bg-white/10"
@@ -208,21 +207,25 @@ export default function DashboardLayout() {
             >
               <Menu className="h-5 w-5" />
             </button>
-            <h1 className="text-lg font-bold text-[#0f0f21] truncate dark:text-white">
+            <h1 className="text-lg font-bold text-surface-dark truncate dark:text-white">
               {currentNav.name}
             </h1>
             <button
               type="button"
               onClick={toggleTheme}
-              aria-label={`Switch theme (currently ${isDark ? 'dark' : 'light'})`}
-              className="text-xs font-medium text-[#0f0f21]/70 dark:text-white/70 hover:text-[#914cff] dark:hover:text-[#914cff] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#914cff] rounded-lg px-2 py-1"
+              aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+              className="p-2 rounded-lg text-surface-dark/70 dark:text-white/70 hover:text-primary-500 dark:hover:text-primary-500 hover:bg-gray-100 dark:hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
             >
-              {isDark ? 'Dark' : 'Light'}
+              {isDark ? (
+                <Sun className="h-5 w-5 text-amber-400" aria-hidden="true" />
+              ) : (
+                <Moon className="h-5 w-5" aria-hidden="true" />
+              )}
             </button>
           </div>
         </header>
 
-        <main id="main-content" className={`flex-1 overflow-y-auto ${isDark ? 'bg-[#0f0f21]' : 'bg-white'}`}>
+        <main id="main-content" className={`flex-1 overflow-y-auto ${isDark ? 'bg-surface-dark' : 'bg-surface-light'}`}>
           <div className="p-4 sm:p-6 lg:p-8">
             <Outlet />
           </div>
