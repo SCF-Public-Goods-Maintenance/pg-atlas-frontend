@@ -11,7 +11,7 @@ export interface MetadataResponse {
   summary: MetadataSummary
 }
 
-export type ProjectActivityStatus = 'live' | 'maintenance' | 'deprecated'
+export type ProjectActivityStatus = 'live' | 'maintenance' | 'deprecated' | 'in-dev' | 'discontinued'
 
 export interface ScfSubmission {
   round: string | number
@@ -22,8 +22,8 @@ export interface ProjectMetadata {
   scf_submissions?: ScfSubmission[]
   scf_category?: string
   scf_tranche_completion?: number
-  scf_awarded?: boolean
-  awarded?: boolean
+  scf_awarded?: 'yes' | 'no' | 'ineligible' | boolean
+  awarded?: 'yes' | 'no' | 'ineligible' | boolean
   description?: string
   website?: string
   x_profile?: string
@@ -93,4 +93,23 @@ export interface RepoDetailResponse {
   parent_project?: ProjectSummary
   direct_dependencies?: { repo_canonical_id: string }[]
   direct_dependents?: { repo_canonical_id: string }[]
+}
+
+export interface RoundProjectData {
+  canonical_id: string
+  name: string
+  awarded: 'yes' | 'no' | 'ineligible' | boolean
+  tranche_completion: number
+}
+
+export interface RoundData {
+  name: string
+  year: number
+  quarter: number
+  voting_closed?: string
+  projects: RoundProjectData[]
+}
+
+export interface RoundDetail extends Omit<RoundData, 'projects'> {
+  projects: ProjectSummary[]
 }

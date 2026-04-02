@@ -2,6 +2,7 @@ import type {
   MetadataResponse,
   ProjectDetailResponse,
   RepoDetailResponse,
+  RoundDetail,
 } from '../types/api'
 
 // `import.meta.env` typing can vary depending on the TS/ESLint setup.
@@ -23,7 +24,7 @@ export async function getMetadata(): Promise<MetadataResponse> {
 
 import { getProjectsForRound } from '../mocks/liveApiMock'
 
-export async function getRoundProjects(roundId: string): Promise<any> {
+export async function getRoundProjects(roundId: string): Promise<RoundDetail | null> {
   return getProjectsForRound(roundId)
 }
 

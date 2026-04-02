@@ -7,62 +7,62 @@
     {
       "canonical_id": "",
       "name": ".NET SDK",
-      "awarded": true,
-      "tranche_completion": 0
+      "awarded": "yes",
+      "tranche_completion": 1.0
     },
     {
       "canonical_id": "",
       "name": "Flutter Stellar SDK",
-      "awarded": true,
-      "tranche_completion": 0
+      "awarded": "yes",
+      "tranche_completion": 1.0
     },
     {
       "canonical_id": "",
       "name": "iOS Stellar SDK",
-      "awarded": true,
-      "tranche_completion": 0
+      "awarded": "yes",
+      "tranche_completion": 1.0
     },
     {
       "canonical_id": "",
       "name": "Java Stellar SDK",
-      "awarded": true,
-      "tranche_completion": 0
+      "awarded": "yes",
+      "tranche_completion": 1.0
     },
     {
       "canonical_id": "",
       "name": "OpenGrants",
-      "awarded": true,
-      "tranche_completion": 0
+      "awarded": "yes",
+      "tranche_completion": 1.0
     },
     {
       "canonical_id": "daoip-5:scf:project:python_stellar_sdk",
       "name": "Python Stellar SDK",
-      "awarded": true,
-      "tranche_completion": 0
+      "awarded": "yes",
+      "tranche_completion": 1.0
     },
     {
       "canonical_id": "daoip-5:scf:project:scout",
       "name": "Scout",
-      "awarded": true,
-      "tranche_completion": 0
+      "awarded": "yes",
+      "tranche_completion": 1.0
     },
     {
       "canonical_id": "",
       "name": "Stellar hardware wallet integration",
-      "awarded": true,
-      "tranche_completion": 0
+      "awarded": "yes",
+      "tranche_completion": 1.0
     },
     {
       "canonical_id": "daoip-5:scf:project:stellar_light",
       "name": "Stellar Light",
-      "awarded": true,
-      "tranche_completion": 0
+      "awarded": "yes",
+      "tranche_completion": 1.0
     },
     {
       "canonical_id": "daoip-5:scf:project:stellar_php_sdk",
       "name": "Stellar PHP SDK",
-      "awarded": true,
-      "tranche_completion": 0
+      "awarded": "yes",
+      "tranche_completion": 1.0
     }
   ]
 }
