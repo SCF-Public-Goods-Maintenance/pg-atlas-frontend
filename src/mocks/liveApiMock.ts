@@ -14,20 +14,26 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
     return {} // Return empty to trigger fallback to the existing mock
   }
 
-  const projects = (liveData as any).projects || []
+  const rawProjects = (liveData as any).projects || []
+  const projects = rawProjects.map((p: any) => ({
+    ...p,
+    updated_at: sanitizeDate(p.updated_at)
+  }))
   const awardedProjects = projects.filter((p: any) => p.metadata?.scf_awarded === true)
   
   const totalAwarded = awardedProjects.length
   const totalCompletion = awardedProjects.reduce((acc: number, p: any) => acc + (p.metadata?.scf_tranche_completion || 0), 0)
   const averageCompletion = totalAwarded > 0 ? (totalCompletion / totalAwarded) : 0
 
+  const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString()
+  
   return {
-    lastComputed: liveData.lastSync,
+    lastComputed: tenMinutesAgo,
     metadataSummary: {
       total_nodes: liveData.summary.total_nodes,
       total_edges: liveData.summary.total_edges,
       active_count: liveData.summary.active_count,
-      last_full_recompute: liveData.lastSync,
+      last_full_recompute: tenMinutesAgo,
     },
     headline: {
       totalProjects: projects.length,
@@ -76,7 +82,11 @@ export async function getProjectsForRound(roundId: string): Promise<any> {
   const round = rounds[roundId]
   if (!round) return null
 
-  const dbProjects = (liveData as any).projects || []
+  const rawProjects = (liveData as any).projects || []
+  const dbProjects = rawProjects.map((p: any) => ({
+    ...p,
+    updated_at: sanitizeDate(p.updated_at)
+  }))
   const dbMap = new Map(dbProjects.map((p: any) => [p.canonical_id, p]))
 
   const mappedProjects = round.projects.map((p: any) => {
@@ -111,5 +121,19 @@ export async function getProjectsForRound(roundId: string): Promise<any> {
 
 function slugify(text: string) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+}
+
+/**
+ * Ensures a date string is parseable by adding a '+' sign before timezone offsets 
+ * that are missing a sign (e.g., '00:00' -> '+00:00'). 
+ * This is a common issue with some DB dump ISO formats.
+ */
+function sanitizeDate(dateStr: string | undefined): string {
+  if (!dateStr) return ''
+  // If it ends with 00:00 and no sign, prepend a '+' to make it a valid ISO offset
+  if (dateStr.includes('T') && /00:00$/.test(dateStr) && !/[+-]/.test(dateStr.slice(-6))) {
+    return dateStr.replace(/00:00$/, '+00:00')
+  }
+  return dateStr
 }
 

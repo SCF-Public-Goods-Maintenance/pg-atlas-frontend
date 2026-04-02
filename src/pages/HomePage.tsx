@@ -61,7 +61,7 @@ export default function HomePage() {
 
             <Link
               to="/rounds/$roundId"
-              params={{ roundId: String(overview?.currentRound.roundId ?? 40) }}
+              params={{ roundId: String(overview?.currentRound.roundId ?? '2026Q1') }}
               className="pgx-btn relative group rounded-2xl bg-[#914cff] px-4 py-2 text-sm font-medium text-white hover:bg-[#914cff]/90 focus:outline-none"
             >
               Open current round
@@ -170,7 +170,7 @@ export default function HomePage() {
 
             <Link
               to="/rounds/$roundId"
-              params={{ roundId: String(overview?.currentRound.roundId ?? 40) }}
+              params={{ roundId: String(overview?.currentRound.roundId ?? '2026Q1') }}
               className="pgx-btn relative rounded-2xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-[#0f0f21] hover:bg-gray-50 focus:outline-none dark:border-white/15 dark:bg-white/5 dark:text-white dark:hover:bg-white/10"
             >
               View round
