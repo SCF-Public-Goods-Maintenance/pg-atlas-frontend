@@ -38,7 +38,9 @@ export default function RoundPage() {
       ) : error ? (
         <div className="rounded-2xl border border-red-200 bg-red-50 p-6 dark:bg-red-900/10 dark:border-red-900/20">
           <h3 className="text-sm font-semibold text-red-800 dark:text-red-400">Failed to load round data</h3>
-          <p className="mt-1 text-sm text-red-700 dark:text-red-300/80">{(error as Error).message}</p>
+          <p className="mt-1 text-sm text-red-700 dark:text-red-300/80">
+            {error instanceof Error ? error.message : 'An unexpected error occurred'}
+          </p>
         </div>
       ) : projects.length === 0 ? (
         <div className="rounded-2xl border border-gray-200 bg-white p-10 text-center shadow-sm dark:bg-white/5 dark:border-white/15">
@@ -48,8 +50,8 @@ export default function RoundPage() {
             We couldn't find any projects matching Round "{roundId}" in your local database dump.
           </p>
           <div className="mt-6">
-            <Link 
-              to="/rounds" 
+            <Link
+              to="/rounds"
               className="px-4 py-2 text-sm font-medium text-[#914cff] hover:underline"
             >
               ← Choose another round
@@ -73,14 +75,14 @@ export default function RoundPage() {
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-white/5">
                 {projects.map((project: any) => (
-                  <tr 
+                  <tr
                     key={project.canonical_id}
                     className="group transition-colors hover:bg-gray-50/50 dark:hover:bg-white/5"
                   >
                     <td className="px-6 py-4">
                       <div className="flex flex-col">
-                        <Link 
-                          to="/projects/$projectId" 
+                        <Link
+                          to="/projects/$projectId"
                           params={{ projectId: project.canonical_id }}
                           className="font-semibold text-[#0f0f21] hover:text-[#914cff] dark:text-white"
                         >
@@ -90,13 +92,12 @@ export default function RoundPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
-                        project.activity_status === 'live' 
-                          ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' 
-                          : project.activity_status === 'in-dev'
+                      <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${project.activity_status === 'live'
+                        ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
+                        : project.activity_status === 'in-dev'
                           ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400'
                           : 'bg-gray-100 text-gray-700 dark:bg-white/10 dark:text-white/60'
-                      }`}>
+                        }`}>
                         {project.activity_status}
                       </span>
                     </td>
@@ -120,8 +121,8 @@ export default function RoundPage() {
                             <span>{Math.round((project.metadata?.scf_tranche_completion || 0) * 100)}%</span>
                           </div>
                           <div className="h-1 w-full rounded-full bg-gray-100 dark:bg-white/10">
-                            <div 
-                              className="h-1 rounded-full bg-[#914cff]" 
+                            <div
+                              className="h-1 rounded-full bg-[#914cff]"
                               style={{ width: `${(project.metadata?.scf_tranche_completion || 0) * 100}%` }}
                             />
                           </div>
@@ -131,19 +132,20 @@ export default function RoundPage() {
                     <td className="px-6 py-4">
                       <div className="flex justify-end gap-3 text-[#0f0f21]/40 dark:text-white/40">
                         {project.git_org_url && (
-                          <a href={project.git_org_url} target="_blank" rel="noopener noreferrer" className="hover:text-[#914cff]">
+                          <a href={project.git_org_url} target="_blank" rel="noopener noreferrer" className="hover:text-[#914cff]" aria-label="View GitHub repository">
                             <Github className="h-4 w-4" />
                           </a>
                         )}
                         {project.metadata?.website && (
-                          <a href={project.metadata.website} target="_blank" rel="noopener noreferrer" className="hover:text-[#914cff]">
+                          <a href={project.metadata.website} target="_blank" rel="noopener noreferrer" className="hover:text-[#914cff]" aria-label="Visit project website">
                             <ExternalLink className="h-4 w-4" />
                           </a>
                         )}
-                        <Link 
-                          to="/projects/$projectId" 
+                        <Link
+                          to="/projects/$projectId"
                           params={{ projectId: project.canonical_id }}
                           className="hover:text-[#914cff]"
+                          aria-label="View project details"
                         >
                           <ArrowUpRight className="h-4 w-4" />
                         </Link>
