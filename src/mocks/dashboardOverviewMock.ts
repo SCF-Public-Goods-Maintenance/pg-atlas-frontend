@@ -9,10 +9,13 @@ export interface DashboardHeadlineMetrics {
   activeContributors90: number
   recentCommitVolume: number
   dataQualityCoveragePercent?: number
+  totalAwardedProjects?: number
+  averageTrancheCompletion?: number
+  trancheDistribution?: Array<{ label: string; value: number; color: string }>
 }
 
 export interface DashboardRoundSpotlight {
-  roundId: number
+  roundId: string | number
   title: string
   proposalsCount: number
   category: string
@@ -23,7 +26,7 @@ export interface DashboardOverviewMock {
   metadataSummary: MetadataResponse['summary']
   headline: DashboardHeadlineMetrics
   currentRound: DashboardRoundSpotlight
-  roundsIndex: Array<{ roundId: number; label: string; isCurrent: boolean }>
+  roundsIndex: Array<{ roundId: string | number; label: string; isCurrent: boolean }>
   dataTransparency: {
     sources: Array<{ label: string; description: string; provenance: string }>
     processingNotes: string[]

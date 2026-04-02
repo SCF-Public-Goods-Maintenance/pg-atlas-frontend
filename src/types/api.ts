@@ -14,7 +14,7 @@ export interface MetadataResponse {
 export type ProjectActivityStatus = 'live' | 'maintenance' | 'deprecated'
 
 export interface ScfSubmission {
-  round: number
+  round: string | number
   title: string
 }
 

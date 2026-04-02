@@ -21,9 +21,12 @@ export async function getMetadata(): Promise<MetadataResponse> {
   return readJson<MetadataResponse>(response)
 }
 
-export async function getRoundProjects(): Promise<never> {
-  throw new Error('Round endpoints are not defined in api.md v0 yet.')
+import { getProjectsForRound } from '../mocks/liveApiMock'
+
+export async function getRoundProjects(roundId: string): Promise<any> {
+  return getProjectsForRound(roundId)
 }
+
 
 export async function getProjectDetail(canonicalId: string): Promise<ProjectDetailResponse> {
   const response = await fetch(`${API_BASE_URL}/projects/${canonicalId}`)
