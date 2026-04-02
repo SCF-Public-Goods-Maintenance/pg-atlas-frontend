@@ -37,13 +37,16 @@ export async function getMockDashboardOverview(): Promise<DashboardOverviewMock>
   // Small delay so the UI has a realistic loading state.
   await new Promise((resolve) => setTimeout(resolve, 250))
 
+  const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString()
+  const fifteenMinutesAgo = new Date(Date.now() - 15 * 60 * 1000).toISOString()
+
   return {
-    lastComputed: '2026-03-25T18:45:00Z',
+    lastComputed: tenMinutesAgo,
     metadataSummary: {
       total_nodes: 412,
       total_edges: 1326,
       active_count: 287,
-      last_full_recompute: '2026-03-25T18:30:00Z',
+      last_full_recompute: fifteenMinutesAgo,
     },
     headline: {
       totalProjects: 168,
@@ -56,15 +59,15 @@ export async function getMockDashboardOverview(): Promise<DashboardOverviewMock>
       dataQualityCoveragePercent: 98,
     },
     currentRound: {
-      roundId: 40,
-      title: 'Stellar Community Fund - Public Goods Award (Round 40)',
+      roundId: '2026Q1',
+      title: 'Stellar Community Fund - Public Goods Award (Round 2026Q1)',
       proposalsCount: 41,
       category: 'Governance + Infrastructure',
     },
     roundsIndex: [
-      { roundId: 40, label: 'Round 40 (Current)', isCurrent: true },
-      { roundId: 39, label: 'Round 39', isCurrent: false },
-      { roundId: 38, label: 'Round 38', isCurrent: false },
+      { roundId: '2026Q1', label: 'Round 2026Q1 (Current)', isCurrent: true },
+      { roundId: '2025Q4', label: 'Round 2025Q4', isCurrent: false },
+      { roundId: '2025Q3', label: 'Round 2025Q3', isCurrent: false },
     ],
     dataTransparency: {
       sources: [

@@ -3,7 +3,7 @@ import { Link, useNavigate } from '@tanstack/react-router'
 
 export default function RoundsIndexPage() {
   const navigate = useNavigate()
-  const [roundId, setRoundId] = useState('40')
+  const [roundId, setRoundId] = useState('2025Q4')
 
   return (
     <div>
@@ -36,8 +36,8 @@ export default function RoundsIndexPage() {
         <div className="text-xs text-[#0f0f21]/70 dark:text-white/70">
           Example link (if you already know the id):
           <div className="mt-2">
-            <Link to="/rounds/$roundId" params={{ roundId: '40' }} className="underline decoration-primary-500">
-              /rounds/40
+            <Link to="/rounds/$roundId" params={{ roundId: '2025Q4' }} className="underline decoration-primary-500">
+              /rounds/2025Q4
             </Link>
           </div>
         </div>
