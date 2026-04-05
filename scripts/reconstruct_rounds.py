@@ -31,7 +31,7 @@ def extract_tranche(status_str):
     # Exactly "Awarded" means 100%
     if status_str == "Awarded":
         return 1.0
-        
+
     # Look for patterns like (50%) or 50%
     match = re.search(r'(\d+)%', status_str)
     if match:
@@ -42,22 +42,22 @@ def map_project(row, db_map):
     name = row.get('Submission / Project', '').strip()
     if not name:
         return None
-        
+
     cleaned_name = name.lower()
     canonical_id = db_map.get(cleaned_name, "")
-    
+
     # Logic for Awarded status
     status = row.get('Status', '')
     awarded_col = row.get('Awarded', '') # In Q1 '26 CSV
-    
+
     awarded_status = "no"
     if (awarded_col == 'checked') or (status == 'Awarded') or ('Awarded (' in status):
         awarded_status = "yes"
     elif status == 'Ineligible':
         awarded_status = "ineligible"
-    
+
     tranche = extract_tranche(status)
-    
+
     return {
         'canonical_id': canonical_id,
         'name': name,
@@ -81,22 +81,22 @@ def write_yaml(data, output_path):
 
 def process():
     db_map = load_db_mapping()
-    
+
     # Process Q4 '25 and extract Q3 '25
     q4_projects = []
     q3_projects = []
-    
+
     with open(Q4_CSV, 'r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         for row in reader:
             project = map_project(row, db_map)
             if not project: continue
-            
+
             q4_projects.append(project)
-            
+
             # Reconstruction logic for Q3
             if row.get('Public Good Award First Time?') == "No, I've submitted before to this award":
-                # For Q3, we don't necessarily know their award status from this CSV, 
+                # For Q3, we don't necessarily know their award status from this CSV,
                 # but if they were in Q4 as Awarded, they likely carried that status over.
                 q3_projects.append(project)
 
@@ -115,17 +115,17 @@ def process():
     # Save outputs
     for round_id, projects in [('2025Q3', q3_projects), ('2025Q4', q4_projects), ('2026Q1', q1_projects)]:
         if not projects: continue
-        
+
         round_data = ROUNDS_CONFIG[round_id].copy()
         round_data['projects'] = projects
-        
+
         # Write YAML
         write_yaml(round_data, os.path.join(OUTPUT_DIR, f"{round_id}.yaml"))
-        
+
         # Write JSON (for Frontend import)
         with open(os.path.join(OUTPUT_DIR, f"{round_id}.json"), 'w') as f:
             json.dump(round_data, f, indent=2)
-            
+
     print(f"Successfully reconstructed rounds with Award metadata. Generated in {OUTPUT_DIR}")
 
 if __name__ == "__main__":

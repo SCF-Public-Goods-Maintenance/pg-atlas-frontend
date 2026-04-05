@@ -31,7 +31,7 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
     adoption_score: p.adoption_score || 0,
     updated_at: sanitizeDate(p.updated_at as string | undefined)
   })) as ProjectSummary[]
-  
+
   const awardedProjects = projects.filter((p) => p.metadata?.scf_awarded === true || p.metadata?.scf_awarded === 'yes')
 
   const totalAwarded = awardedProjects.length
@@ -110,12 +110,12 @@ export async function getProjectsForRound(roundId: string): Promise<RoundDetail 
     adoption_score: p.adoption_score || 0,
     updated_at: sanitizeDate(p.updated_at as string | undefined)
   })) as ProjectSummary[]
-  
+
   const dbMap = new Map<string, ProjectSummary>(dbProjects.map((p) => [p.canonical_id, p]))
 
   const mappedProjects: ProjectSummary[] = round.projects.map((p: RoundProjectData) => {
     const dbProject = p.canonical_id ? dbMap.get(p.canonical_id) : null
-    
+
     if (dbProject) {
       return {
         ...dbProject,
@@ -156,8 +156,8 @@ function slugify(text: string) {
 }
 
 /**
- * Ensures a date string is parseable by adding a '+' sign before timezone offsets 
- * that are missing a sign (e.g., '00:00' -> '+00:00'). 
+ * Ensures a date string is parseable by adding a '+' sign before timezone offsets
+ * that are missing a sign (e.g., '00:00' -> '+00:00').
  * This is a common issue with some DB dump ISO formats.
  */
 function sanitizeDate(dateStr: string | undefined): string {
