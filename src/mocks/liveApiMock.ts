@@ -1,10 +1,23 @@
 import type { DashboardOverviewMock } from './dashboardOverviewMock'
-import type { ProjectSummary, RoundData, RoundProjectData, RoundDetail, MetadataSummary } from '../types/api'
+import type { ProjectSummary, ProjectActivityStatus, RoundProjectData, RoundDetail, MetadataSummary, ProjectMetadata } from '../types/api'
 import liveDataRaw from './liveApiMock.json'
+
+interface RawProject {
+  git_org_url?: string
+  git_owner_url?: string
+  criticality_score?: number
+  pony_factor?: number
+  adoption_score?: number
+  updated_at?: string
+  metadata?: ProjectMetadata
+  canonical_id?: string
+  display_name?: string
+  [key: string]: unknown
+}
 
 interface LiveApiDump {
   summary: MetadataSummary
-  projects: any[] // We still use any for the raw inner project fields before mapping
+  projects: RawProject[]
 }
 
 const liveData = liveDataRaw as unknown as LiveApiDump
@@ -25,6 +38,9 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
   const rawProjects = liveData.projects || []
   const projects = rawProjects.map((p) => ({
     ...p,
+    canonical_id: p.canonical_id || '',
+    display_name: p.display_name || '',
+    activity_status: (p.activity_status as ProjectActivityStatus) || 'live',
     git_org_url: p.git_org_url || p.git_owner_url || '',
     criticality_score: p.criticality_score || 0,
     pony_factor: p.pony_factor || 0,
@@ -50,6 +66,12 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
     },
     headline: {
       totalProjects: projects.length,
+      totalRepos: projects.length,
+      totalPublicGoods: totalAwarded,
+      recentActivityPercent: 0,
+      activeContributors30: 0,
+      activeContributors90: 0,
+      recentCommitVolume: 0,
       totalAwardedProjects: totalAwarded,
       averageTrancheCompletion: averageCompletion,
       trancheDistribution: (() => {
@@ -69,7 +91,7 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
           color: b.color
         }))
       })()
-    } as any,
+    },
     currentRound: (() => {
       const latest = roundList[0]
       return {
@@ -98,6 +120,9 @@ export async function getProjectsForRound(roundId: string): Promise<RoundDetail 
   const rawProjects = liveData.projects || []
   const dbProjects = rawProjects.map((p) => ({
     ...p,
+    canonical_id: p.canonical_id || '',
+    display_name: p.display_name || '',
+    activity_status: (p.activity_status as ProjectActivityStatus) || 'live',
     git_org_url: p.git_org_url || p.git_owner_url || '',
     criticality_score: p.criticality_score || 0,
     pony_factor: p.pony_factor || 0,
@@ -162,4 +187,3 @@ function sanitizeDate(dateStr: string | undefined): string {
   }
   return dateStr
 }
-

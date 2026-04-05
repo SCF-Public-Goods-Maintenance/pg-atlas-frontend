@@ -14,8 +14,6 @@ interface FinancialDistributionChartProps {
 export function FinancialDistributionChart({ data, title }: FinancialDistributionChartProps) {
   const maxValue = Math.max(...data.map(d => d.value), 1)
   const chartHeight = 120
-  const barWidth = 40
-  const gap = 16
 
   return (
     <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:bg-white/5 dark:border-white/15">

@@ -14,7 +14,7 @@ export default function ProjectDetailPage() {
     enabled: Boolean(canonicalId),
   })
 
-  const project = projectQuery?.data?.project!
+  const project = projectQuery?.data?.project
 
   return (
     <div>
@@ -34,25 +34,25 @@ export default function ProjectDetailPage() {
               <div>
                 <div className="text-xs text-surface-dark/70 dark:text-white/70">Criticality</div>
                 <div className="text-lg font-semibold text-surface-dark dark:text-white">
-                  {project.criticality_score}
+                  {project?.criticality_score}
                 </div>
               </div>
               <div>
                 <div className="text-xs text-surface-dark/70 dark:text-white/70">Pony factor</div>
-                <div className="text-lg font-semibold text-surface-dark dark:text-white">{project.pony_factor}</div>
+                <div className="text-lg font-semibold text-surface-dark dark:text-white">{project?.pony_factor}</div>
               </div>
               <div>
                 <div className="text-xs text-surface-dark/70 dark:text-white/70">Adoption score</div>
-                <div className="text-lg font-semibold text-surface-dark dark:text-white">{project.adoption_score}</div>
+                <div className="text-lg font-semibold text-surface-dark dark:text-white">{project?.adoption_score}</div>
               </div>
             </div>
 
             <div className="mt-4 text-sm text-surface-dark/70 dark:text-white/70">
-              Category: {project.metadata?.scf_category ?? 'Uncategorized'} • Status: {project.activity_status}
+              Category: {project?.metadata?.scf_category ?? 'Uncategorized'} • Status: {project?.activity_status}
             </div>
             <div className="mt-3">
               <a
-                href={project.git_org_url}
+                href={project?.git_org_url}
                 target="_blank"
                 rel="noreferrer"
                 className="text-sm underline decoration-primary-500"
