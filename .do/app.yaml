@@ -1,5 +1,15 @@
 name: pga-frontend-prod
 region: ams
+
+domains:
+  - domain: www.pgatlas.xyz
+    type: PRIMARY
+  - domain: pgatlas.xyz
+    type: ALIAS
+
+features:
+  - buildpack-stack=ubuntu-24
+
 static_sites:
   - environment_slug: node-js
     github:
@@ -8,11 +18,7 @@ static_sites:
       repo: SCF-Public-Goods-Maintenance/pg-atlas-frontend
     name: pg-atlas-frontend
     source_dir: /
-features:
-  - buildpack-stack=ubuntu-22
-alerts:
-  - rule: DEPLOYMENT_FAILED
-  - rule: DOMAIN_FAILED
+
 ingress:
   rules:
   - component:
@@ -22,3 +28,7 @@ ingress:
         exact: ""
       path:
         prefix: /
+
+alerts:
+  - rule: DEPLOYMENT_FAILED
+  - rule: DOMAIN_FAILED
