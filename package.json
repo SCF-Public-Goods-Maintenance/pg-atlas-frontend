@@ -3,6 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "author": "PG Atlas Contributors",
+  "license": "MPL-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SCF-Public-Goods-Maintenance/pg-atlas-frontend.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

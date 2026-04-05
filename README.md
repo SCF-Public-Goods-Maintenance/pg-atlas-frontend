@@ -10,7 +10,7 @@ Built as free open-source software under the **Mozilla Public License 2.0**.
 
 ### Prerequisites
 
-- **Node.js** 18+ (recommend 20 LTS)
+- **Node.js** 18+ (recommend 24 LTS)
 - **npm** (or pnpm / yarn)
 
 ### Setup
@@ -21,14 +21,16 @@ cd pg-atlas-frontend
 npm install
 ```
 
-### Install pre-commit hooks (optional)
+### Install pre-commit hooks
 
-If the repo uses [pre-commit](https://pre-commit.com):
+Install the [pre-commit](https://pre-commit.com) hooks:
 
 ```bash
 # From repo root (pg-atlas-frontend)
 pre-commit install --install-hooks --hook-type pre-commit --hook-type commit-msg
 ```
+
+The same hooks run in CI; they are enforced.
 
 ### Run the app
 
