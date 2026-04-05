@@ -26,3 +26,5 @@ dist-ssr
 # Local Cursor agent rules (do not commit)
 .cursor/rules/
 .package-lock.json
+
+data

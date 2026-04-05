@@ -1,21 +1,37 @@
 import type { MetadataResponse } from '../types/api'
+import { computeAverageTrancheCompletion, computeTrancheDistribution, computeTotalAwarded } from '../lib/trancheHelpers'
 
 export interface DashboardHeadlineMetrics {
   totalProjects: number
+  activeProjects: number
   totalRepos: number
-  totalPublicGoods: number
-  recentActivityPercent: number
-  activeContributors30: number
-  activeContributors90: number
-  recentCommitVolume: number
-  dataQualityCoveragePercent?: number
+  totalExternalRepos: number
+  totalDependencyEdges: number
+  totalContributorEdges: number
+  totalAwardedProjects?: number
+  averageTrancheCompletion?: number
+  trancheDistribution?: Array<{ label: string; value: number; color: string }>
 }
 
 export interface DashboardRoundSpotlight {
-  roundId: number
+  roundId: string | number
   title: string
   proposalsCount: number
   category: string
+}
+
+export interface TopCriticalProject {
+  canonical_id: string
+  display_name: string
+  criticality_score: number
+  pony_factor: number
+  activity_status: string
+}
+
+export interface RiskBucket {
+  label: string
+  count: number
+  color: string
 }
 
 export interface DashboardOverviewMock {
@@ -23,7 +39,10 @@ export interface DashboardOverviewMock {
   metadataSummary: MetadataResponse['summary']
   headline: DashboardHeadlineMetrics
   currentRound: DashboardRoundSpotlight
-  roundsIndex: Array<{ roundId: number; label: string; isCurrent: boolean }>
+  roundsIndex: Array<{ roundId: string | number; label: string; isCurrent: boolean }>
+  topCriticalProjects: TopCriticalProject[]
+  riskDistribution: RiskBucket[]
+  dependencyCoveragePercent: number
   dataTransparency: {
     sources: Array<{ label: string; description: string; provenance: string }>
     processingNotes: string[]
@@ -35,34 +54,55 @@ export async function getMockDashboardOverview(): Promise<DashboardOverviewMock>
   await new Promise((resolve) => setTimeout(resolve, 250))
 
   return {
-    lastComputed: '2026-03-25T18:45:00Z',
+    lastComputed: '2026-04-01T00:00:16.366169Z',
     metadataSummary: {
-      total_nodes: 412,
-      total_edges: 1326,
-      active_count: 287,
-      last_full_recompute: '2026-03-25T18:30:00Z',
+      total_nodes: 641,
+      total_edges: 9074,
+      active_count: 407,
+      last_full_recompute: '2026-04-01T00:00:16.366169Z',
     },
     headline: {
-      totalProjects: 168,
-      totalRepos: 412,
-      totalPublicGoods: 168,
-      recentActivityPercent: 74,
-      activeContributors30: 92,
-      activeContributors90: 164,
-      recentCommitVolume: 128_430,
-      dataQualityCoveragePercent: 98,
+      totalProjects: 641,
+      activeProjects: 407,
+      totalRepos: 2652,
+      totalExternalRepos: 4746,
+      totalDependencyEdges: 9074,
+      totalContributorEdges: 0,
+      // Derived from src/data/rounds — not hardcoded
+      totalAwardedProjects: computeTotalAwarded(),
+      averageTrancheCompletion: computeAverageTrancheCompletion(),
+      trancheDistribution: computeTrancheDistribution(),
     },
     currentRound: {
-      roundId: 40,
-      title: 'Stellar Community Fund - Public Goods Award (Round 40)',
+      roundId: '2026Q1',
+      title: 'Stellar Community Fund - Public Goods Award (Round 2026Q1)',
       proposalsCount: 41,
       category: 'Governance + Infrastructure',
     },
     roundsIndex: [
-      { roundId: 40, label: 'Round 40 (Current)', isCurrent: true },
-      { roundId: 39, label: 'Round 39', isCurrent: false },
-      { roundId: 38, label: 'Round 38', isCurrent: false },
+      { roundId: '2026Q1', label: 'Round 2026Q1 (Current)', isCurrent: true },
+      { roundId: '2025Q4', label: 'Round 2025Q4', isCurrent: false },
+      { roundId: '2025Q3', label: 'Round 2025Q3', isCurrent: false },
     ],
+    topCriticalProjects: [
+      { canonical_id: 'stellar-sdk', display_name: 'Stellar SDK', criticality_score: 0.95, pony_factor: 2, activity_status: 'live' },
+      { canonical_id: 'soroban-cli', display_name: 'Soroban CLI', criticality_score: 0.91, pony_factor: 3, activity_status: 'live' },
+      { canonical_id: 'freighter', display_name: 'Freighter Wallet', criticality_score: 0.88, pony_factor: 4, activity_status: 'live' },
+      { canonical_id: 'stellar-core', display_name: 'Stellar Core', criticality_score: 0.85, pony_factor: 2, activity_status: 'live' },
+      { canonical_id: 'horizon', display_name: 'Horizon API', criticality_score: 0.82, pony_factor: 3, activity_status: 'live' },
+      { canonical_id: 'soroban-examples', display_name: 'Soroban Examples', criticality_score: 0.78, pony_factor: 5, activity_status: 'live' },
+      { canonical_id: 'stellar-disbursement', display_name: 'Stellar Disbursement', criticality_score: 0.74, pony_factor: 3, activity_status: 'in-dev' },
+      { canonical_id: 'kelp', display_name: 'Kelp Trading Bot', criticality_score: 0.71, pony_factor: 1, activity_status: 'live' },
+      { canonical_id: 'stellar-anchor', display_name: 'Anchor Platform', criticality_score: 0.68, pony_factor: 4, activity_status: 'live' },
+      { canonical_id: 'soroban-rpc', display_name: 'Soroban RPC', criticality_score: 0.65, pony_factor: 2, activity_status: 'in-dev' },
+    ],
+    riskDistribution: [
+      { label: 'Low', count: 98, color: '#10b981' },
+      { label: 'Medium', count: 45, color: '#eab308' },
+      { label: 'High', count: 18, color: '#f97316' },
+      { label: 'Critical', count: 7, color: '#ef4444' },
+    ],
+    dependencyCoveragePercent: 87,
     dataTransparency: {
       sources: [
         {

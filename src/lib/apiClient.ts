@@ -2,6 +2,7 @@ import type {
   MetadataResponse,
   ProjectDetailResponse,
   RepoDetailResponse,
+  RoundDetail,
 } from '../types/api'
 
 // `import.meta.env` typing can vary depending on the TS/ESLint setup.
@@ -21,9 +22,12 @@ export async function getMetadata(): Promise<MetadataResponse> {
   return readJson<MetadataResponse>(response)
 }
 
-export async function getRoundProjects(): Promise<never> {
-  throw new Error('Round endpoints are not defined in api.md v0 yet.')
+import { getProjectsForRound } from '../mocks/liveApiMock'
+
+export async function getRoundProjects(roundId: string): Promise<RoundDetail | null> {
+  return getProjectsForRound(roundId)
 }
+
 
 export async function getProjectDetail(canonicalId: string): Promise<ProjectDetailResponse> {
   const response = await fetch(`${API_BASE_URL}/projects/${canonicalId}`)
