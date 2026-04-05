@@ -49,5 +49,5 @@ npm run build
 
 ## License
 
-This Source Code Form is subject to the terms of the **Mozilla Public License, v. 2.0**.  
+This Source Code Form is subject to the terms of the **Mozilla Public License, v. 2.0**.
 A copy of the MPL is in the [LICENSE](LICENSE) file in this repository.
