@@ -38,8 +38,9 @@ export interface ProjectSummary {
   pony_factor: number
   adoption_score: number
   git_org_url: string
-  category?: string
+  updated_at?: string
   metadata?: ProjectMetadata
+  category?: string
 }
 
 export interface ProjectDetailResponse {

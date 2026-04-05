@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { Search, ArrowRight } from 'lucide-react'
 
-export default function RoundsIndexPage() {
+export default function Rounds() {
   const navigate = useNavigate()
   const [roundId, setRoundId] = useState('')
 

@@ -1,23 +1,10 @@
 import type { DashboardOverviewMock } from './dashboardOverviewMock'
-import type { ProjectSummary, ProjectActivityStatus, RoundProjectData, RoundDetail, MetadataSummary, ProjectMetadata } from '../types/api'
+import type { ProjectSummary, RoundProjectData, RoundDetail, MetadataSummary } from '../types/api'
 import liveDataRaw from './liveApiMock.json'
-
-interface RawProject {
-  git_org_url?: string
-  git_owner_url?: string
-  criticality_score?: number
-  pony_factor?: number
-  adoption_score?: number
-  updated_at?: string
-  metadata?: ProjectMetadata
-  canonical_id?: string
-  display_name?: string
-  [key: string]: unknown
-}
 
 interface LiveApiDump {
   summary: MetadataSummary
-  projects: RawProject[]
+  projects: Record<string, unknown>[]
 }
 
 const liveData = liveDataRaw as unknown as LiveApiDump
@@ -38,40 +25,37 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
   const rawProjects = liveData.projects || []
   const projects = rawProjects.map((p) => ({
     ...p,
-    canonical_id: p.canonical_id || '',
-    display_name: p.display_name || '',
-    activity_status: (p.activity_status as ProjectActivityStatus) || 'live',
     git_org_url: p.git_org_url || p.git_owner_url || '',
     criticality_score: p.criticality_score || 0,
     pony_factor: p.pony_factor || 0,
     adoption_score: p.adoption_score || 0,
-    updated_at: sanitizeDate(p.updated_at)
+    updated_at: sanitizeDate(p.updated_at as string | undefined)
   })) as ProjectSummary[]
   
   const awardedProjects = projects.filter((p) => p.metadata?.scf_awarded === true || p.metadata?.scf_awarded === 'yes')
-  
+
   const totalAwarded = awardedProjects.length
+  // Sum each awarded project's scf_tranche_completion (0.0 to 1.0)
   const totalCompletion = awardedProjects.reduce((acc: number, p) => acc + (p.metadata?.scf_tranche_completion || 0), 0)
+  // averageCompletion = totalCompletion / totalAwarded
+  // e.g. 3 projects with completions [1.0, 0.5, 0.33] → sum 1.83 / 3 = 0.61 (61%)
   const averageCompletion = totalAwarded > 0 ? (totalCompletion / totalAwarded) : 0
 
-  const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000).toISOString()
-  
   return {
-    lastComputed: tenMinutesAgo,
+    lastComputed: '2026-04-01T00:00:16.366169Z',
     metadataSummary: {
       total_nodes: liveData.summary.total_nodes,
       total_edges: liveData.summary.total_edges,
       active_count: liveData.summary.active_count,
-      last_full_recompute: tenMinutesAgo,
+      last_full_recompute: '2026-04-01T00:00:16.366169Z',
     },
     headline: {
       totalProjects: projects.length,
-      totalRepos: projects.length,
-      totalPublicGoods: totalAwarded,
-      recentActivityPercent: 0,
-      activeContributors30: 0,
-      activeContributors90: 0,
-      recentCommitVolume: 0,
+      activeProjects: projects.filter((p) => p.activity_status === 'live').length,
+      totalRepos: liveData.summary.total_nodes,
+      totalExternalRepos: 0,
+      totalDependencyEdges: liveData.summary.total_edges,
+      totalContributorEdges: 0,
       totalAwardedProjects: totalAwarded,
       averageTrancheCompletion: averageCompletion,
       trancheDistribution: (() => {
@@ -91,7 +75,7 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
           color: b.color
         }))
       })()
-    },
+    } as DashboardOverviewMock['headline'],
     currentRound: (() => {
       const latest = roundList[0]
       return {
@@ -120,14 +104,11 @@ export async function getProjectsForRound(roundId: string): Promise<RoundDetail 
   const rawProjects = liveData.projects || []
   const dbProjects = rawProjects.map((p) => ({
     ...p,
-    canonical_id: p.canonical_id || '',
-    display_name: p.display_name || '',
-    activity_status: (p.activity_status as ProjectActivityStatus) || 'live',
     git_org_url: p.git_org_url || p.git_owner_url || '',
     criticality_score: p.criticality_score || 0,
     pony_factor: p.pony_factor || 0,
     adoption_score: p.adoption_score || 0,
-    updated_at: sanitizeDate(p.updated_at)
+    updated_at: sanitizeDate(p.updated_at as string | undefined)
   })) as ProjectSummary[]
   
   const dbMap = new Map<string, ProjectSummary>(dbProjects.map((p) => [p.canonical_id, p]))
@@ -187,3 +168,4 @@ function sanitizeDate(dateStr: string | undefined): string {
   }
   return dateStr
 }
+

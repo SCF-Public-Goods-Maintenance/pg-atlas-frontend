@@ -1,15 +1,4 @@
-import React from 'react'
-
-interface DataPoint {
-  label: string
-  value: number
-  color: string
-}
-
-interface FinancialDistributionChartProps {
-  data: DataPoint[]
-  title: string
-}
+import type { FinancialDistributionChartProps } from '../../types'
 
 export function FinancialDistributionChart({ data, title }: FinancialDistributionChartProps) {
   const maxValue = Math.max(...data.map(d => d.value), 1)
@@ -20,22 +9,33 @@ export function FinancialDistributionChart({ data, title }: FinancialDistributio
       <h3 className="text-sm font-semibold text-surface-dark dark:text-white mb-4">
         {title}
       </h3>
-      
-      <div className="flex items-end justify-between gap-2 h-[160px] pt-4">
+
+      <div className="flex items-end justify-between gap-2 h-[180px] pt-8">
         {data.map((point) => {
           const barHeight = (point.value / maxValue) * chartHeight
           return (
-            <div key={point.label} className="flex-1 flex flex-col items-center gap-2 group">
-              <div className="relative w-full flex justify-center items-end h-[120px]">
-                {/* Tooltip */}
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-surface-dark text-white text-xs py-1 px-2 rounded-md pointer-events-none whitespace-nowrap z-10">
+            <div
+              key={point.label}
+              className="flex-1 flex flex-col items-center gap-2 group"
+              tabIndex={0}
+              role="img"
+              aria-label={`${point.label}: ${point.value} projects`}
+            >
+              <div className="relative w-full flex flex-col items-center justify-end h-[140px]">
+                {/* Permanent value label */}
+                <span className="mb-1 text-xs font-semibold text-surface-dark/70 dark:text-white/60">
+                  {point.value}
+                </span>
+
+                {/* Tooltip on hover/focus */}
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity bg-surface-dark text-white text-xs py-1 px-2 rounded-md pointer-events-none whitespace-nowrap z-10">
                   {point.value} projects
                 </div>
-                
-                <div 
+
+                <div
                   className="w-full max-w-[40px] rounded-t-lg transition-all duration-500 ease-out hover:brightness-110"
-                  style={{ 
-                    height: `${barHeight}px`, 
+                  style={{
+                    height: `${barHeight}px`,
                     backgroundColor: point.color,
                     boxShadow: `0 0 20px ${point.color}33`
                   }}

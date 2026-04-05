@@ -1,6 +1,6 @@
 import { Telescope, Github, ExternalLink, Scale, MessageCircle } from 'lucide-react'
 
-function AboutPage() {
+function About() {
   return (
     <div className="space-y-6">
       <div>
@@ -100,4 +100,4 @@ function AboutPage() {
   )
 }
 
-export default AboutPage
+export default About
