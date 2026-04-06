@@ -4,6 +4,7 @@ type Overview = DashboardOverviewMock | undefined;
 
 export interface HomeHeaderProps {
   overview: Overview;
+  isLoading?: boolean;
 }
 
 export interface MetricsGridProps {
@@ -12,14 +13,17 @@ export interface MetricsGridProps {
 
 export interface EcosystemHealthCardProps {
   overview: Overview;
+  isLoading?: boolean;
 }
 
 export interface TopCriticalCardProps {
   overview: Overview;
+  isLoading?: boolean;
 }
 
 export interface AllRoundsCardProps {
   overview: Overview;
+  isLoading?: boolean;
 }
 
 export interface AwardHealthCardProps {

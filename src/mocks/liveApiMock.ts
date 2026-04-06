@@ -51,7 +51,7 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
     },
     headline: {
       totalProjects: projects.length,
-      activeProjects: projects.filter((p) => p.activity_status === 'live').length,
+      activeProjects: projects.filter((p) => p.activity_status === 'live' || p.activity_status === 'active').length,
       totalRepos: liveData.summary.total_nodes,
       totalExternalRepos: 0,
       totalDependencyEdges: liveData.summary.total_edges,

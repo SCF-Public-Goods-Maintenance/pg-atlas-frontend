@@ -10,7 +10,7 @@ Built as free open-source software under the **Mozilla Public License 2.0**.
 
 ### Prerequisites
 
-- **Node.js** 18+ (recommend 24 LTS)
+- **Node.js** 18+ (recommend 20 LTS)
 - **npm** (or pnpm / yarn)
 
 ### Setup
@@ -23,14 +23,12 @@ npm install
 
 ### Install pre-commit hooks
 
-Install the [pre-commit](https://pre-commit.com) hooks:
+This repository uses [pre-commit](https://pre-commit.com) hooks to enforce code quality checks:
 
 ```bash
 # From repo root (pg-atlas-frontend)
 pre-commit install --install-hooks --hook-type pre-commit --hook-type commit-msg
 ```
-
-The same hooks run in CI; they are enforced.
 
 ### Run the app
 
@@ -51,5 +49,5 @@ npm run build
 
 ## License
 
-This Source Code Form is subject to the terms of the **Mozilla Public License, v. 2.0**.
+This Source Code Form is subject to the terms of the **Mozilla Public License, v. 2.0**.  
 A copy of the MPL is in the [LICENSE](LICENSE) file in this repository.

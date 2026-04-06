@@ -19,7 +19,7 @@ export default {
         },
         surface: {
           dark: '#0f0f21',
-          light: '#ffffff',
+          light: '#f0f2f5',
         },
       },
     },

@@ -1,6 +1,8 @@
+import { lazy } from "react";
 import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "../__root";
-import Rounds from "../../pages/Rounds/Rounds";
+
+const Rounds = lazy(() => import("../../pages/Rounds"));
 
 export const roundsIndexRoute = createRoute({
   getParentRoute: () => rootRoute,

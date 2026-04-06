@@ -28,3 +28,10 @@ dist-ssr
 .package-lock.json
 
 data
+
+# Local tracking & reference files
+progress/
+UI_UX_IMPROVEMENTS.md
+*_x.md
+.claude
+docs/
