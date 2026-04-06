@@ -64,7 +64,7 @@ function Header({ right }: { right?: React.ReactNode }) {
  * sourced from `src/data/rounds/*.json`. Static data, no Suspense needed.
  */
 export default function AwardHealthCard() {
-  const totals = useMemo(computeTotals, []);
+  const totals = useMemo(() => computeTotals(), []);
 
   if (!totals || totals.proposals === 0) {
     return <AwardHealthCardFallback />;
@@ -118,7 +118,7 @@ export default function AwardHealthCard() {
                   borderRadius: 8,
                   border: "1px solid #e5e7eb",
                 }}
-                formatter={(value: number, name: string) => [`${value}`, name]}
+                formatter={(value: any, name: any) => [`${value}`, name]}
               />
             </PieChart>
           </ResponsiveContainer>

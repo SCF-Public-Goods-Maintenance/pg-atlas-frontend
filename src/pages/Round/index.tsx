@@ -305,6 +305,7 @@ function RoundContent({ roundId }: { roundId: string }) {
 
   const columns = useRoundColumns();
 
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: rows,
     columns,

@@ -79,14 +79,13 @@ function ColumnHeader({
  */
 export default function TopCriticalCard() {
   const { data } = useProjectsListSuspense({ limit: TOP_SAMPLE_SIZE, project_type: "public-good" });
-  const projects = (data?.items ?? []) as ProjectSummary[];
-
   /**
    * Sort every fetched project by criticality_score descending, keeping
    * nulls at the end so the table still populates while the backend has
    * not computed scores yet. Missing score/pony cells render as "—".
    */
   const topProjects = useMemo(() => {
+    const projects = (data?.items ?? []) as ProjectSummary[];
     return [...projects]
       .sort((a, b) => {
         const aScore = a.criticality_score;
@@ -97,7 +96,7 @@ export default function TopCriticalCard() {
         return bScore - aScore;
       })
       .slice(0, TOP_DISPLAY_COUNT);
-  }, [projects]);
+  }, [data?.items]);
 
   if (topProjects.length === 0) {
     return (

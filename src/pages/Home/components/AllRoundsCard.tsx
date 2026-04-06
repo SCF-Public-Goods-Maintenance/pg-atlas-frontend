@@ -62,7 +62,7 @@ function Header({
  * config parsing fails.
  */
 export default function AllRoundsCard() {
-  const data = useMemo(buildRoundRows, []);
+  const data = useMemo(() => buildRoundRows(), []);
 
   const columns = useMemo(
     () => [

@@ -78,6 +78,16 @@ function renderLabel({
   outerRadius,
   percent,
 }: PieLabelRenderProps) {
+  if (
+    cx === undefined ||
+    cy === undefined ||
+    midAngle === undefined ||
+    innerRadius === undefined ||
+    outerRadius === undefined ||
+    percent === undefined
+  ) {
+    return null;
+  }
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -147,9 +157,10 @@ export default function EcosystemHealthCard() {
   const { data } = useProjectsListSuspense({ limit: RISK_SAMPLE_SIZE });
   const { data: metadataData } = useMetadataSuspense();
   const metadata = metadataData as MetadataResponse;
-  const projects = (data?.items ?? []) as ProjectSummary[];
-
-  const distribution = useMemo(() => bucketProjects(projects), [projects]);
+  const distribution = useMemo(() => {
+    const projects = (data?.items ?? []) as ProjectSummary[];
+    return bucketProjects(projects);
+  }, [data?.items]);
   const { buckets, scoredCount, unscoredCount } = distribution;
   const coveragePercent = useMemo(
     () => computeCoveragePercent(metadata),
@@ -217,10 +228,7 @@ export default function EcosystemHealthCard() {
                   borderRadius: 8,
                   border: "1px solid #e5e7eb",
                 }}
-                formatter={(value: number, name: string) => [
-                  `${value} projects`,
-                  name,
-                ]}
+                formatter={(value: any, name: any) => [`${value}`, name]}
               />
             </PieChart>
           </ResponsiveContainer>

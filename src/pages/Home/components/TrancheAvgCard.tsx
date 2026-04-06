@@ -25,8 +25,8 @@ function CardShell({ children }: { children: React.ReactNode }) {
  * static round config via `lib/trancheHelpers`. No async, no Suspense.
  */
 export default function TrancheAvgCard() {
-  const average = useMemo(computeAverageTrancheCompletion, []);
-  const distribution = useMemo(computeTrancheDistribution, []);
+  const average = useMemo(() => computeAverageTrancheCompletion(), []);
+  const distribution = useMemo(() => computeTrancheDistribution(), []);
 
   const hasData = distribution.some((b) => b.value > 0);
 
