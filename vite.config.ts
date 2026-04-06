@@ -18,6 +18,17 @@ export default defineConfig({
       },
     },
   },
+  preview: {
+    proxy: {
+      // Mirror the dev proxy for `pnpm preview` so CORS is not an issue
+      // when testing the production build locally.
+      '/api': {
+        target: API_TARGET,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
   build: {
     rollupOptions: {
       output: {

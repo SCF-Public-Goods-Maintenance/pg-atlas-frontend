@@ -24,8 +24,6 @@ ingress:
   - component:
       name: pg-atlas-frontend
     match:
-      authority:
-        exact: ""
       path:
         prefix: /
 
