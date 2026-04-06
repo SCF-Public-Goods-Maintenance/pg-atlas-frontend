@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Link, Outlet, useRouterState } from "@tanstack/react-router";
+import { RouteFallback } from "../atoms/RouteFallback";
 import {
   LayoutDashboard,
   Trophy,
@@ -68,7 +69,7 @@ export default function DashboardLayout() {
 
   const activeLinkClass = isDark
     ? "bg-white/8 text-white border-l-4 border-white/30"
-    : "bg-primary-50 text-surface-dark border-l-4 border-primary-500";
+    : "bg-primary-50/60 text-surface-dark border-l-4 border-primary-400";
 
   const inactiveLinkClass = isDark
     ? "text-white/70 hover:bg-white/5 border-l-4 border-transparent"
@@ -109,7 +110,7 @@ export default function DashboardLayout() {
 
   return (
     <div
-      className={`${isDark ? "dark bg-surface-dark text-white" : "bg-surface-light text-surface-dark"} min-h-screen flex`}
+      className={`${isDark ? "dark bg-surface-dark text-white" : "bg-surface-light text-surface-dark"} h-screen overflow-hidden flex`}
     >
       <a
         href="#main-content"
@@ -129,10 +130,10 @@ export default function DashboardLayout() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 border-r shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:relative ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 border-r transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:relative ${
           isDark
             ? "bg-surface-dark border-white/20"
-            : "bg-surface-light border-gray-200"
+            : "bg-white border-gray-100"
         } ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <div className="flex flex-col h-full">
@@ -254,8 +255,8 @@ export default function DashboardLayout() {
       </aside>
 
       {/* Main */}
-      <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
-        <header className="bg-surface-light border-b border-gray-100 shrink-0 h-16 dark:bg-surface-dark dark:border-white/20">
+      <div className="flex-1 flex flex-col h-full overflow-hidden">
+        <header className="bg-white border-b border-gray-100 shrink-0 h-16 dark:bg-surface-dark dark:border-white/20">
           <div className="flex items-center justify-between h-full px-4 lg:px-6">
             <button
               type="button"
@@ -285,10 +286,12 @@ export default function DashboardLayout() {
 
         <main
           id="main-content"
-          className={`flex-1 overflow-y-auto ${isDark ? "bg-surface-dark" : "bg-surface-light"}`}
+          className={`no-scrollbar flex-1 overflow-y-auto ${isDark ? "bg-surface-dark" : "bg-surface-light"}`}
         >
-          <div className="h-full px-4 pt-3 pb-4 lg:px-6 lg:pb-6">
-            <Outlet />
+          <div className="h-full overflow-x-hidden px-3 pt-2 pb-3 sm:px-4 sm:pt-3 sm:pb-4 lg:px-6 lg:pb-6">
+            <Suspense fallback={<RouteFallback />}>
+              <Outlet />
+            </Suspense>
           </div>
         </main>
       </div>

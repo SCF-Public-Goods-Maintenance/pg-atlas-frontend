@@ -29,7 +29,7 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
     criticality_score: p.criticality_score || 0,
     pony_factor: p.pony_factor || 0,
     adoption_score: p.adoption_score || 0,
-    updated_at: sanitizeDate(p.updated_at as string | undefined)
+    updated_at: sanitizeDate(p.updated_at)
   })) as ProjectSummary[]
   
   const awardedProjects = projects.filter((p) => p.metadata?.scf_awarded === true || p.metadata?.scf_awarded === 'yes')
@@ -51,7 +51,7 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverviewM
     },
     headline: {
       totalProjects: projects.length,
-      activeProjects: projects.filter((p) => p.activity_status === 'live').length,
+      activeProjects: projects.filter((p) => p.activity_status === 'live' || p.activity_status === 'active').length,
       totalRepos: liveData.summary.total_nodes,
       totalExternalRepos: 0,
       totalDependencyEdges: liveData.summary.total_edges,
@@ -108,7 +108,7 @@ export async function getProjectsForRound(roundId: string): Promise<RoundDetail 
     criticality_score: p.criticality_score || 0,
     pony_factor: p.pony_factor || 0,
     adoption_score: p.adoption_score || 0,
-    updated_at: sanitizeDate(p.updated_at as string | undefined)
+    updated_at: sanitizeDate(p.updated_at)
   })) as ProjectSummary[]
   
   const dbMap = new Map<string, ProjectSummary>(dbProjects.map((p) => [p.canonical_id, p]))

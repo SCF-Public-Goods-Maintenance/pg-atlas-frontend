@@ -1,6 +1,8 @@
+import { lazy } from "react";
 import { createRoute } from "@tanstack/react-router";
 import { rootRoute } from "./__root";
-import Graph from "../pages/Graph/Graph";
+
+const Graph = lazy(() => import("../pages/Graph"));
 
 export const graphRoute = createRoute({
   getParentRoute: () => rootRoute,

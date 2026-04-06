@@ -1,0 +1,69 @@
+import { Link } from "@tanstack/react-router";
+import { ArrowUpRight, GitBranch } from "lucide-react";
+import type { ContributorDetailResponse } from "@pg-atlas/data-sdk";
+
+export function RepoContributionsPanel({
+  repos,
+}: {
+  repos: ContributorDetailResponse["repos"];
+}) {
+  if (repos.length === 0) {
+    return (
+      <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xs dark:border-white/15 dark:bg-white/5">
+        <h3 className="text-base font-semibold text-surface-dark dark:text-white">
+          Repo contributions
+        </h3>
+        <p className="mt-4 rounded-xl border border-dashed border-gray-200 p-5 text-center text-sm text-surface-dark/50 dark:border-white/10 dark:text-white/40">
+          No repo contributions found for this contributor.
+        </p>
+      </section>
+    );
+  }
+
+  return (
+    <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xs dark:border-white/15 dark:bg-white/5">
+      <div className="flex items-center justify-between">
+        <h3 className="text-base font-semibold text-surface-dark dark:text-white">
+          Repo contributions
+        </h3>
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-2.5 py-1 text-sm font-medium text-surface-dark/60 dark:bg-white/10 dark:text-white/50">
+          <GitBranch className="h-3.5 w-3.5" aria-hidden="true" />
+          {repos.length}
+        </span>
+      </div>
+      <div className="mt-4 space-y-2">
+        {repos.map((r) => (
+          <Link
+            key={r.repo_canonical_id}
+            to="/repos/$canonicalId"
+            params={{ canonicalId: r.repo_canonical_id }}
+            className="group flex items-center justify-between gap-4 rounded-xl border border-gray-100 bg-white px-5 py-4 transition-colors hover:bg-gray-50 dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10"
+          >
+            <div className="flex items-center gap-3">
+              <GitBranch
+                className="h-5 w-5 text-surface-dark/40 dark:text-white/40"
+                aria-hidden="true"
+              />
+              <div>
+                <div className="text-base font-medium text-surface-dark dark:text-white">
+                  {r.repo_display_name}
+                </div>
+                <div className="mt-0.5 text-sm text-surface-dark/50 dark:text-white/40">
+                  {r.number_of_commits} commit
+                  {r.number_of_commits === 1 ? "" : "s"}
+                  {" · "}
+                  {new Date(r.first_commit_date).toLocaleDateString()} –{" "}
+                  {new Date(r.last_commit_date).toLocaleDateString()}
+                </div>
+              </div>
+            </div>
+            <ArrowUpRight
+              className="h-5 w-5 text-surface-dark/30 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 dark:text-white/30"
+              aria-hidden="true"
+            />
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}

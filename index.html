@@ -11,6 +11,26 @@
       rel="stylesheet"
     />
     <title>pg-atlas</title>
+    <script>
+      // Apply theme synchronously before React mounts to prevent a
+      // flash-of-unstyled-content on reload. Reads the same storage key
+      // and media-query fallback as DashboardLayout.tsx.
+      (function () {
+        try {
+          var stored = localStorage.getItem("pg-atlas-theme");
+          var isDark =
+            stored === "dark" ||
+            (!stored &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          if (isDark) document.documentElement.classList.add("dark");
+          document.documentElement.style.colorScheme = isDark
+            ? "dark"
+            : "light";
+        } catch (e) {
+          /* no-op — React state remains the source of truth */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

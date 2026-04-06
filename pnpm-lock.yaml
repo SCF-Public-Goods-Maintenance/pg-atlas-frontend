@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@pg-atlas/data-sdk':
+        specifier: ^0.4.1
+        version: 0.4.1
       '@tanstack/react-query':
         specifier: ^5.62.0
         version: 5.96.1(react@19.2.4)
@@ -408,6 +411,9 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@pg-atlas/data-sdk@0.4.1':
+    resolution: {integrity: sha512-G98BO0oFMzFnqnJ/mXycSChYSd3SSXT++aixwQqEePhG3NMH0jiNNa7XmIdoVh3D0LnoK7TWkXEHrIKg4U07Cw==}
 
   '@reduxjs/toolkit@2.11.2':
     resolution: {integrity: sha512-Kd6kAHTA6/nUpp8mySPqj3en3dm0tdMIgbttnQ1xFMVpufoj+ADi8pXLBsd4xzTRHQa7t/Jv8W5UnCuW4kuWMQ==}
@@ -1895,6 +1901,8 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
+
+  '@pg-atlas/data-sdk@0.4.1': {}
 
   '@reduxjs/toolkit@2.11.2(react-redux@9.2.0(@types/react@19.2.14)(react@19.2.4)(redux@5.0.1))(react@19.2.4)':
     dependencies:

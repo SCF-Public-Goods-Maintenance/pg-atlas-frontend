@@ -9,6 +9,14 @@ html {
 body {
   font-family: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: 16px;
+  background-color: #f0f2f5;
+}
+
+/* Pre-React theme background — the synchronous script in index.html
+   applies `.dark` on <html> before the React bundle mounts, so body
+   paints the correct theme color on the very first frame. */
+html.dark body {
+  background-color: #0f0f21;
 }
 
 /* Consistent purple hover underline/glow for "button-like" UI */
@@ -43,6 +51,17 @@ body {
   box-shadow: 0 0 0 2px rgba(145, 76, 255, 0.45);
 }
 
+/* Cross-browser scrollbar hiding — applied to any container that
+   should scroll content without showing a visible scrollbar. */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE / old Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;             /* Chrome / Safari / new Edge / Opera */
+}
+
+/* Sidebar nav icon — subtle rotate on hover */
 .pgx-nav-icon {
   transition: transform 180ms ease;
   transform-origin: 50% 60%;
@@ -52,6 +71,7 @@ body {
   transform: rotate(-15deg) scale(1.08) translateY(-1px);
 }
 
+/* Dashboard icon — rotate on hover */
 .pgx-rotate-icon {
   transition: transform 180ms ease;
   transform-origin: 50% 60%;
