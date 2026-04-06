@@ -228,7 +228,10 @@ export default function EcosystemHealthCard() {
                   borderRadius: 8,
                   border: "1px solid #e5e7eb",
                 }}
-                formatter={(value: any, name: any) => [`${value}`, name]}
+                formatter={(value: unknown, name: unknown) => [
+                  `${value}`,
+                  String(name),
+                ]}
               />
             </PieChart>
           </ResponsiveContainer>

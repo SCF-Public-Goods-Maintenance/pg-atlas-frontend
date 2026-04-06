@@ -45,7 +45,7 @@ export class ErrorBoundary extends React.Component<
   }
 
   componentDidCatch(error: unknown) {
-    if ((import.meta as any).env.DEV) {
+    if ((import.meta as unknown as { env: { DEV: boolean } }).env.DEV) {
       console.warn("[ErrorBoundary] caught", error);
     }
     this.props.onError?.(error);
