@@ -73,7 +73,7 @@ export default function CurrentRoundSpotlight() {
           <Link
             to="/rounds/$roundId"
             params={{ roundId }}
-            className="group inline-flex items-center gap-1.5 rounded-lg bg-primary-500 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-primary-600 focus:outline-none"
+            className="group inline-flex items-center gap-1.5 rounded-lg bg-primary-500 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-primary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
           >
             View round
             <ArrowRight

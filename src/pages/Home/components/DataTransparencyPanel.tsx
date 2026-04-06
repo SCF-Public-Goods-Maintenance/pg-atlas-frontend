@@ -99,9 +99,11 @@ function KindBadge({ kind }: { kind: SourceEntry["kind"] }) {
  */
 export default function DataTransparencyPanel() {
   const { data: metadata, isLoading } = useMetadata();
-  const lastUpdated = metadata?.last_updated
-    ? new Date(metadata.last_updated).toLocaleString()
-    : null;
+  const lastUpdated = (() => {
+    if (!metadata?.last_updated) return null;
+    const date = new Date(metadata.last_updated);
+    return Number.isNaN(date.getTime()) ? null : date.toLocaleString();
+  })();
 
   return (
     <section className="flex flex-col rounded-xl bg-white p-3 sm:p-4 shadow-sm dark:bg-white/5 dark:border dark:border-white/15 dark:shadow-none">

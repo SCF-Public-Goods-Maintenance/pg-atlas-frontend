@@ -79,7 +79,10 @@ export default function Home() {
         </ErrorBoundary>
       </div>
 
-      <div className="mt-3 sm:mt-4 grid gap-3 sm:gap-4 md:grid-cols-2 items-stretch">
+      <div
+        className="mt-3 sm:mt-4 grid gap-3 sm:gap-4 md:grid-cols-2 items-stretch"
+        aria-label="Critical metrics"
+      >
         <ErrorBoundary fallback={<TopCriticalCardFallback />}>
           <Suspense fallback={<TopCriticalCardSkeleton />}>
             <TopCriticalCard />
