@@ -21,9 +21,9 @@ cd pg-atlas-frontend
 npm install
 ```
 
-### Install pre-commit hooks (optional)
+### Install pre-commit hooks
 
-If the repo uses [pre-commit](https://pre-commit.com):
+This repository uses [pre-commit](https://pre-commit.com) hooks to enforce code quality checks:
 
 ```bash
 # From repo root (pg-atlas-frontend)

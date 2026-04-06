@@ -28,6 +28,9 @@ export default function Contributors() {
         <div className="mt-10 flex justify-center">
           <div className="flex w-full max-w-md items-center gap-3 rounded-2xl border border-gray-200 bg-white p-2.5 shadow-xl shadow-gray-200/20 transition-all focus-within:ring-4 focus-within:ring-primary-500/10 dark:bg-white/10 dark:border-white/15 dark:shadow-none">
             <Search className="ml-3 h-5 w-5 text-surface-dark/30 dark:text-white/30" aria-hidden="true" />
+            <label htmlFor="contributorId" className="sr-only">
+              Contributor ID
+            </label>
             <input
               id="contributorId"
               value={contributorId}
@@ -44,6 +47,7 @@ export default function Contributors() {
               type="button"
               onClick={() => navigate({ to: '/contributors/$id', params: { id: contributorId } })}
               disabled={!contributorId}
+              aria-label="Search contributor"
               className="group flex h-12 w-12 items-center justify-center rounded-xl bg-primary-500 text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-primary-600 hover:scale-105 active:scale-95 disabled:opacity-30 disabled:scale-100 disabled:shadow-none"
             >
               <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />

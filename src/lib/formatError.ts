@@ -17,7 +17,7 @@ export function formatError(error: unknown): string {
     if (maybe.message) return maybe.message;
     const status = maybe.response?.status ?? maybe.status;
     const text = maybe.response?.statusText ?? maybe.statusText;
-    if (status) return `HTTP ${status}${text ? ` ${text}` : ""}`;
+    if (status !== undefined) return `HTTP ${status}${text ? ` ${text}` : ""}`;
   }
   return "Unknown error";
 }

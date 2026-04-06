@@ -5,7 +5,7 @@ import type { ProjectSummary } from "@pg-atlas/data-sdk";
 import { useProjectsListSuspense } from "../../../lib/api/queries/projects";
 import { Skeleton } from "../../../components/atoms/Skeleton";
 
-const SKELETON_ROW_COUNT = 12;
+const SKELETON_ROW_COUNT = 10;
 const TOP_SAMPLE_SIZE = 100;
 
 const TOP_DISPLAY_COUNT = 10;
@@ -51,9 +51,8 @@ function ColumnHeader({
 }) {
   return (
     <div
-      className={`group relative inline-flex items-center gap-1 ${
-        align === "right" ? "flex-row-reverse" : ""
-      }`}
+      className={`group relative inline-flex items-center gap-1 ${align === "right" ? "flex-row-reverse" : ""
+        }`}
     >
       <span>{label}</span>
       <HelpCircle
@@ -61,9 +60,8 @@ function ColumnHeader({
         aria-hidden="true"
       />
       <div
-        className={`pointer-events-none absolute top-full z-10 mt-2 w-56 whitespace-normal rounded-lg bg-surface-dark px-3 py-2 text-xs font-normal normal-case leading-snug tracking-normal text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 dark:bg-white dark:text-surface-dark ${
-          align === "right" ? "right-0" : "left-0"
-        }`}
+        className={`pointer-events-none absolute top-full z-10 mt-2 w-56 whitespace-normal rounded-lg bg-surface-dark px-3 py-2 text-xs font-normal normal-case leading-snug tracking-normal text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 dark:bg-white dark:text-surface-dark ${align === "right" ? "right-0" : "left-0"
+          }`}
       >
         {tooltip}
       </div>
@@ -185,15 +183,14 @@ export default function TopCriticalCard() {
                 </td>
                 <td className="px-3 py-2">
                   <span
-                    className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
-                      p.activity_status === "live"
+                    className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${p.activity_status === "live"
                         ? "bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400"
                         : p.activity_status === "in-dev"
                           ? "bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"
                           : p.activity_status === "discontinued"
                             ? "bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400"
                             : "bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-white/60"
-                    }`}
+                      }`}
                   >
                     {p.activity_status ?? "—"}
                   </span>

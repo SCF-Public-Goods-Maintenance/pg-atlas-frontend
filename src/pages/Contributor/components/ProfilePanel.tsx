@@ -23,7 +23,7 @@ export function ProfilePanel({
     <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xs dark:border-white/15 dark:bg-white/5">
       <div className="flex items-center gap-4 mb-5">
         <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary-50 text-xl font-bold text-primary-600 dark:bg-primary-500/10 dark:text-primary-400">
-          {contributor.name.charAt(0).toUpperCase()}
+          {contributor.name?.charAt(0)?.toUpperCase() || "?"}
         </div>
         <div>
           <h3 className="text-xl font-semibold text-surface-dark dark:text-white">
@@ -58,7 +58,7 @@ export function ProfilePanel({
               {s.label}
             </span>
             <div className="mt-3 text-3xl font-bold text-surface-dark dark:text-white">
-              {s.value.toLocaleString()}
+              {(s.value ?? 0).toLocaleString()}
             </div>
           </div>
         ))}

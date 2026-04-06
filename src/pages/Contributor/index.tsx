@@ -15,6 +15,16 @@ export default function Contributor() {
   const { id } = useParams({ from: "/contributors/$id" });
   const contributorId = Number(id);
 
+  if (Number.isNaN(contributorId)) {
+    return (
+      <ContributorErrorFallback
+        contributorId={id}
+        error={new Error(`Invalid contributor ID: ${id}`)}
+        onRetry={() => window.location.reload()}
+      />
+    );
+  }
+
   return (
     <ErrorBoundary
       fallback={(error, reset) => (
