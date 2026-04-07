@@ -1,34 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const API_TARGET = process.env.VITE_API_BASE_URL ?? 'https://api.pgatlas.xyz'
-
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    proxy: {
-      // Dev-only: forward /api/* to the backend so browser requests don't
-      // trip CORS on localhost. The frontend uses /api as its baseUrl in
-      // dev; in prod it points directly at the backend.
-      '/api': {
-        target: API_TARGET,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
-  preview: {
-    proxy: {
-      // Mirror the dev proxy for `pnpm preview` so CORS is not an issue
-      // when testing the production build locally.
-      '/api': {
-        target: API_TARGET,
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
   build: {
     rollupOptions: {
       output: {
