@@ -4,7 +4,7 @@ import os
 import re
 
 # Configuration
-DB_DUMP = 'src/mocks/liveApiMock.json'
+DB_DUMP = 'src/services/apiAdapter.json'
 Q4_CSV = "data/Public Goods Award - Q4 '25 [Public].csv"
 Q1_CSV = "data/Public Goods Award - Q1 '26 [Public].csv"
 OUTPUT_DIR = 'src/data/rounds'

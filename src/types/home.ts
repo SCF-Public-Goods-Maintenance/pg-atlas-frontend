@@ -1,37 +1,11 @@
-import type { DashboardOverviewMock } from "../mocks/dashboardOverviewMock";
+import type { DashboardOverview } from "../services/dashboardService";
 
-type Overview = DashboardOverviewMock | undefined;
+export type Overview = DashboardOverview | undefined;
 
+// Props simplified as components now handle their own data fetching
 export interface HomeHeaderProps {
   overview: Overview;
   isLoading?: boolean;
-}
-
-export interface MetricsGridProps {
-  overview: Overview;
-}
-
-export interface EcosystemHealthCardProps {
-  overview: Overview;
-  isLoading?: boolean;
-}
-
-export interface TopCriticalCardProps {
-  overview: Overview;
-  isLoading?: boolean;
-}
-
-export interface AllRoundsCardProps {
-  overview: Overview;
-  isLoading?: boolean;
-}
-
-export interface AwardHealthCardProps {
-  overview: Overview;
-}
-
-export interface TrancheAvgCardProps {
-  overview: Overview;
 }
 
 export interface RoundRow {

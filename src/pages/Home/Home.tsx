@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { getMockDashboardOverview } from "../../mocks/dashboardOverviewMock";
-import type { DashboardOverviewMock } from "../../mocks/dashboardOverviewMock";
+import { getDashboardOverview } from "../../services/dashboardService";
+import type { DashboardOverview } from "../../services/dashboardService";
 import HomeHeader from "./components/HomeHeader";
 import MetricsGrid from "./components/MetricsGrid";
 import EcosystemHealthCard from "./components/EcosystemHealthCard";
@@ -13,15 +13,18 @@ export default function Home() {
   const overviewQuery = useQuery({
     queryKey: ["dashboardOverview"],
     queryFn: async () => {
-      return await getMockDashboardOverview();
+      return await getDashboardOverview();
     },
   });
 
-  const overview = overviewQuery.data as DashboardOverviewMock | undefined;
+  const overview = overviewQuery.data as DashboardOverview | undefined;
 
   return (
     <div className="flex h-full flex-col">
-      <HomeHeader overview={overview} />
+      <HomeHeader
+        overview={overview}
+        isLoading={overviewQuery.isLoading}
+      />
 
       {(overviewQuery.isLoading || overviewQuery.isError) && (
         <div
@@ -37,16 +40,16 @@ export default function Home() {
         className="grid gap-4 lg:grid-cols-3 shrink-0"
         aria-label="Headline metrics"
       >
-        <MetricsGrid overview={overview} />
-        <EcosystemHealthCard overview={overview} />
+        <MetricsGrid />
+        <EcosystemHealthCard />
       </div>
 
       <div className="mt-4 grid flex-1 min-h-0 gap-4 lg:grid-cols-3 items-stretch">
-        <TopCriticalCard overview={overview} />
-        <AllRoundsCard overview={overview} />
+        <TopCriticalCard />
+        <AllRoundsCard />
         <div className="flex flex-col gap-4 min-h-0">
-          <AwardHealthCard overview={overview} />
-          <TrancheAvgCard overview={overview} />
+          <AwardHealthCard />
+          <TrancheAvgCard />
         </div>
       </div>
     </div>

@@ -21,10 +21,13 @@ import {
   ArrowLeft,
   ArrowUpDown,
   Search,
+  GitPullRequest,
+  Vote,
+  Globe,
 } from "lucide-react";
 import type { ProjectSummary } from "@pg-atlas/data-sdk";
-import type { RoundData, RoundProjectData } from "../../types/api";
-import { useProjectsListSuspense } from "../../lib/api/queries/projects";
+import type { RoundData, RoundProjectData } from "../../types/rounds";
+import { useProjectsList } from "../../lib/api/queries/projects";
 import { rounds } from "../../data/rounds";
 import { Breadcrumb } from "../../components/atoms/Breadcrumb";
 import { ErrorBoundary } from "../../components/atoms/ErrorBoundary";
@@ -38,8 +41,9 @@ interface RoundRow {
   canonicalId: string;
   displayName: string;
   summary: ProjectSummary | null;
-  awarded: RoundProjectData["awarded"];
-  trancheCompletion: number;
+  proposalPrUrl?: string;
+  tansuProposalUrl?: string;
+  projectPageUrl?: string;
 }
 
 function buildRows(
@@ -47,11 +51,12 @@ function buildRows(
   projectIndex: Map<string, ProjectSummary>,
 ): RoundRow[] {
   return config.projects.map((p) => ({
-    canonicalId: p.canonical_id,
+    canonicalId: p.canonical_id ?? "",
     displayName: p.name,
     summary: p.canonical_id ? projectIndex.get(p.canonical_id) ?? null : null,
-    awarded: p.awarded,
-    trancheCompletion: p.tranche_completion,
+    proposalPrUrl: p.proposal_pr_url,
+    tansuProposalUrl: p.tansu_proposal_url,
+    projectPageUrl: p.project_page_url,
   }));
 }
 
@@ -153,51 +158,6 @@ function useRoundColumns() {
         },
         meta: { align: "right" },
       }),
-      columnHelper.accessor("awarded", {
-        header: "Awarded",
-        cell: (info) => {
-          const awarded = info.getValue();
-          if (awarded === "yes" || awarded === true) {
-            return (
-              <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2.5 py-1 text-xs font-medium text-green-700 dark:bg-green-900/20 dark:text-green-400">
-                <Award className="h-3 w-3" />
-                Awarded
-              </span>
-            );
-          }
-          if (awarded === "ineligible") {
-            return (
-              <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-1 text-xs font-medium text-red-700 dark:bg-red-900/20 dark:text-red-400">
-                Ineligible
-              </span>
-            );
-          }
-          return <span className="text-surface-dark/20 dark:text-white/10">—</span>;
-        },
-        meta: { align: "center" },
-      }),
-      columnHelper.display({
-        id: "tranche",
-        header: "Tranche",
-        cell: (info) => {
-          const row = info.row.original;
-          if (row.awarded !== "yes" && row.awarded !== true) return null;
-          const pct = Math.round((row.trancheCompletion || 0) * 100);
-          return (
-            <div className="flex w-[100px] flex-col gap-1">
-              <span className="text-xs font-medium text-surface-dark/50 dark:text-white/40">
-                {pct}%
-              </span>
-              <div className="h-1 w-full rounded-full bg-gray-100 dark:bg-white/10">
-                <div
-                  className="h-1 rounded-full bg-primary-500"
-                  style={{ width: `${pct}%` }}
-                />
-              </div>
-            </div>
-          );
-        },
-      }),
       columnHelper.display({
         id: "links",
         header: () => <span className="block text-right">Links</span>,
@@ -206,6 +166,39 @@ function useRoundColumns() {
           const gitUrl = row.summary?.git_owner_url;
           return (
             <div className="flex justify-end gap-3 text-surface-dark/40 dark:text-white/40">
+              {row.proposalPrUrl && (
+                <a
+                  href={row.proposalPrUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-500"
+                  title="Proposal PR"
+                >
+                  <GitPullRequest className="h-4 w-4" />
+                </a>
+              )}
+              {row.tansuProposalUrl && (
+                <a
+                  href={row.tansuProposalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-500"
+                  title="Tansu Proposal"
+                >
+                  <Vote className="h-4 w-4" />
+                </a>
+              )}
+              {row.projectPageUrl && (
+                <a
+                  href={row.projectPageUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-500"
+                  title="Project Page"
+                >
+                  <Globe className="h-4 w-4" />
+                </a>
+              )}
               {gitUrl && (
                 <a
                   href={gitUrl}
@@ -242,9 +235,7 @@ export default function Round() {
   const { roundId } = useParams({ from: "/rounds/$roundId" });
   return (
     <ErrorBoundary fallback={<RoundErrorFallback roundId={roundId} />}>
-      <Suspense fallback={<RoundSkeleton roundId={roundId} />}>
         <RoundContent roundId={roundId} />
-      </Suspense>
     </ErrorBoundary>
   );
 }
@@ -258,8 +249,11 @@ function RoundHeader({
 }: {
   roundId: string;
   name?: string;
-  votingClosed?: string;
+  votingClosed?: string | Date;
 }) {
+  const formattedDate = votingClosed instanceof Date 
+    ? votingClosed.toLocaleDateString() 
+    : votingClosed;
   return (
     <>
       <Breadcrumb
@@ -277,7 +271,7 @@ function RoundHeader({
           </h2>
         </div>
         <p className="text-sm text-surface-dark/70 dark:text-white/70">
-          Voting Closed: {votingClosed ?? "TBD"}
+          Voting Closed: {formattedDate ?? "TBD"}
         </p>
       </div>
     </>
@@ -286,7 +280,7 @@ function RoundHeader({
 
 function RoundContent({ roundId }: { roundId: string }) {
   const config = rounds[roundId];
-  const { data } = useProjectsListSuspense({ limit: 500 });
+  const { data, isLoading } = useProjectsList({ limit: 200 });
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 

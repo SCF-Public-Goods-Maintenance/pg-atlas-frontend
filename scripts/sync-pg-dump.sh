@@ -8,7 +8,7 @@ PORT=5444
 DB_NAME="pg_atlas"
 DB_USER="atlas"
 DUMP_FILE="data/pg-atlas-v0.2-dev.dump"
-OUTPUT_MOCK="src/mocks/liveApiMock.json"
+OUTPUT_MOCK="src/services/apiAdapter.json"
 
 echo "🐘 [PG Atlas] Starting DB Dump Sync..."
 

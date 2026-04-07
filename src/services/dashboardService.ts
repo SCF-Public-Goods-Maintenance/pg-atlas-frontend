@@ -1,5 +1,6 @@
-import type { MetadataResponse } from '../types/api'
+import type { MetadataResponse } from '@pg-atlas/data-sdk'
 import { computeAverageTrancheCompletion, computeTrancheDistribution, computeTotalAwarded } from '../lib/trancheHelpers'
+import { getLiveDashboardData } from './apiAdapter'
 
 export interface DashboardHeadlineMetrics {
   totalProjects: number
@@ -34,9 +35,9 @@ export interface RiskBucket {
   color: string
 }
 
-export interface DashboardOverviewMock {
+export interface DashboardOverview {
   lastComputed: string
-  metadataSummary: MetadataResponse['summary']
+  metadataSummary: MetadataResponse
   headline: DashboardHeadlineMetrics
   currentRound: DashboardRoundSpotlight
   roundsIndex: Array<{ roundId: string | number; label: string; isCurrent: boolean }>
@@ -49,17 +50,18 @@ export interface DashboardOverviewMock {
   }
 }
 
-export async function getMockDashboardOverview(): Promise<DashboardOverviewMock> {
-  // Small delay so the UI has a realistic loading state.
-  await new Promise((resolve) => setTimeout(resolve, 250))
-
-  return {
+export async function getDashboardOverview(): Promise<DashboardOverview> {
+  // 1. Start with the "ideal" structure (previously the mock)
+  const baseData: DashboardOverview = {
     lastComputed: '2026-04-01T00:00:16.366169Z',
     metadataSummary: {
-      total_nodes: 641,
-      total_edges: 9074,
-      active_count: 407,
-      last_full_recompute: '2026-04-01T00:00:16.366169Z',
+      total_projects: 641,
+      total_repos: 2652,
+      active_projects: 407,
+      total_external_repos: 4746,
+      total_dependency_edges: 9074,
+      total_contributor_edges: 0,
+      last_updated: '2026-04-01T00:00:16.366169Z',
     },
     headline: {
       totalProjects: 641,
@@ -68,7 +70,6 @@ export async function getMockDashboardOverview(): Promise<DashboardOverviewMock>
       totalExternalRepos: 4746,
       totalDependencyEdges: 9074,
       totalContributorEdges: 0,
-      // Derived from src/data/rounds — not hardcoded
       totalAwardedProjects: computeTotalAwarded(),
       averageTrancheCompletion: computeAverageTrancheCompletion(),
       trancheDistribution: computeTrancheDistribution(),
@@ -133,5 +134,17 @@ export async function getMockDashboardOverview(): Promise<DashboardOverviewMock>
       ],
     },
   }
-}
 
+  // 2. Fetch live data from the SDK
+  const liveData = await getLiveDashboardData()
+
+  // 3. Merge live data over the base
+  return {
+    ...baseData,
+    ...liveData,
+    headline: {
+      ...baseData.headline,
+      ...(liveData.headline || {}),
+    },
+  }
+}
