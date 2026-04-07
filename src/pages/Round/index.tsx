@@ -173,6 +173,7 @@ function useRoundColumns() {
                   rel="noopener noreferrer"
                   className="hover:text-primary-500"
                   title="Proposal PR"
+                  aria-label="Proposal PR"
                 >
                   <GitPullRequest className="h-4 w-4" />
                 </a>
@@ -184,6 +185,7 @@ function useRoundColumns() {
                   rel="noopener noreferrer"
                   className="hover:text-primary-500"
                   title="Tansu Proposal"
+                  aria-label="Tansu Proposal"
                 >
                   <Vote className="h-4 w-4" />
                 </a>
@@ -195,6 +197,7 @@ function useRoundColumns() {
                   rel="noopener noreferrer"
                   className="hover:text-primary-500"
                   title="Project Page"
+                  aria-label="Proposal PR"
                 >
                   <Globe className="h-4 w-4" />
                 </a>

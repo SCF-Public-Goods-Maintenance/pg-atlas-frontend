@@ -18,21 +18,21 @@ export default function ProjectDetail() {
   const project = projectQuery.data
   const repos = reposQuery.data?.items ?? []
   const contributors: ContributorSummary[] = [] // Still empty as per previous implementation
-  
+
   const roundMetadata = React.useMemo(() => {
     const id = project?.canonical_id || canonicalId;
     if (!id) return null;
     const matches = Object.values(rounds)
       .flatMap(round => round.projects)
       .filter(proj => proj.canonical_id === id);
-    
+
     if (matches.length === 0) return null;
 
     // Pick the entry with the most URL fields defined
     return matches.sort((a, b) => {
-      const count = (p: any) => 
-        (p.proposal_pr_url ? 1 : 0) + 
-        (p.tansu_proposal_url ? 1 : 0) + 
+      const count = (p: any) =>
+        (p.proposal_pr_url ? 1 : 0) +
+        (p.tansu_proposal_url ? 1 : 0) +
         (p.project_page_url ? 1 : 0);
       return count(b) - count(a);
     })[0];
@@ -40,12 +40,15 @@ export default function ProjectDetail() {
 
   const dependencySubgraph = React.useMemo(() => {
     if (!project) return { nodes: [], edges: [] }
-    const nodes = [{ id: project.display_name, repo_canonical_id: project.canonical_id }]
+    const nodes: { id: string; canonical_id: string }[] = [
+      { id: project.display_name, canonical_id: project.canonical_id }
+    ]
     const edges: { from: string; to: string }[] = []
-    
+
     if (dependsOnQuery.data) {
       dependsOnQuery.data.forEach(dep => {
         edges.push({ from: project.display_name, to: dep.project.display_name })
+        nodes.push({ id: dep.project.display_name, canonical_id: dep.project.canonical_id })
       })
     }
     return { nodes, edges }
@@ -155,11 +158,10 @@ export default function ProjectDetail() {
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${
-                project.activity_status === 'live'
+              <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${project.activity_status === 'live'
                   ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
                   : 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-white/60'
-              }`}>
+                }`}>
                 {project.activity_status}
               </span>
               <span className="rounded-full border border-gray-200 px-2.5 py-1 text-xs text-surface-dark/60 dark:border-white/15 dark:text-white/50">
@@ -206,7 +208,7 @@ export default function ProjectDetail() {
                       @{project.metadata.x_profile}
                     </a>
                   )}
-                  
+
                   {/* Round-specific links */}
                   {roundMetadata?.proposal_pr_url && (
                     <a

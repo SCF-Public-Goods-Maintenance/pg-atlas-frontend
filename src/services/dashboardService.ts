@@ -135,8 +135,13 @@ export async function getDashboardOverview(): Promise<DashboardOverview> {
     },
   }
 
-  // 2. Fetch live data from the SDK
-  const liveData = await getLiveDashboardData()
+  // 2. Fetch live data from the SDK (with fallback)
+  let liveData: Partial<DashboardOverview> = {}
+  try {
+    liveData = await getLiveDashboardData()
+  } catch (error) {
+    console.error('Failed to fetch live dashboard data, using fallback:', error)
+  }
 
   // 3. Merge live data over the base
   return {

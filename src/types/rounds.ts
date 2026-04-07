@@ -19,7 +19,7 @@ export interface RoundData {
 export type RoundEnrichedProject = ProjectSummary & {
   metadata?: {
     scf_submissions?: { round: string | number; title: string }[]
-    scf_awarded?: boolean | 'yes' | 'no' | 'ineligible'
+    scf_awarded?: 'yes' | 'no' | 'ineligible'
     scf_tranche_completion?: number
     website?: string
     description?: string

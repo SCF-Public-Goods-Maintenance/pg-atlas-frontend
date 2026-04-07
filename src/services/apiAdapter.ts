@@ -31,6 +31,7 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverview>
       } as DashboardOverview['headline'],
       currentRound: (() => {
         const latest = roundList[0]
+        if (!latest) return undefined
         return {
           roundId: `${latest.year}Q${latest.quarter}`,
           title: latest.name,
