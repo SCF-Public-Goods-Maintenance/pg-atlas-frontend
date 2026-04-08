@@ -5,53 +5,61 @@ voting_closed: 2026-01-25
 projects:
   - canonical_id: daoip-5:scf:project:scout
     name: "Scout"
-    awarded: "yes"
-    tranche_completion: 0.5
-  - canonical_id:
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
+  - canonical_id: 
     name: "Stellar hardware wallet integration"
-    awarded: "yes"
-    tranche_completion: 0.5
-  - canonical_id:
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
+  - canonical_id: 
     name: "Java Stellar SDK"
-    awarded: "yes"
-    tranche_completion: 0.5
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
   - canonical_id: daoip-5:scf:project:python_stellar_sdk
     name: "Python Stellar SDK"
-    awarded: "yes"
-    tranche_completion: 0.5
-  - canonical_id:
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
+  - canonical_id: 
     name: "Flutter Stellar SDK"
-    awarded: "yes"
-    tranche_completion: 0.5
-  - canonical_id:
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
+  - canonical_id: 
     name: "iOS Stellar SDK"
-    awarded: "yes"
-    tranche_completion: 0.5
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
   - canonical_id: daoip-5:scf:project:stellar_php_sdk
     name: "Stellar PHP SDK"
-    awarded: "yes"
-    tranche_completion: 0.5
-  - canonical_id:
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
+  - canonical_id: 
     name: ".NET SDK"
-    awarded: "yes"
-    tranche_completion: 0.5
-  - canonical_id:
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
+  - canonical_id: 
     name: "OpenGrants"
-    awarded: "yes"
-    tranche_completion: 0.5
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
   - canonical_id: daoip-5:scf:project:stellar_light
     name: "Stellar Light"
-    awarded: "yes"
-    tranche_completion: 0.5
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
   - canonical_id: daoip-5:scf:project:stellarchain.io
     name: "Stellarchain.io"
-    awarded: "yes"
-    tranche_completion: 0.5
-  - canonical_id:
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
+  - canonical_id: 
     name: "Scaffold Stellar"
-    awarded: "yes"
-    tranche_completion: 0.5
-  - canonical_id:
-    name: "SoroPG"
-    awarded: "no"
-    tranche_completion: 0
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 

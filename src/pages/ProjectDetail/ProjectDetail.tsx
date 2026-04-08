@@ -1,22 +1,62 @@
 import React from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useProjectDetail, useProjectRepos, useProjectDependsOn } from '../../lib/api/queries/projects'
 import { Link, useRouterState } from '@tanstack/react-router'
-import { getProjectDetail } from '../../lib/apiClient'
 import { Breadcrumb } from '../../components/atoms/Breadcrumb'
-import { GitBranch, CircleCheck, Wrench, ArrowUpRight, Network, ChevronRight, User, Github, HelpCircle, ExternalLink, Clock, FolderGit2 } from 'lucide-react'
+import { GitBranch, ArrowUpRight, Network, ChevronRight, User, Github, HelpCircle, ExternalLink, Clock, FolderGit2, GitPullRequest, Vote, Globe } from 'lucide-react'
+import { rounds } from '../../data/rounds'
+import type { RepoSummary, ContributorSummary } from '@pg-atlas/data-sdk'
+import type { RoundProjectData } from '../../types/rounds'
 
 export default function ProjectDetail() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname })
+  const pathname = useRouterState({ select: (s: { location: { pathname: string } }) => s.location.pathname })
   const parts = pathname.split('/').filter(Boolean)
-  const canonicalId = parts[0] === 'projects' ? parts[1] : undefined
+  const canonicalId = parts[0] === 'projects' ? decodeURIComponent(parts[1]) : undefined
 
-  const projectQuery = useQuery({
-    queryKey: ['project', canonicalId],
-    queryFn: () => getProjectDetail(String(canonicalId)),
-    enabled: Boolean(canonicalId),
-  })
+  const projectQuery = useProjectDetail(canonicalId || '')
+  const reposQuery = useProjectRepos(canonicalId || '')
+  const dependsOnQuery = useProjectDependsOn(canonicalId || '')
 
-  const project = projectQuery.data?.project
+  const project = projectQuery.data
+  const repos = reposQuery.data?.items ?? []
+  const contributors: ContributorSummary[] = [] // Still empty as per previous implementation
+
+  const roundMetadata = React.useMemo(() => {
+    const id = project?.canonical_id || canonicalId;
+    if (!id) return null;
+    const matches = Object.values(rounds)
+      .flatMap(round => round.projects)
+      .filter(proj => proj.canonical_id === id);
+
+    if (matches.length === 0) return null;
+
+    // Pick the entry with the most URL fields defined
+    return matches.sort((a, b) => {
+      const count = (p: RoundProjectData) =>
+        (p.proposal_pr_url ? 1 : 0) +
+        (p.tansu_proposal_url ? 1 : 0) +
+        (p.project_page_url ? 1 : 0);
+      return count(b) - count(a);
+    })[0];
+  }, [project, canonicalId]);
+
+  const dependencySubgraph = React.useMemo(() => {
+    if (!project) return { nodes: [], edges: [] }
+    const nodes: { id: string; canonical_id: string }[] = [
+      { id: project.display_name, canonical_id: project.canonical_id }
+    ]
+    const edges: { from: string; to: string }[] = []
+
+    if (dependsOnQuery.data) {
+      dependsOnQuery.data.forEach(dep => {
+        edges.push({ from: project.display_name, to: dep.project.display_name })
+        nodes.push({ id: dep.project.display_name, canonical_id: dep.project.canonical_id })
+      })
+    }
+    return { nodes, edges }
+  }, [project, dependsOnQuery.data])
+
+  const isLoading = projectQuery.isLoading || reposQuery.isLoading || dependsOnQuery.isLoading
+  const isError = projectQuery.isError || reposQuery.isError || dependsOnQuery.isError
 
   return (
     <div>
@@ -29,10 +69,48 @@ export default function ProjectDetail() {
         <code className="rounded bg-gray-100 px-1.5 py-0.5 text-xs font-mono dark:bg-white/10">{canonicalId ?? '—'}</code>
       </p>
 
-      {projectQuery.isLoading && <div className="mt-6">Loading project...</div>}
-      {projectQuery.isError && <div className="mt-6">Unable to load project.</div>}
+      {roundMetadata && (
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          {roundMetadata.proposal_pr_url && (
+            <a
+              href={roundMetadata.proposal_pr_url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-primary-200 bg-primary-50 px-3 py-1.5 text-xs font-semibold text-primary-700 shadow-sm transition-all hover:bg-primary-100 hover:shadow dark:border-primary-500/20 dark:bg-primary-500/10 dark:text-primary-400 dark:hover:bg-primary-500/20"
+            >
+              <GitPullRequest className="h-3.5 w-3.5" />
+              Proposal PR
+            </a>
+          )}
+          {roundMetadata.tansu_proposal_url && (
+            <a
+              href={roundMetadata.tansu_proposal_url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-primary-200 bg-primary-50 px-3 py-1.5 text-xs font-semibold text-primary-700 shadow-sm transition-all hover:bg-primary-100 hover:shadow dark:border-primary-500/20 dark:bg-primary-500/10 dark:text-primary-400 dark:hover:bg-primary-500/20"
+            >
+              <Vote className="h-3.5 w-3.5" />
+              Tansu Proposal
+            </a>
+          )}
+          {roundMetadata.project_page_url && (
+            <a
+              href={roundMetadata.project_page_url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-primary-200 bg-primary-50 px-3 py-1.5 text-xs font-semibold text-primary-700 shadow-sm transition-all hover:bg-primary-100 hover:shadow dark:border-primary-500/20 dark:bg-primary-500/10 dark:text-primary-400 dark:hover:bg-primary-500/20"
+            >
+              <Globe className="h-3.5 w-3.5" />
+              Project Page
+            </a>
+          )}
+        </div>
+      )}
 
-      {projectQuery.data && project && (
+      {isLoading && <div className="mt-6">Loading project...</div>}
+      {isError && <div className="mt-6">Unable to load project.</div>}
+
+      {project && (
         <div className="mt-6 space-y-6">
           {/* 2.14 — Metric score cards with color coding and tooltips */}
           <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:bg-white/5 dark:border-white/15">
@@ -81,19 +159,18 @@ export default function ProjectDetail() {
             </div>
 
             <div className="mt-4 flex flex-wrap items-center gap-3">
-              <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${
-                project.activity_status === 'live'
+              <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${project.activity_status === 'live'
                   ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
                   : 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-white/60'
-              }`}>
+                }`}>
                 {project.activity_status}
               </span>
               <span className="rounded-full border border-gray-200 px-2.5 py-1 text-xs text-surface-dark/60 dark:border-white/15 dark:text-white/50">
-                {project.metadata?.scf_category ?? 'Uncategorized'}
+                {String(project.metadata?.scf_category ?? 'Uncategorized')}
               </span>
-              {project.git_org_url && (
+              {project.git_owner_url && (
                 <a
-                  href={project.git_org_url}
+                  href={project.git_owner_url}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 rounded-full border border-gray-200 px-2.5 py-1 text-xs font-medium text-surface-dark/70 hover:bg-gray-50 transition-colors dark:border-white/15 dark:text-white/60 dark:hover:bg-white/10"
@@ -105,7 +182,7 @@ export default function ProjectDetail() {
             </div>
 
             {/* 4.10 — Additional metadata */}
-            {(project.metadata?.description || project.metadata?.website || project.metadata?.x_profile || project.updated_at) && (
+            {(project.metadata?.description || project.metadata?.website || project.metadata?.x_profile || project.updated_at || roundMetadata) && (
               <div className="mt-4 space-y-2 border-t border-gray-100 pt-4 dark:border-white/10">
                 {project.metadata?.description && (
                   <p className="text-sm text-surface-dark/70 dark:text-white/60">{project.metadata.description}</p>
@@ -132,6 +209,42 @@ export default function ProjectDetail() {
                       @{project.metadata.x_profile}
                     </a>
                   )}
+
+                  {/* Round-specific links */}
+                  {roundMetadata?.proposal_pr_url && (
+                    <a
+                      href={roundMetadata.proposal_pr_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 rounded-full border border-primary-100 bg-primary-50/30 px-2.5 py-1 text-xs font-medium text-primary-700 hover:bg-primary-50 transition-colors dark:border-primary-500/10 dark:bg-primary-500/5 dark:text-primary-400 dark:hover:bg-primary-500/10"
+                    >
+                      <GitPullRequest className="h-3 w-3" />
+                      Proposal PR
+                    </a>
+                  )}
+                  {roundMetadata?.tansu_proposal_url && (
+                    <a
+                      href={roundMetadata.tansu_proposal_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 rounded-full border border-primary-100 bg-primary-50/30 px-2.5 py-1 text-xs font-medium text-primary-700 hover:bg-primary-50 transition-colors dark:border-primary-500/10 dark:bg-primary-500/5 dark:text-primary-400 dark:hover:bg-primary-500/10"
+                    >
+                      <Vote className="h-3 w-3" />
+                      Tansu Proposal
+                    </a>
+                  )}
+                  {roundMetadata?.project_page_url && (
+                    <a
+                      href={roundMetadata.project_page_url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 rounded-full border border-primary-100 bg-primary-50/30 px-2.5 py-1 text-xs font-medium text-primary-700 hover:bg-primary-50 transition-colors dark:border-primary-500/10 dark:bg-primary-500/5 dark:text-primary-400 dark:hover:bg-primary-500/10"
+                    >
+                      <Globe className="h-3 w-3" />
+                      Project Page
+                    </a>
+                  )}
+
                   {project.updated_at && (
                     <span className="inline-flex items-center gap-1 text-xs text-surface-dark/40 dark:text-white/30">
                       <Clock className="h-3 w-3" />
@@ -150,11 +263,11 @@ export default function ProjectDetail() {
               <h3 className="text-sm font-semibold text-surface-dark dark:text-white">Associated repos</h3>
               <span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-surface-dark/50 dark:bg-white/10 dark:text-white/40">
                 <FolderGit2 className="h-3 w-3" />
-                {projectQuery.data.repos.length}
+                {repos.length}
               </span>
             </div>
             <div className="mt-3 space-y-2">
-              {projectQuery.data.repos.map((r) => (
+              {repos.map((r: RepoSummary) => (
                 <Link
                   key={r.canonical_id}
                   to="/repos/$canonicalId"
@@ -168,16 +281,6 @@ export default function ProjectDetail() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
-                      r.activity_status === 'live'
-                        ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400'
-                        : r.activity_status === 'in-dev'
-                          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400'
-                          : 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-white/60'
-                    }`}>
-                      {r.activity_status === 'live' ? <CircleCheck className="h-3 w-3" /> : r.activity_status === 'in-dev' ? <Wrench className="h-3 w-3" /> : null}
-                      {r.activity_status ?? '—'}
-                    </span>
                     <ArrowUpRight className="h-4 w-4 text-surface-dark/30 dark:text-white/30 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                   </div>
                 </Link>
@@ -191,11 +294,11 @@ export default function ProjectDetail() {
               <h3 className="text-sm font-semibold text-surface-dark dark:text-white">Dependency subgraph</h3>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-surface-dark/60 dark:bg-white/10 dark:text-white/50">
                 <Network className="h-3 w-3" aria-hidden="true" />
-                {projectQuery.data.dependency_subgraph.nodes.length} nodes · {projectQuery.data.dependency_subgraph.edges.length} edges
+                {dependencySubgraph.nodes.length} nodes · {dependencySubgraph.edges.length} edges
               </span>
             </div>
             <div className="mt-3 space-y-1.5">
-              {projectQuery.data.dependency_subgraph.edges.map((e, idx) => (
+              {dependencySubgraph.edges.map((e: { from: string, to: string }, idx: number) => (
                 <div
                   key={`${e.from}->${e.to}-${idx}`}
                   className="flex items-center gap-2 rounded-lg border border-gray-100 px-3 py-2 text-xs dark:border-white/10"
@@ -212,7 +315,7 @@ export default function ProjectDetail() {
           <section className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm dark:bg-white/5 dark:border-white/15">
             <h3 className="text-sm font-semibold text-surface-dark dark:text-white">Contributors</h3>
             <div className="mt-3 space-y-2">
-              {projectQuery.data.contributors.map((c) => (
+              {contributors.map((c: ContributorSummary) => (
                 <Link
                   key={c.id}
                   to="/contributors/$id"

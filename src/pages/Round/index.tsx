@@ -1,4 +1,4 @@
-import { useMemo, useState, Suspense } from "react";
+import { useMemo, useState } from "react";
 import { Link, useParams } from "@tanstack/react-router";
 import {
   useReactTable,
@@ -16,19 +16,20 @@ import {
   CircleCheck,
   Wrench,
   CircleDashed,
-  Award,
   SearchX,
   ArrowLeft,
   ArrowUpDown,
   Search,
+  GitPullRequest,
+  Vote,
+  Globe,
 } from "lucide-react";
 import type { ProjectSummary } from "@pg-atlas/data-sdk";
-import type { RoundData, RoundProjectData } from "../../types/api";
-import { useProjectsListSuspense } from "../../lib/api/queries/projects";
+import type { RoundData } from "../../types/rounds";
+import { useProjectsList } from "../../lib/api/queries/projects";
 import { rounds } from "../../data/rounds";
 import { Breadcrumb } from "../../components/atoms/Breadcrumb";
 import { ErrorBoundary } from "../../components/atoms/ErrorBoundary";
-import { Skeleton } from "../../components/atoms/Skeleton";
 
 /**
  * Display row merges a static round-config entry with its live
@@ -38,8 +39,9 @@ interface RoundRow {
   canonicalId: string;
   displayName: string;
   summary: ProjectSummary | null;
-  awarded: RoundProjectData["awarded"];
-  trancheCompletion: number;
+  proposalPrUrl?: string;
+  tansuProposalUrl?: string;
+  projectPageUrl?: string;
 }
 
 function buildRows(
@@ -47,11 +49,12 @@ function buildRows(
   projectIndex: Map<string, ProjectSummary>,
 ): RoundRow[] {
   return config.projects.map((p) => ({
-    canonicalId: p.canonical_id,
+    canonicalId: p.canonical_id ?? "",
     displayName: p.name,
     summary: p.canonical_id ? projectIndex.get(p.canonical_id) ?? null : null,
-    awarded: p.awarded,
-    trancheCompletion: p.tranche_completion,
+    proposalPrUrl: p.proposal_pr_url,
+    tansuProposalUrl: p.tansu_proposal_url,
+    projectPageUrl: p.project_page_url,
   }));
 }
 
@@ -95,13 +98,12 @@ function useRoundColumns() {
           if (!status) {
             return <span className="text-xs text-surface-dark/30">—</span>;
           }
-          const className = `inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${
-            status === "live"
+          const className = `inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${status === "live"
               ? "bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400"
               : status === "in-dev"
                 ? "bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"
                 : "bg-gray-100 text-gray-700 dark:bg-white/10 dark:text-white/60"
-          }`;
+            }`;
           return (
             <span className={className}>
               {status === "live" ? (
@@ -153,51 +155,6 @@ function useRoundColumns() {
         },
         meta: { align: "right" },
       }),
-      columnHelper.accessor("awarded", {
-        header: "Awarded",
-        cell: (info) => {
-          const awarded = info.getValue();
-          if (awarded === "yes" || awarded === true) {
-            return (
-              <span className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2.5 py-1 text-xs font-medium text-green-700 dark:bg-green-900/20 dark:text-green-400">
-                <Award className="h-3 w-3" />
-                Awarded
-              </span>
-            );
-          }
-          if (awarded === "ineligible") {
-            return (
-              <span className="inline-flex items-center rounded-full bg-red-100 px-2.5 py-1 text-xs font-medium text-red-700 dark:bg-red-900/20 dark:text-red-400">
-                Ineligible
-              </span>
-            );
-          }
-          return <span className="text-surface-dark/20 dark:text-white/10">—</span>;
-        },
-        meta: { align: "center" },
-      }),
-      columnHelper.display({
-        id: "tranche",
-        header: "Tranche",
-        cell: (info) => {
-          const row = info.row.original;
-          if (row.awarded !== "yes" && row.awarded !== true) return null;
-          const pct = Math.round((row.trancheCompletion || 0) * 100);
-          return (
-            <div className="flex w-[100px] flex-col gap-1">
-              <span className="text-xs font-medium text-surface-dark/50 dark:text-white/40">
-                {pct}%
-              </span>
-              <div className="h-1 w-full rounded-full bg-gray-100 dark:bg-white/10">
-                <div
-                  className="h-1 rounded-full bg-primary-500"
-                  style={{ width: `${pct}%` }}
-                />
-              </div>
-            </div>
-          );
-        },
-      }),
       columnHelper.display({
         id: "links",
         header: () => <span className="block text-right">Links</span>,
@@ -206,6 +163,42 @@ function useRoundColumns() {
           const gitUrl = row.summary?.git_owner_url;
           return (
             <div className="flex justify-end gap-3 text-surface-dark/40 dark:text-white/40">
+              {row.proposalPrUrl && (
+                <a
+                  href={row.proposalPrUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-500"
+                  title="Proposal PR"
+                  aria-label="Proposal PR"
+                >
+                  <GitPullRequest className="h-4 w-4" />
+                </a>
+              )}
+              {row.tansuProposalUrl && (
+                <a
+                  href={row.tansuProposalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-500"
+                  title="Tansu Proposal"
+                  aria-label="Tansu Proposal"
+                >
+                  <Vote className="h-4 w-4" />
+                </a>
+              )}
+              {row.projectPageUrl && (
+                <a
+                  href={row.projectPageUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-500"
+                  title="Project Page"
+                  aria-label="Proposal PR"
+                >
+                  <Globe className="h-4 w-4" />
+                </a>
+              )}
               {gitUrl && (
                 <a
                   href={gitUrl}
@@ -242,9 +235,7 @@ export default function Round() {
   const { roundId } = useParams({ from: "/rounds/$roundId" });
   return (
     <ErrorBoundary fallback={<RoundErrorFallback roundId={roundId} />}>
-      <Suspense fallback={<RoundSkeleton roundId={roundId} />}>
-        <RoundContent roundId={roundId} />
-      </Suspense>
+      <RoundContent roundId={roundId} />
     </ErrorBoundary>
   );
 }
@@ -258,8 +249,11 @@ function RoundHeader({
 }: {
   roundId: string;
   name?: string;
-  votingClosed?: string;
+  votingClosed?: string | Date;
 }) {
+  const formattedDate = votingClosed instanceof Date
+    ? votingClosed.toLocaleDateString()
+    : votingClosed;
   return (
     <>
       <Breadcrumb
@@ -277,7 +271,7 @@ function RoundHeader({
           </h2>
         </div>
         <p className="text-sm text-surface-dark/70 dark:text-white/70">
-          Voting Closed: {votingClosed ?? "TBD"}
+          Voting Closed: {formattedDate ?? "TBD"}
         </p>
       </div>
     </>
@@ -286,7 +280,7 @@ function RoundHeader({
 
 function RoundContent({ roundId }: { roundId: string }) {
   const config = rounds[roundId];
-  const { data } = useProjectsListSuspense({ limit: 500 });
+  const { data } = useProjectsList({ limit: 200 });
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
@@ -367,23 +361,20 @@ function RoundContent({ roundId }: { roundId: string }) {
                         return (
                           <th
                             key={header.id}
-                            className={`px-6 py-4 ${
-                              align === "right"
+                            className={`px-6 py-4 ${align === "right"
                                 ? "text-right"
                                 : align === "center"
                                   ? "text-center"
                                   : ""
-                            } ${
-                              header.column.getCanSort()
+                              } ${header.column.getCanSort()
                                 ? "cursor-pointer select-none hover:text-surface-dark/70 dark:hover:text-white/70"
                                 : ""
-                            }`}
+                              }`}
                             onClick={header.column.getToggleSortingHandler()}
                           >
                             <div
-                              className={`inline-flex items-center gap-1 ${
-                                align === "right" ? "flex-row-reverse" : ""
-                              }`}
+                              className={`inline-flex items-center gap-1 ${align === "right" ? "flex-row-reverse" : ""
+                                }`}
                             >
                               {flexRender(
                                 header.column.columnDef.header,
@@ -412,13 +403,12 @@ function RoundContent({ roundId }: { roundId: string }) {
                         return (
                           <td
                             key={cell.id}
-                            className={`px-6 py-4 ${
-                              align === "right"
+                            className={`px-6 py-4 ${align === "right"
                                 ? "text-right"
                                 : align === "center"
                                   ? "text-center"
                                   : ""
-                            } dark:text-white/80`}
+                              } dark:text-white/80`}
                           >
                             {flexRender(
                               cell.column.columnDef.cell,
@@ -468,41 +458,6 @@ function EmptyRoundState({ roundId }: { roundId: string }) {
   );
 }
 
-function RoundSkeleton({ roundId }: { roundId: string }) {
-  return (
-    <div className="space-y-6">
-      <RoundHeader roundId={roundId} />
-      <div className="flex items-center gap-3">
-        <Skeleton className="h-9 w-64" />
-        <Skeleton className="h-3 w-24" />
-      </div>
-      <div
-        className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-white/15 dark:bg-white/5"
-        aria-busy="true"
-        aria-live="polite"
-      >
-        <div className="flex border-b border-gray-100 bg-gray-50 px-6 py-4 dark:border-white/5 dark:bg-white/5">
-          <Skeleton className="h-3 w-20" />
-        </div>
-        <div className="flex flex-col divide-y divide-gray-100 dark:divide-white/5">
-          {Array.from({ length: 10 }).map((_, idx) => (
-            <div key={idx} className="flex items-center gap-6 px-6 py-4">
-              <div className="flex-1">
-                <Skeleton className="h-4 w-48" />
-                <Skeleton className="mt-1 h-3 w-24" />
-              </div>
-              <Skeleton className="h-6 w-16" />
-              <Skeleton className="h-4 w-10" />
-              <Skeleton className="h-4 w-8" />
-              <Skeleton className="h-4 w-12" />
-              <Skeleton className="h-6 w-20" />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function RoundErrorFallback({ roundId }: { roundId: string }) {
   return (

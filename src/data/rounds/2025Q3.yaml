@@ -3,39 +3,48 @@ year: 2025
 quarter: 3
 voting_closed: 2025-07-14
 projects:
-  - canonical_id:
+  - canonical_id: 
     name: "Flutter Stellar SDK"
-    awarded: "yes"
-    tranche_completion: 1.0
-  - canonical_id:
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
+  - canonical_id: 
     name: "iOS Stellar SDK"
-    awarded: "yes"
-    tranche_completion: 1.0
-  - canonical_id:
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
+  - canonical_id: 
     name: "Java Stellar SDK"
-    awarded: "yes"
-    tranche_completion: 1.0
-  - canonical_id:
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
+  - canonical_id: 
     name: "OpenGrants"
-    awarded: "yes"
-    tranche_completion: 1.0
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
   - canonical_id: daoip-5:scf:project:python_stellar_sdk
     name: "Python Stellar SDK"
-    awarded: "yes"
-    tranche_completion: 1.0
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
   - canonical_id: daoip-5:scf:project:scout
     name: "Scout"
-    awarded: "yes"
-    tranche_completion: 1.0
-  - canonical_id:
+    proposal_pr_url: https://github.com/stellar/stellar-docs/pull/1
+    tansu_proposal_url: https://tansu.io/proposals/1
+    project_page_url: https://scout.com
+  - canonical_id: 
     name: "Stellar hardware wallet integration"
-    awarded: "yes"
-    tranche_completion: 1.0
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
   - canonical_id: daoip-5:scf:project:stellar_light
     name: "Stellar Light"
-    awarded: "yes"
-    tranche_completion: 1.0
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 
   - canonical_id: daoip-5:scf:project:stellar_php_sdk
     name: "Stellar PHP SDK"
-    awarded: "yes"
-    tranche_completion: 1.0
+    proposal_pr_url: 
+    tansu_proposal_url: 
+    project_page_url: 

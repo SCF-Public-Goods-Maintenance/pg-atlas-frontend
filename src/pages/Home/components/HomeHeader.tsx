@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import { roundList } from "../../../data/rounds";
+import type { DashboardOverview } from "../../../services/dashboardService";
 
 const FALLBACK_ROUND_ID = "2026Q1";
 
@@ -10,12 +11,32 @@ function getCurrentRoundId(): string {
   return `${current.year}Q${current.quarter}`;
 }
 
-export default function HomeHeader() {
+export default function HomeHeader({
+  overview,
+  isLoading,
+}: {
+  overview?: DashboardOverview;
+  isLoading?: boolean;
+}) {
   const currentRoundId = getCurrentRoundId();
+  const lastUpdated = (() => {
+    if (!overview?.lastComputed) return "—";
+    const date = new Date(overview.lastComputed);
+    return Number.isNaN(date.getTime()) ? "—" : date.toLocaleString();
+  })();
 
   return (
     <div className="mb-3 relative shrink-0">
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Clock
+            className={`h-3.5 w-3.5 text-surface-dark/30 dark:text-white/20 ${isLoading ? "animate-pulse" : ""
+              }`}
+          />
+          <span className="text-[10px] font-medium uppercase tracking-wider text-surface-dark/40 dark:text-white/40">
+            Last refresh: <span className="text-surface-dark/60 dark:text-white/60">{lastUpdated}</span>
+          </span>
+        </div>
         <Link
           to="/rounds/$roundId"
           params={{ roundId: currentRoundId }}
