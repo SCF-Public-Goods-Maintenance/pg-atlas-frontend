@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Trophy, ArrowRight, Award, ShieldCheck, Clock } from "lucide-react";
+import { Trophy, ArrowRight, Clock } from "lucide-react";
 import { roundList } from "../../../data/rounds";
 
 /**
@@ -15,8 +15,6 @@ export default function CurrentRoundSpotlight() {
 
   const roundId = `${current.year}Q${current.quarter}`;
   const proposals = current.projects.length;
-  const awarded = current.projects.length; // All projects in these YAML files are awarded
-  const ineligible = 0; // Ineligible projects are removed from the YAML
 
   return (
     <div className="mb-4 shrink-0 rounded-2xl border border-primary-500/20 bg-gradient-to-r from-primary-50 via-white to-white p-4 shadow-sm dark:border-primary-500/30 dark:from-primary-500/10 dark:via-white/5 dark:to-white/5">

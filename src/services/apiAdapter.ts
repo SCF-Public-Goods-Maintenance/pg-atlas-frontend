@@ -45,7 +45,7 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverview>
         isCurrent: r === roundList[0]
       })),
     }
-  } catch (e) {
+  } catch {
     // If API fails, return empty to fallback to pure mock
     return {}
   }
@@ -65,7 +65,7 @@ export async function getProjectsForRound(roundId: string): Promise<RoundDetail 
     if (data && data.items) {
       dbProjects = data.items
     }
-  } catch (e) {
+  } catch {
     // Ignore API errors, will fallback to empty db map
   }
 

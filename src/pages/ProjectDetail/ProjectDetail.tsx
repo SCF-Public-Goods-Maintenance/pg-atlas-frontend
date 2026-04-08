@@ -2,9 +2,10 @@ import React from 'react'
 import { useProjectDetail, useProjectRepos, useProjectDependsOn } from '../../lib/api/queries/projects'
 import { Link, useRouterState } from '@tanstack/react-router'
 import { Breadcrumb } from '../../components/atoms/Breadcrumb'
-import { GitBranch, CircleCheck, Wrench, ArrowUpRight, Network, ChevronRight, User, Github, HelpCircle, ExternalLink, Clock, FolderGit2, GitPullRequest, Vote, Globe } from 'lucide-react'
+import { GitBranch, ArrowUpRight, Network, ChevronRight, User, Github, HelpCircle, ExternalLink, Clock, FolderGit2, GitPullRequest, Vote, Globe } from 'lucide-react'
 import { rounds } from '../../data/rounds'
 import type { RepoSummary, ContributorSummary } from '@pg-atlas/data-sdk'
+import type { RoundProjectData } from '../../types/rounds'
 
 export default function ProjectDetail() {
   const pathname = useRouterState({ select: (s: { location: { pathname: string } }) => s.location.pathname })
@@ -30,7 +31,7 @@ export default function ProjectDetail() {
 
     // Pick the entry with the most URL fields defined
     return matches.sort((a, b) => {
-      const count = (p: any) =>
+      const count = (p: RoundProjectData) =>
         (p.proposal_pr_url ? 1 : 0) +
         (p.tansu_proposal_url ? 1 : 0) +
         (p.project_page_url ? 1 : 0);
@@ -165,7 +166,7 @@ export default function ProjectDetail() {
                 {project.activity_status}
               </span>
               <span className="rounded-full border border-gray-200 px-2.5 py-1 text-xs text-surface-dark/60 dark:border-white/15 dark:text-white/50">
-                {project.metadata?.scf_category ?? 'Uncategorized'}
+                {String(project.metadata?.scf_category ?? 'Uncategorized')}
               </span>
               {project.git_owner_url && (
                 <a
