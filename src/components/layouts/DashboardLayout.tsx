@@ -6,6 +6,8 @@ import {
   Trophy,
   Users,
   Share2,
+  FolderKanban,
+  GitFork,
   BookOpen,
   Menu,
   X,
@@ -24,6 +26,8 @@ const navSections: NavSection[] = [
     items: [
       { name: "Rounds", href: "/rounds", icon: Trophy },
       { name: "Contributors", href: "/contributors", icon: Users },
+      { name: "Projects", href: "/projects", icon: FolderKanban },
+      { name: "Repos", href: "/repos", icon: GitFork },
       { name: "Graph", href: "/graph", icon: Share2 },
     ],
   },

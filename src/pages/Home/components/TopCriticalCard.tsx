@@ -5,10 +5,10 @@ import type { ProjectSummary } from "@pg-atlas/data-sdk";
 import { useProjectsListSuspense } from "../../../lib/api/queries/projects";
 import { Skeleton } from "../../../components/atoms/Skeleton";
 
-const SKELETON_ROW_COUNT = 10;
+const SKELETON_ROW_COUNT = 5;
 const TOP_SAMPLE_SIZE = 100;
 
-const TOP_DISPLAY_COUNT = 10;
+const TOP_DISPLAY_COUNT = 5;
 
 function CardShell({ children }: { children: React.ReactNode }) {
   return (

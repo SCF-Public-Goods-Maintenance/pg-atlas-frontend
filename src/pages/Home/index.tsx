@@ -5,14 +5,7 @@ import DataTransparencyPanel, {
   DataTransparencyPanelFallback,
 } from "./components/DataTransparencyPanel";
 
-// NOTE: CurrentRoundSpotlight is temporarily hidden for the same reason
-// as AwardHealthCard and TrancheAvgCard — its proposal / awarded counts
-// come from the static round config (`src/data/rounds/*.json`), and the
-// SDK has no `/rounds` endpoint or round-scoped aggregate. Re-enable
-// once the backend ships round data (see `docs/BACKEND_GAPS.md`).
-// import CurrentRoundSpotlight, {
-//   CurrentRoundSpotlightFallback,
-// } from "./components/CurrentRoundSpotlight";
+import CurrentRoundCard from "./components/CurrentRoundCard";
 import { ErrorBoundary } from "../../components/atoms/ErrorBoundary";
 
 import MetricsGrid, {
@@ -56,12 +49,6 @@ export default function Home() {
     <div className="flex h-full flex-col overflow-x-hidden">
       <HomeHeader />
 
-      {/*
-        <ErrorBoundary fallback={<CurrentRoundSpotlightFallback />}>
-          <CurrentRoundSpotlight />
-        </ErrorBoundary>
-      */}
-
       <div
         className="grid gap-3 sm:gap-4 md:grid-cols-3 shrink-0"
         aria-label="Headline metrics"
@@ -83,11 +70,14 @@ export default function Home() {
         className="mt-3 sm:mt-4 grid gap-3 sm:gap-4 md:grid-cols-2 items-stretch"
         aria-label="Critical metrics"
       >
-        <ErrorBoundary fallback={<TopCriticalCardFallback />}>
-          <Suspense fallback={<TopCriticalCardSkeleton />}>
-            <TopCriticalCard />
-          </Suspense>
-        </ErrorBoundary>
+        <div className="flex flex-col gap-3 sm:gap-4">
+          <CurrentRoundCard />
+          <ErrorBoundary fallback={<TopCriticalCardFallback />}>
+            <Suspense fallback={<TopCriticalCardSkeleton />}>
+              <TopCriticalCard />
+            </Suspense>
+          </ErrorBoundary>
+        </div>
         {/*
           <ErrorBoundary fallback={<AllRoundsCardFallback />}>
             <AllRoundsCard />
