@@ -23,7 +23,7 @@ projects:
     proposal_pr_url: 
     tansu_proposal_url: 
     project_page_url: 
-  - canonical_id: 
+  - canonical_id: daoip-5:scf:project:flutter_wallet_sdk
     name: "Flutter Stellar SDK"
     proposal_pr_url: 
     tansu_proposal_url: 
