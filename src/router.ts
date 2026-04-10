@@ -8,7 +8,9 @@ import { roundsIndexRoute } from "./routes/rounds/index";
 import { roundRoute } from "./routes/rounds/$roundId";
 import { contributorsIndexRoute } from "./routes/contributors/index";
 import { contributorRoute } from "./routes/contributors/$id";
+import { projectsIndexRoute } from "./routes/projects/index";
 import { projectRoute } from "./routes/projects/$canonicalId";
+import { reposIndexRoute } from "./routes/repos/index";
 import { repoRoute } from "./routes/repos/$canonicalId";
 
 const routeTree = rootRoute.addChildren([
@@ -20,7 +22,9 @@ const routeTree = rootRoute.addChildren([
   roundRoute,
   contributorsIndexRoute,
   contributorRoute,
+  projectsIndexRoute,
   projectRoute,
+  reposIndexRoute,
   repoRoute,
 ]);
 

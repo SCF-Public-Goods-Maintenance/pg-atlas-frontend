@@ -1,15 +1,5 @@
-import { Link } from "@tanstack/react-router";
-import { ArrowRight, Clock } from "lucide-react";
-import { roundList } from "../../../data/rounds";
+import { Clock } from "lucide-react";
 import type { DashboardOverview } from "../../../services/dashboardService";
-
-const FALLBACK_ROUND_ID = "2026Q1";
-
-function getCurrentRoundId(): string {
-  const current = roundList[0];
-  if (!current) return FALLBACK_ROUND_ID;
-  return `${current.year}Q${current.quarter}`;
-}
 
 export default function HomeHeader({
   overview,
@@ -18,7 +8,6 @@ export default function HomeHeader({
   overview?: DashboardOverview;
   isLoading?: boolean;
 }) {
-  const currentRoundId = getCurrentRoundId();
   const lastUpdated = (() => {
     if (!overview?.lastComputed) return "—";
     const date = new Date(overview.lastComputed);
@@ -27,7 +16,7 @@ export default function HomeHeader({
 
   return (
     <div className="mb-3 relative shrink-0">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center">
         <div className="flex items-center gap-2">
           <Clock
             className={`h-3.5 w-3.5 text-surface-dark/30 dark:text-white/20 ${isLoading ? "animate-pulse" : ""
@@ -37,17 +26,6 @@ export default function HomeHeader({
             Last refresh: <span className="text-surface-dark/60 dark:text-white/60">{lastUpdated}</span>
           </span>
         </div>
-        <Link
-          to="/rounds/$roundId"
-          params={{ roundId: currentRoundId }}
-          className="group inline-flex items-center gap-1.5 rounded-full bg-primary-500 px-4 py-2 text-xs font-semibold text-white shadow-sm hover:bg-primary-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
-        >
-          Current round
-          <ArrowRight
-            className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
-            aria-hidden="true"
-          />
-        </Link>
       </div>
     </div>
   );
