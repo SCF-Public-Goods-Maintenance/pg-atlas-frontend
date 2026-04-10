@@ -127,15 +127,18 @@ Every one of the 641 projects returns `criticality_score: null`,
 - Round page leaderboard: sortable columns (criticality, pony, adoption).
 - Any ranking view should be able to ask the backend for the server-sorted
   top N without fetching the full 641 rows.
+- Table filtering: User must be able to filter by `category` and sort natively via server.
 
 **Current workaround**
-- Fetch `/projects?limit=100` or `/projects?limit=500` and sort in memory.
-- For the Round page this is acceptable (one request, ~500 rows).
+- Fetch `/projects?limit=1000` and handle sorting/pagination in memory via `MaterialReactTable` across the entire list.
 - For global ranking it's inefficient once the project count grows.
 
 **Requested resolution**
 - Accept `sort` (e.g. `criticality_score:desc,display_name:asc`) on
-  `GET /projects`. Same pattern for `GET /repos`.
+  `GET /projects` and `GET /repos`.
+- **CRITICAL:** The database sorting logic *must* implement `NULLS LAST` so that descending sorts on metrics like `criticality_score` do not push unscored/null projects to the top of the list.
+- Additionally, expose column-level filters (e.g. `category=<category_name>`) alongside the existing `search`, `project_type`, and `activity_status` parameters so the tables can be completely server-driven.
+- Suggestion: if sorting by `activity_status`, use a custom order (`live` > `in-dev` > `discontinued`).
 
 ---
 

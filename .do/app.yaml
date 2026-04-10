@@ -18,6 +18,7 @@ static_sites:
       repo: SCF-Public-Goods-Maintenance/pg-atlas-frontend
     name: pg-atlas-frontend
     source_dir: /
+    catchall_document: index.html
 
 ingress:
   rules:
