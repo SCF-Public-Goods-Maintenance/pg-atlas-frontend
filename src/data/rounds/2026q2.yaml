@@ -1,0 +1,35 @@
+name: "Public Goods Award"
+year: 2026
+quarter: 2
+voting_closed:
+projects:
+  - canonical_id:
+    name: "SoroPG"
+    proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/35
+    tansu_proposal_url:
+    project_page_url:
+
+  - canonical_id:
+    name: "RefractorSpace"
+    proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/39
+    tansu_proposal_url:
+    project_page_url:
+
+  - canonical_id:
+    main_repo_id: pkg:github/Soneso/stellar-ios-mac-sdk
+    name: "iOS Stellar SDK"
+    proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/42
+    tansu_proposal_url:
+    project_page_url:
+
+  - canonical_id: daoip-5:scf:project:flutter_wallet_sdk
+    name: "Flutter Stellar SDK"
+    proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/44
+    tansu_proposal_url:
+    project_page_url:
+
+  - canonical_id: daoip-5:scf:project:stellar_php_sdk
+    name: "Stellar PHP SDK"
+    proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/46
+    tansu_proposal_url:
+    project_page_url:

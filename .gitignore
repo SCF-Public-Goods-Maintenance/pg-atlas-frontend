@@ -27,8 +27,6 @@ dist-ssr
 .cursor/rules/
 .package-lock.json
 
-data
-
 # Local tracking & reference files
 progress/
 UI_UX_IMPROVEMENTS.md
