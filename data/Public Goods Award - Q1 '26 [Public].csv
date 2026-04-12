@@ -1,0 +1,1420 @@
+﻿Submission / Project,Status,Requested Amount,Category (from Project),Type (from Project),Website (from Project),Github (from Project),Awarded,Retro Impact Past 3 Months,Deliverables Past 3 Months,Goals Upcoming 3 Months,Upcoming Deliverables 3 month,AI Review,Team Description (from Project),Public Good Award First Time?,Team Description,Revenue Model?,Revenue Model? (Detailed),Previous Submission,Goals Upcoming 3 Months (from Previous Submission),Requested Amount (from Previous Submission),Project,Round,Award Type,Submission PDF,Submission PDF (from Previous Submission)
+Scout,Awarded (50%),$33000.00,Developer Tooling,Other Security Tool,https://www.coinfabrik.com/,https://github.com/CoinFabrik/scout-audit,checked,"We successfully completed all the main activities and deliverables within the 2025-Q4 scope. As a result, we deployed a new version of Scout and developed an AI-based proof of concept for vulnerability detection. This POC is based on auditor-crafted prompting and was able to identify issues from existing audits.
+
+We deployed the new version of Scout in November, and in December we saw a peak of 1,658 crate downloads.
+
+We currently have no metrics for the AI POC. Our strategy for 2026-Q1 is to continue experimenting with AI agents and later evaluate how to scale the POC into an initial product that, together with Scout, would form a new suite of security vulnerability detection tools for Soroban.
+","Follows a list of deliverables made during 2025-Q4:
+
+Month 1 – Add new detectors - Chunk 1 of 3
+- 3 new Soroban detectors implemented and integrated into Scout.
+    - Avoid Vec or Map input
+    - Contract import dependency
+    - Ineffective extend TTL
+- Updated documentation for each detector, including detection logic and remediation advice.
+    - Avoid Vec or Map input
+    - Contract import dependency
+    - Ineffective extend TTL
+- GitHub release with new version of Scout including detectors and new test-cases.
+    - Scout version 0.3.1.1
+
+Month 2 – AI Research and Planning
+- State-of-the-art survey document.
+- Specification of the selected POC approach.
+- Set of contracts chosen for initial testing. Included in the POC Specification document (see Initial Set of Test Contracts section).
+
+Month 3 – AI POC Design and Construction
+- Working POC code.
+- Detailed POC design document.
+- Results and findings document.
+","Our plan has been developed having two main objectives:
+1. Continue adding vulnerability detectors to Scout
+2. Experiment AI agents for vulnerability detection
+
+As stated in our Results Document, the work completed in 2025-Q4 has crystallized our path forward. We have successfully engineered a tool for structured prompting and proven that our abstract prompts can detect confirmed vulnerabilities. However, the experimental results show that simply feeding more files into a large context window is insufficient for consistent detection.
+
+Future development will pivot to a research phase designed to solve context saturation. We plan to evaluate an advanced architecture leveraging multi-agent workflows and chained API calls. This architectural evolution is intended to solve the noise issue by intelligently narrowing the scope of analysis before the final vulnerability assessment takes place.
+","Month 1 – Add new detectors - Chunk 2 of 3
+- 3 new Soroban detectors implemented and integrated into Scout.
+- Updated documentation for each detector, including detection logic and remediation advice.
+- GitHub release with new version of Scout including detectors and new test-cases.
+
+Month 2 – AI Agents Research and Planning
+- AI agents survey document.
+- Specification of the selected POC approach.
+- Set of contracts chosen for initial testing.
+
+Month 3 – AI POC Design and Construction
+- Working POC code.
+- Detailed POC design document.
+- Results and findings document covering both sets of contracts.
+
+After the completion of the 2026-Q1 grant, we foresee the ideation and implementation of these AI POCs (from both 2025-Q4 and 2026-Q1) into a production product. This would create, together with Scout, a more robust and complementary suite for vulnerability detection for Soroban.
+","Overall assessment
+Substantial delivery against Q4 plan: new Scout detectors released with documentation and a tagged version; AI research completed with a working POC and supporting documents. Main shortfall is absence of quantitative evaluation and unclear completion of the “expanded set” POC testing.
+
+Goal-by-goal status (based on the last 3 months):
+- Month 1 – Add new detectors
+  - Met: 3 Soroban detectors implemented (“Avoid Vec or Map input”, “Contract import dependency”, “Ineffective extend TTL”), documentation updated, GitHub release (Scout v0.3.1.1) with tests.
+  - Not evidenced: engagement with SDF Security/Audit Bank and explicit audit-report review steps (implied but not substantiated).
+- Month 2 – AI Research and Planning
+  - Met: state-of-the-art survey, selected POC approach, initial test set defined.
+- Month 3 – AI POC Design and Construction
+  - Partially met: working POC, detailed design, results/findings; POC identified issues from existing audits.
+  - Gap: no metrics provided; scalability/effectiveness on an expanded contract set not evidenced.
+
+Impact achieved (substantiated by submission):
+- Tooling: New detectors and docs shipped; Scout v0.3.1.1 released.
+- Adoption signal: 1,658 crate downloads in December after November release.
+- AI capability: Auditor-crafted prompting POC can surface known vulnerabilities.
+
+Critical gaps vs original impact promises, as well as measurement gaps
+- No quantitative AI POC metrics (precision/recall, FPR, coverage, runtime) and no reported results on an expanded dataset.
+- No detector efficacy metrics (e.g., findings on public repos, false positive rates, real-world issues prevented).
+- Stakeholder engagement (SDF/Audit Bank) not evidenced.
+- Roadmap to complete remaining “Q3 detectors” beyond “chunk 1 of 3” not articulated.
+
+Next 3 months plan vs prior 3 months plan (overlap and shifts)
+- Overlap: Continue adding detectors; continue AI experimentation.
+- Shift: Pivot from scaling current POC to researching solutions for context saturation via multi-agent workflows and chained API calls before broader rollout.
+
+Recommendations to improve submission (to realign with stated goals and maximize impact)
+- Publish evaluation metrics: for AI POC (per-vuln precision/recall, FPR, coverage, throughput) on a defined initial and expanded benchmark set; for detectors (rule coverage map, test suites, real-world scan stats).
+- Document stakeholder validation: summarize inputs from SDF/Audit Bank and how they informed detector design.
+- Clarify Q1 deliverables: specific number and titles of next detector rules; milestones for multi-agent POC (e.g., prototype, ablation on context-reduction steps).
+- Provide scalability results: run POC on an expanded corpus and report performance/quality trade-offs.
+- Track adoption beyond downloads: projects integrating Scout, CI usage, issues opened/resolved due to findings.
+- Risk and feasibility notes for multi-agent/chain-of-calls approach: latency, cost ceilings, privacy, and fallback heuristics; define success criteria for advancing to productization.","CoinFabrik is a pioneering research, development, and security auditing company with a distinct focus on Web3 technologies. Established in 2014, our extensive portfolio comprises over 500 projects related to Web3, spanning the globe. Ranging from dynamic startups to industry giants, our expertise extends across a spectrum of cutting-edge technologies -Stellar being one of them.
+
+Scout for Soroban has been developed thanks to the support of the SCF and its grants program, and we're proud to say that since its launch it has had great acceptance in the Soroban community.","No, I've submitted before to this award",,,,Scout,"CoinFabrik has been actively researching the application of AI for vulnerability detection and clustering in smart contracts. Our work has shown that AI can complement traditional deterministic analysis by reasoning over patterns, data flows, and complex interactions that rule-based tools may miss, thereby reducing false negatives and providing explainable insights. Integrating these AI techniques with existing static analysis frameworks can significantly enhance the security assessment of Stellar smart contracts, enabling more reliable detection of vulnerabilities, faster audit cycles, and ultimately contributing to the robustness and trustworthiness of applications built on the Stellar network.
+
+We are proposing for 2025-Q4 and following grants to progressively complete 20025-Q3 detectors while also advancing our AI initiative.
+
+Month 1 – Add new detectors - Chunk 1
+- Review historical and recent Soroban audit reports.
+- Identify vulnerabilities that can be translated into static detection patterns.
+- Engage with Stellar Audit Bank and Stellar Development Foundation security team to share insights and validate relevance of potential detectors.
+- Design and implement at least 3 new detectors.
+
+Month 2 – AI Research and Planning
+- Survey the state of the art in static analysis and AI techniques applied to smart contracts (e.g., LLMs).
+- Choose the most appropriate approach for the POC (Proof of Concept) based on the survey results.
+- Select an initial set of smart contracts to use as test cases for validating the POC.
+
+Month 3 – AI POC Design and Construction
+- Design and build the POC based on the defined approach.
+- Run the POC on the initial set of contracts to validate its functionality.
+- Run the POC on an expanded set of contracts to evaluate scalability and effectiveness.
+",$33000.00,Scout,SCF Public Goods - Q1 '26,Public Goods Award,Scout - SCF Public Goods Award Submission Q1 2026.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/M57_yE-Ac_8i4qRZfoQfPQ/qn4Hp0YZq1YQyVPyupGT8pslYb9JzbaT0-TjrRFv6GkUGr9_re95QsGTSYIV283kIPcNZGdSh4VlICUqzOWjGV3p5Em2XAnHVhJZVQU_RuiiUAp9xiRJEzNeie45i-dlsCtR3Yi0PMTIYVu0AwVJhPBA4XXThZdtNNsTjlhyYREXVuRpy3zcV8GIGRvKtrLiKHd_UNbXI4dRPd-viuIelQ/DGF7gLdxq3OrLiG-OXNv1CW4KnZ6PSHshl-NKcn18L0),Scout - SCF Public Goods Award Q4 '25.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/TPDcZtr-zU9jn_ZTw1J5-g/Idc5znZGagjK6zj1KHSE-vjYWQsD4p5MZK1RsVgF7a0yBQUm8EjikRJrY-BDScpxR9r_oTGoFkV-TXjxKIwaHksvh0YWh1Y9Q7ewD36FUkyP_r4VeIWWqF8K0JTONCQb9dxLkcilx-cVHDMqWQBtF0_U3xB-jgMk3oF1wUcwWCuImNaPLg4kWqjSN0WLmkvy/U6iVHKMkaqias8OG05zSIaxQxdAXEIhFBdxO8ihl9AQ)
+Stellar hardware wallet integration,Awarded (50%),$16000.00,Infrastructure & Services,Wallet,https://lightsail.network/,https://gist.github.com/overcat/ca6e3da0d3602a928c2eef6e054f853a,checked,"Over the last three months, I delivered a major upgrade of Stellar’s hardware wallet infrastructure across both Ledger and Trezor ecosystems.
+
+On the Ledger side, the Stellar Ledger App was fully rewritten in Rust. This significantly reduced architectural complexity, improved user experience, and established a much cleaner and more maintainable codebase for long-term development. The new version successfully passed a comprehensive security audit and has now been officially released to end users. In parallel, “Clear Signin” for smart contract interactions was completed: all contract parameters are now displayed directly on-device, and for widely used token contracts the app shows highly readable messages such as “Transfer 100 USDC to XXXX,” which greatly improves user confidence and transaction safety.
+
+On the Trezor side, full support for managing Stellar tokens has now shipped in Trezor Suite Desktop. Users can securely send, receive, and manage non-XLM assets directly within the official Trezor interface, significantly expanding Stellar’s usability and accessibility for everyday users.
+
+Together, these improvements substantially strengthen the security, reliability, and usability of Stellar across the two most important hardware wallet platforms, lower barriers for both users and developers, and meaningfully increase overall ecosystem trust.","1. Ledger: Major Architecture and Security Upgrade
+   This quarter, the Stellar Ledger App underwent a complete architectural transformation. The application was fully rewritten in Rust, resulting in reduced technical complexity, improved performance and user experience, and a more sustainable long-term codebase. The new implementation successfully passed a full security audit and has now been officially released.
+   Release notes: https://github.com/LedgerHQ/app-stellar/blob/develop/release-notes.md#v600
+
+2. Ledger: Clear Signing for Smart Contracts
+   Clear Signing support for Soroban smart contracts is now fully implemented. All contract parameters are displayed directly on the hardware device, and for popular token contracts the app provides human-readable messages such as “Transfer 100 USDC to XXXX,” allowing users to clearly understand what they are signing and significantly improving transaction safety and user trust.
+   Release notes: https://github.com/LedgerHQ/app-stellar/blob/develop/release-notes.md#v600
+
+3. Ledger: Test Infrastructure Modernization
+   The Ledger test suite has been fully migrated to Ledger’s official testing framework and expanded with additional test coverage, improving reliability, maintainability, and alignment with upstream development standards.
+   Tests code: https://github.com/LedgerHQ/app-stellar/tree/develop/tests
+
+4. Trezor: Full Stellar Token Support in Trezor Suite Desktop
+   Stellar token functionality is now fully available in Trezor Suite Desktop. Users can securely send, receive, and manage Stellar non-native assets directly from the official Trezor interface.
+   Release notes: https://trezor.io/other/product-updates/trezor-suite-updates/trezor-suite-update-december-2025","Over the next three months, I will continue strengthening Stellar’s hardware wallet ecosystem with a focus on performance optimization and expanded mobile support. The objective is to further improve scalability, accessibility, and long-term sustainability of Stellar’s hardware wallet infrastructure while maintaining strong security guarantees.
+","1. Ledger App Optimization and Size Reduction
+   Over the next quarter, I will optimize the Stellar Ledger App with a focus on reducing its binary size (currently ~150 KB). This will improve performance, reliability, and leave more room for future protocol upgrades, ensuring the long-term sustainability of Stellar’s hardware wallet support.
+
+2. Full Stellar Token Support in Trezor Suite Mobile
+   I will extend full Stellar token support to Trezor Suite Mobile, enabling mobile users to securely send, receive, and manage non-XLM assets. This significantly improves everyday usability for mobile-first users and expands Stellar’s reach across platforms.","Overall assessment
+- Strong delivery against prior goals. The Ledger app rewrite, clear signing for Soroban, and test infra modernization directly address stability, maintainability, functionality, and user security/usability. Trezor token support broadens functionality and access. Evidence is provided via release notes and code links, but quantitative impact and audit transparency are limited.
+
+Goal-by-goal status (based on the last 3 months):
+- Strengthen stability and maintainability: Delivered.
+  - Ledger app fully rewritten in Rust and released (per release notes), and test suite migrated to the official framework with added coverage. These materially improve maintainability and reliability. Independent confirmation of code quality/coverage numbers is not provided.
+- Improve functionality of Stellar hardware wallet support: Delivered.
+  - Clear signing for Soroban smart contracts on Ledger, plus human-readable token transfer prompts. Trezor Suite Desktop now supports Stellar tokens. Remaining open questions: breadth of Soroban type coverage and whether similar smart contract clear signing exists on Trezor.
+- Explore new features that improve contract usability and user security: Delivered.
+  - Clear signing is a direct usability/security improvement. Additional features such as policy prompts/risk flags are not mentioned.
+
+Impact achieved (substantiated by submission):
+- Security: Ledger app passed a “full security audit” and added clear signing. No audit report/link, scope, or findings summary provided to substantiate depth of review.
+- Reliability/maintainability: Architectural rewrite and test infra migration should reduce complexity and increase long-term sustainability; no quantitative reliability metrics provided.
+- Usability: Human-readable on-device messages for common token transfers; Trezor users can now manage Stellar tokens natively.
+- Ecosystem reach: Improvements land on both Ledger and Trezor. Adoption/usage metrics (installs, transactions signed, wallet integrations) are not provided.
+
+Critical gaps vs original impact promises, as well as measurement gaps
+- Audit transparency gap: No auditor identity, methodology, critical findings, or remediation details shared.
+- Coverage gaps: Unclear extent of clear-signing support across Soroban data types, contract methods, and edge cases; no statement on Trezor smart contract support or clear signing parity.
+- Integration/adoption gaps: No evidence on which Stellar wallets have enabled or are leveraging the new capabilities, nor user adoption data.
+- Performance/QA metrics: No benchmarks, regression rates, test coverage %, fuzz/property testing, or hardware-in-the-loop results reported.
+- User trust outcomes: No data on reduced signing errors, phishing prevention, or user-reported safety outcomes.
+
+Next 3 months plan vs prior 3 months plan (overlap and shifts)
+- Overlap: Continued strengthening with a focus on performance aligns with prior stability/maintainability goals and maintaining strong security.
+- Shift: Explicit emphasis on expanded mobile support and scalability/accessibility represents a new thrust versus the prior period’s core app/security/UX work.
+- No concerning redundancy: The focus evolves from foundational upgrades to performance and distribution (mobile), which is complementary.
+
+Recommendations to improve submission (to realign with stated goals and maximize impact)
+- Publish audit artifacts: Auditor name, scope, high-level findings, remediation status, and a public summary/threat model.
+- Quantify impact: Provide KPIs (app version adoption, transactions signed with clear signing, error/abort rates, time-to-sign, user satisfaction, incident reports).
+- Expand and document coverage: Enumerate Soroban types/methods covered by clear signing, list popular token/contract templates with human-readable mappings, and publish a schema registry for community contributions.
+- Parity on Trezor: Roadmap and deliver Soroban smart contract support with clear signing in Trezor Suite, or explain constraints and alternatives.
+- Performance and QA: Share benchmarks (latency, memory, APDU throughput), target thresholds, and improvements; add fuzz/property-based tests and hardware test-farm CI; report test coverage.
+- Mobile plan specifics: Identify target mobile wallets/platforms, transport layers (BLE/USB-OTG), compatibility constraints, and milestones to deliver end-to-end mobile signing.
+- Developer and wallet ecosystem enablement: Provide integration guides, example code, and changelogs; coordinate with major Stellar wallets to ensure timely adoption and consistent UX.
+- Security UX enhancements: Consider policy prompts (amount limits, address allowlists), better error messaging, and recovery/failure-handling guidance to further reduce signing risk.",overcat - Has been active in the Stellar community since 2018 and has rich experience in Stellar-related development. He maintains a series of Stellar infrastructure software. You can find all of his currently maintained Stellar-related projects here: https://lightsail.network,"No, I've submitted before to this award",,,,Stellar hardware wallet integration,"In the next three months, hardware wallet development will remain my primary focus. I expect to dedicate more than half of my time to this effort. The goal is to strengthen the stability, maintainability, and functionality of Stellar hardware wallet support, while exploring new features that improve contract usability and user security.",$22000.00,Stellar hardware wallet integration,SCF Public Goods - Q1 '26,Public Goods Award,Stellar Hardware Wallet Integration - SCF Public Goods Award Submission Q1 2026.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/mULFxAaYHC6mEvkr64I9gQ/rdbHkdY3fSV4zbjxQ0TKDgmSlh3sz7rxxbSmX2Y5wiJFTTAUMoBgvv1j3-LsIMDo6w3wCodt8sp6T5l55LUnnOp_2lvkdrr-0gmIW9o5nNtPGsjGDYaitn6NtC51XRhcnv1-L368KuDPtBkmKenVlvCb9Ht5sXC-2qjw7DvzaHuit6wVcRkAjIoF3FHhSPYnd_FbH0PD8QlThzLyXzUfB8hIBs2ZqW7oKtfEPMYMcK4/8BEGgRVgeweEPMWgCznaQ6cRbRqoC1M-WQUdvNJSB9c),Hardware Wallet Integration  - SCF Public Goods Award - Q4 '25.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/CEw1Kh-PljTJU5MHpBxhAA/mxD6X8aa5lmrRNJhayOfs6yS2JRzbdlQfCjCM6PSQrQlTWYa0NnesI1lGBEUY17ZgPczGH4zlr3q9n0bl0QXdE1worAkonFiPvLlgo7pjnstCfK_e3wleZ2KkoszMqADwu75JTRIM2Wgt7iTnpfOeYXwYR6FEhsudNHCU8b-9eQYYlE9wKmoutJjuDHtGELC9VNlvBSvx46aLaPfPbHGMg/dWgq3T6w-Magbui_fCAUIdGNKb3YrQnLUjBlFemFjLo)
+Java Stellar SDK,Awarded (50%),$13000.00,Developer Tooling,SDK,https://github.com/lightsail-network/java-stellar-sdk,https://github.com/lightsail-network/java-stellar-sdk,checked,"Over the last three months, maintenance and incremental improvements were delivered for the Java Stellar SDK. While my primary development focus this quarter was on hardware wallet infrastructure, I continued providing essential support for the Java SDK by implementing key protocol features, resolving reported issues, and ensuring compatibility with evolving Stellar standards. These efforts preserved the SDK’s stability, reliability, and long-term usability for developers building on Stellar.
+","1. Ongoing SDK Maintenance
+   Continued routine maintenance work, including minor bug fixes and code improvements, which are reflected in the changelog.
+   Relevant changes are included in: https://github.com/lightsail-network/java-stellar-sdk/blob/master/CHANGELOG.md#220
+
+2. Add Support for SEP-45
+   Support for SEP-45 has been fully implemented and released, enabling contract-based Stellar Web Authentication in the Java SDK.
+   Implementation details and release notes: https://github.com/lightsail-network/java-stellar-sdk/blob/master/CHANGELOG.md#220
+
+3. Responding to user requests and addressing possible issues.
+   In the past quarter, we handled a small number of user inquiries in multiple channels.
+","In the next three months, I will continue maintaining and improving the SDK, with a focus on protocol updates, bug fixes, code quality, and test coverage to ensure its long-term stability.
+","1. Ongoing SDK Maintenance
+   This deliverable covers all necessary improvements to ensure the SDK's long-term viability. It includes resolving defects, implementing new features, refining code quality, and increasing test coverage to guarantee the SDK remains a robust and dependable tool for developers.
+
+2. Add Support for SEP-51
+   I will add support for [SEP-51](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0051.md), enabling developers to serialize XDR data into JSON. This simplifies integration with web services and tooling, improves developer experience, and promotes consistent behavior across applications in the Stellar ecosystem.
+
+3. xdrgen Migration and Refactoring
+   I am going to migrate xdrgen into a dedicated repository and perform necessary refactoring to improve maintainability and long-term sustainability of the SDK’s tooling. This will strengthen the build pipeline and make future protocol upgrades easier to support. ref: https://github.com/orgs/stellar/discussions/1738
+
+4. Improve the scval build feature. 
+   Currently, when building a map, we require users to manually sort the keys. I plan to enhance the scval build functionality to automatically sort the keys of the map, thereby simplifying the developer experience and reducing potential sources of errors.
+   
+5. Responding to User Requests and Addressing Possible Issues
+   I will continue responding to user requests and addressing reported issues from the community, ensuring the SDK remains dependable and production-ready for developers.
+","Overall assessment:
+Mostly delivered. The highest-impact item (SEP-45 support) shipped, and routine maintenance continued, consistent with the stated reduced bandwidth. Evidence is primarily the submitter’s claims and the 2.2.0 changelog reference; quantitative proof (test coverage, issue metrics) was not provided.
+
+Goal-by-goal status (based on the last 3 months):
+- Ongoing SDK Maintenance: Delivered at a modest scale. Changelog for v2.2.0 indicates fixes/improvements, but there are no specifics on test coverage gains, dependency updates, or measurable code-quality work.
+- Add Support for SEP-45: Delivered. Submitter states it is fully implemented and released in v2.2.0, enabling contract-based Stellar Web Authentication.
+- Responding to user requests/issues: Delivered on a small volume. No KPIs (response times, resolution counts) provided.
+
+Impact achieved (substantiated by submission):
+- Sustained SDK stability and compatibility, plus a key protocol feature (SEP-45) that unlocks contract-based Web Auth for Java developers.
+- Impact appears incremental but meaningful for builders; however, it is qualitatively described. No quantitative adoption or quality metrics were included, and I cannot independently verify beyond the cited changelog.
+
+Critical gaps vs original impact promises, as well as measurement gaps:
+- Test coverage: promised focus but no baseline, delta, or coverage report.
+- Code quality: no concrete evidence (refactor summaries, lint/static analysis results, dependency upgrade matrix).
+- Defects resolved: not enumerated; no severity/impact detail.
+- Documentation: no explicit SEP-45 usage guides, examples, or migration notes cited.
+- Support responsiveness: no metrics (time-to-first-response, resolution time, satisfaction).
+- Verification gap: claims hinge on the v2.2.0 entry; broader PR/issue history and CI status weren’t summarized.
+
+Next 3 months plan vs prior 3 months plan (overlap and shifts):
+- Overlap: Continued maintenance with focus on bug fixes, code quality, and test coverage remains unchanged.
+- Shift: Emphasis moves from “feature updates” to “protocol updates.” The prior explicit caveat about reduced time due to hardware wallet work is omitted, though plan content remains largely the same.
+
+Recommendations to improve submission (to realign with stated goals and maximize impact):
+- Publish quantitative maintenance metrics: number and severity of bugs fixed, dependency upgrades, performance/regression checks, CI pass rates, and test coverage baseline + delta.
+- Document SEP-45 thoroughly: quick-start guide, sample code, end-to-end flow, security considerations, and migration notes; link these from the changelog/release.
+- Provide a compatibility/CI matrix (Java versions, Stellar protocol/SEPs) and note any deprecations.
+- Report community support KPIs: counts, median response/resolution times, and top themes.
+- Clarify next-quarter scope: specific protocol updates targeted, expected time allocation, and a lightweight maintenance policy/SLA.
+- Plan small, high-leverage tasks given limited bandwidth (e.g., docs/examples, dependency hygiene, test hardening around SEP-45 paths).","overcat - I've been active in the Stellar community since 2018 and has rich experience in Stellar-related development, maintains a series of Stellar infrastructure software. You can find all of my currently maintained Stellar-related projects here: https://lightsail.network","No, I've submitted before to this award",,,,Java Stellar SDK,"In the next three months, I will continue maintaining and improving the SDK, with a focus on bug fixes, feature updates, code quality, and test coverage to ensure its long-term stability. However, since my primary focus in the upcoming quarter will be on hardware wallet development, I expect to dedicate less time to this project compared to previous quarters.
+
+Deliverables
+1. Ongoing SDK Maintenance: This deliverable covers all necessary improvements to ensure the SDK's long-term viability. It includes resolving defects, implementing new features, refining code quality, and increasing test coverage to guarantee the SDK remains a robust and dependable tool for developers.
+2. Add support for SEP-45. This feature is the key to unlocking contract-based Stellar Web Authentication in the SDK.
+3. Responding to user requests and addressing possible issues. (Please note that since this is a reactive task, the amount of work will depend on the volume of requests and issues reported by the community.)
+",$10000.00,Java Stellar SDK,SCF Public Goods - Q1 '26,Public Goods Award,Java Stellar SDK - SCF Public Goods Award Submission Q1 2026.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/iPLUqL76IFg3klNvBSoLNw/qqlD1cLUtd5J_QqMYt7R0SlCOfA2S8BxOYxJZD4_c_DUF-8AOfrQwjgVz8R-GF_K-Gek60f0apu2ExHEhXshoySRnrW-gS4tLxdYM6WdvkiQWVlvBa_AprD8gQCyu51EySAq5Y6adap02vup4r6Jcorvx2fIqrkm2izGRRSYyHWg5xg4OX92K3-hpzlmV4FIJIbJk6ZmNvcTJ_SKbv9nWw/P4_A7V34bDYTnXUaLBJmLxYjXVe1p2pD-kFVXrnsusE),Java Stellar SDK -  - SCF Public Goods Award - Q4 '25.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/78WHUJVDkCgVbk6n8TRdXA/VVruSabd0ZGM8DKwjQiHNvA8b82TIrr4SVO94JzG5Q-UpHDHetJL_Tx2LSV2O4CM2kABtSX4YeY8OCioM8Yw8owqrNBvHiBP8Yg2FFmSg_tnu2ehMow1j_A0FFI8QqcXgJUdo2fBzvp88X39mNFonbCQqC9WdAbBPO9IZAC0u3FcGZwZiVgSdA3s39tBXI05IunD_VX0mAnHTbKhFmMq9A/e5SkjgbpZ_veGbWI8d7LJAwH_RrVFPf5-z__W1A5Dqw)
+Python Stellar SDK,Awarded (50%),$13000.00,Developer Tooling,SDK,https://github.com/StellarCN/py-stellar-base,https://github.com/StellarCN/py-stellar-base,checked,"Over the last three months, maintenance and incremental improvements were delivered for the Python Stellar SDK. While my primary development focus this quarter was on hardware wallet infrastructure, I continued providing essential support for the Python SDK by implementing key protocol features, resolving reported issues, and ensuring compatibility with evolving Stellar standards. These efforts preserved the SDK’s stability, reliability, and long-term usability for developers building on Stellar.
+","1. Ongoing SDK Maintenance
+   Continued routine maintenance work, including minor bug fixes and code improvements, which are reflected in the changelog.
+   Relevant changes are included in: https://github.com/StellarCN/py-stellar-base/blob/main/CHANGELOG.md#version-1320
+
+2. Add Support for SEP-45
+   Support for SEP-45 has been fully implemented and released, enabling contract-based Stellar Web Authentication in the Python SDK.
+   Implementation details and release notes: https://github.com/StellarCN/py-stellar-base/blob/main/CHANGELOG.md#version-1320
+
+3. Responding to user requests and addressing possible issues.
+   In the past quarter, we handled a small number of user inquiries in multiple channels.
+","In the next three months, I will continue maintaining and improving the SDK, with a focus on protocol updates, bug fixes, code quality, and test coverage to ensure its long-term stability.
+","1. Ongoing SDK Maintenance
+   This deliverable covers all necessary improvements to ensure the SDK's long-term viability. It includes resolving defects, implementing new features, refining code quality, and increasing test coverage to guarantee the SDK remains a robust and dependable tool for developers.
+
+2. Add Support for SEP-51
+   I will add support for [SEP-51](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0051.md), enabling developers to serialize XDR data into JSON. This simplifies integration with web services and tooling, improves developer experience, and promotes consistent behavior across applications in the Stellar ecosystem.
+
+3. xdrgen Migration and Refactoring
+   We plan to migrate xdrgen into a dedicated repository and perform necessary refactoring to improve maintainability and long-term sustainability of the SDK’s tooling. This will strengthen the build pipeline and make future protocol upgrades easier to support.
+
+4. Improve the scval build feature. 
+   Currently, when building a map, we require users to manually sort the keys. I plan to enhance the scval build functionality to automatically sort the keys of the map, thereby simplifying the developer experience and reducing potential sources of errors. ref: https://github.com/orgs/stellar/discussions/1738
+
+5. Responding to User Requests and Addressing Possible Issues
+   I will continue responding to user requests and addressing reported issues from the community, ensuring the SDK remains dependable and production-ready for developers.
+","Overall assessment
+- Based on the submitter’s description (and the referenced 1.32.0 changelog, which I cannot independently verify here), the team likely met the scoped goals: routine maintenance, adding SEP-45 support, and addressing user requests, with a modest pace consistent with reduced bandwidth due to hardware wallet work. Evidence is mostly qualitative and would benefit from concrete metrics.
+
+Goal-by-goal status (based on the last 3 months)
+- Ongoing SDK Maintenance: Claimed delivered via routine bug fixes and code improvements reflected in v1.32.0. Status: Likely met, but unquantified (no counts of issues closed, PRs merged, or specific fixes highlighted here).
+- Add Support for SEP-45: Claimed fully implemented and released in v1.32.0 to enable contract-based Stellar Web Authentication. Status: Likely met if reflected in the cited changelog; would benefit from links to PRs, examples, and tests.
+- Responding to user requests and issues: Claimed a small number handled across channels. Status: Partially substantiated; no data on volume, response times, or resolution outcomes.
+
+Impact achieved (substantiated by submission)
+- Sustained SDK stability and compatibility through incremental maintenance and protocol feature implementation (SEP-45), with continued user support. Impact is plausible but presented without quantitative indicators (e.g., coverage delta, issue resolution metrics, release quality signals).
+
+Critical gaps vs original impact promises, as well as measurement gaps
+- Gaps in evidence: No quantitative detail on bug fixes, PRs, response SLAs, release cadence, or test coverage changes to substantiate “long-term stability.”
+- SEP-45 delivery lacks demonstrable artifacts in the submission (tests, docs, sample code, migration notes).
+- No validation signals (downloads, adoption, user satisfaction) to corroborate real-world impact.
+- Risk not addressed: with reduced maintainer time, continuity and bus-factor mitigation aren’t discussed.
+
+Next 3 months plan vs prior 3 months plan (overlap and shifts)
+- Overlap: Continued maintenance focus on bug fixes, code quality, and test coverage persists across both periods.
+- Shift: The upcoming plan emphasizes protocol updates (vs prior “feature updates”) and omits the explicit caveat about reduced time due to hardware wallet work. Capacity expectations are unclear; otherwise, scope is largely the same.
+
+Recommendations to improve submission (to realign with stated goals and maximize impact)
+- Provide quantitative maintenance metrics per quarter: number of issues closed, PRs merged, time-to-first-response, time-to-resolution, release count, and CI pass rates.
+- Include test coverage before/after for the quarter and highlight critical tests added (especially around SEP-45).
+- Link direct evidence: PRs implementing SEP-45, integration/unit tests, example usage, and documentation updates; note any breaking changes or migration guidance.
+- Summarize compatibility and protocol tracking: what standards or core changes were targeted, what remains, and a small forward-looking compatibility roadmap.
+- Clarify maintainer capacity for the next quarter and mitigation plans (co-maintainers, release schedule, triage policy) if bandwidth remains limited.
+- Add user-impact signals: downloads, documentation traffic, or brief case studies demonstrating SEP-45 or recent fixes in production.",overcat - Has been active in the Stellar community since 2018 and has rich experience in Stellar-related development. He maintains a series of Stellar infrastructure software. You can find all of his currently maintained Stellar-related projects here: https://lightsail.network,"No, I've submitted before to this award",,,,Python Stellar SDK,"In the next three months, I will continue maintaining and improving the SDK, with a focus on bug fixes, feature updates, code quality, and test coverage to ensure its long-term stability. However, since my primary focus in the upcoming quarter will be on hardware wallet development, I expect to dedicate less time to this project compared to previous quarters.",$10000.00,Python Stellar SDK,SCF Public Goods - Q1 '26,Public Goods Award,Python Stellar SDK - SCF Public Goods Award Submission Q1 2026.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/lvye5vOd1tdC7jYfr7miPw/XrmcgohWeq9nCCqJdqHHxjvnExtmlB4mP64YMhDwLLd7iD0IywWSCOh74bSYQ6a1XyOGjrjjSoiaP05H2KvebJzwhaGb0jgINcKqgoQHkb8u7t72xGM7Kxlu12Z4rYOxOyZazZcjWh7BE1R6lJQVv0QKz5MOaYZ4OhjddsZhH7iRS59uNbwikoE9rloQaF6pv6Fcb7HFBDlGs5Vb0JlX8g/g1CZ8fpihxt8E_NXOQnnykQTeFVw2vVUEq3-Q9YjLuc),Python Stellar SDK  - SCF Public Goods Award - Q4 '25.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/OFuQNu7D24fHC7XrcEx3KQ/mrYHU8GYZjIcTOlcEkcE6F1wixxGQAgflnBjuI2Fbj4UZsYz-7avO6_N4-rdOsa8c5g6aL5FS96-kqi0sNTJcvYfC4HRPk5qIyigs7-pFtT36V0VJFTx7wm0uXAvoFtHKlkHkxRyT1vLCzI60INIeKnG9EqzLFrkQ2BAa0xY--KpgQTSLpXP9cfKTvZCZUkVc0DalY0la6xyJRhOsBwyvg/NJo0fv-bAQrDVj6wa30nTiJYVo9wyDsIQR-4w7Kw8m4)
+Flutter Stellar SDK,Awarded (50%),$15000.00,Developer Tooling,SDK,https://github.com/Soneso/stellar_flutter_sdk,https://github.com/Soneso/stellar_flutter_sdk,checked,"In the last three months, the Flutter SDK has been continuously maintained, the API and source code documentation has been significantly improved and the source code has been modernized. Bugs that were discovered have been fixed. The soroban contract parser functionality has been expanded by adding SEP-47 and SEP-48 support. The most important new feature that was implemented was support for SEP-45, enabling contract-based Stellar Web Authentication in the SDK.","1. Continuous Maintenance
+
+Description from last quarter: 
+Regular SDK updates addressing bug fixes, feature requests, code modernization, test coverage improvements, and documentation enhancements to ensure long-term sustainability.
+
+Proof of completion:
+Release 2.1.6: https://github.com/Soneso/stellar_flutter_sdk/releases/tag/2.1.6
+Release 2.1.8: https://github.com/Soneso/stellar_flutter_sdk/releases/tag/2.1.8
+Release 2.2.0: https://github.com/Soneso/stellar_flutter_sdk/releases/tag/2.2.0
+Horizon API compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/horizon/HORIZON_COMPATIBILITY_MATRIX.md
+RPC compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/rpc/RPC_COMPATIBILITY_MATRIX.md
+SEP-1 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0001_COMPATIBILITY_MATRIX.md
+SEP-2 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0002_COMPATIBILITY_MATRIX.md
+SEP-5 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0005_COMPATIBILITY_MATRIX.md
+SEP-6 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0006_COMPATIBILITY_MATRIX.md
+SEP-7 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0007_COMPATIBILITY_MATRIX.md
+SEP-8 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0008_COMPATIBILITY_MATRIX.md
+SEP-9 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0009_COMPATIBILITY_MATRIX.md
+SEP-10 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0010_COMPATIBILITY_MATRIX.md
+SEP-11 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0011_COMPATIBILITY_MATRIX.md
+SEP-12 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0012_COMPATIBILITY_MATRIX.md
+SEP-24 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0024_COMPATIBILITY_MATRIX.md
+SEP-30 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0030_COMPATIBILITY_MATRIX.md
+SEP-38 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0038_COMPATIBILITY_MATRIX.md
+SEP-45 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0045_COMPATIBILITY_MATRIX.md
+SEP-46 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0046_COMPATIBILITY_MATRIX.md
+SEP-47 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0047_COMPATIBILITY_MATRIX.md
+SEP-48 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0048_COMPATIBILITY_MATRIX.md
+New API documentation based on significantly extended source code documentation: https://soneso.github.io/stellar_flutter_sdk/stellar_flutter_sdk/
+
+2. SEP-47 Implementation
+
+Description from last quarter: 
+Extension of existing contract parser infrastructure to support [SEP-47](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0047.md), exposing identification of SEPs implemented by smart contracts.
+
+Proof of completion:
+Release 2.1.7: https://github.com/Soneso/stellar_flutter_sdk/releases/tag/2.1.7
+SEP-47 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0047_COMPATIBILITY_MATRIX.md
+
+3. SEP-48 Implementation
+
+Description from last quarter: 
+Building upon the recently added contract bindings support, full [SEP-48](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0048.md) support will provide robust contract event parsing capabilities. This deliverable will significantly simplify event data access for developers, complete with tests and documentation.
+
+Proof of completion:
+Release 2.1.7: https://github.com/Soneso/stellar_flutter_sdk/releases/tag/2.1.7
+SEP-48 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/master/compatibility/sep/SEP-0048_COMPATIBILITY_MATRIX.md
+
+4. SEP-45 (Preliminary Work)
+
+Description from last quarter: 
+Initiate development of [SEP-45](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0045.md) support for Stellar Web Authentication with Contract Accounts. Given the complexity and scope of this specification, this work will be conducted in a separate development branch during Q4 2025, with planned completion in Q1 2026. This feature will be critical for enabling contract-based Stellar Web Authentication.
+
+Proof of completion:
+Note: SEP-45 support has been fully implemented!
+Release: 2.2.1: https://github.com/Soneso/stellar_flutter_sdk/releases/tag/2.2.1
+SEP-45 compatibility matrix: https://github.com/Soneso/stellar_flutter_sdk/blob/2.2.1/compatibility/sep/SEP-0045_COMPATIBILITY_MATRIX.md
+Doc: https://github.com/Soneso/stellar_flutter_sdk/blob/2.2.1/documentation/sep-0045-webauth-contracts.md","The primary objectives for the upcoming quarter focus on maintaining SDK reliability, expanding Stellar Ecosystem Proposal (SEP) coverage, and enhancing XDR functionality:
+- Continuous Compatibility: Ensure seamless integration with Horizon, Soroban RPC, and all SEP updates as they are released.
+- Responsive Maintenance: Provide timely responses to GitHub issues, feature requests, and Discord inquiries to support the developer community.
+- Technical Modernization: Refactor legacy code to align with current standards, enhance unit test coverage and documentation quality. Add token efficient documentation for AI coding agents and implement an XDR class generator.","1. Continuous Maintenance and improvement: Regular SDK updates addressing horizon, rpc, protocol updates (e.g. p25), bug fixes, feature requests (e.g. full web support), code modernization, unit test coverage improvement, and documentation enhancements to ensure long-term sustainability. This includes a new documentation for AI Coding Agents, a so called ""skill"", providing token efficient documentation and best practices when using the SDK. Furthermore it includes setting up a configuration for unit test coverage tracking and adding to CI/CD pipeline.  
+2. SEP-53 Support:  SEP-53 standardizes message signing functionality across Stellar wallets, libraries, and services, preventing ecosystem fragmentation and ensuring interoperability. SEP-53 support is also implemented in the Java and Python SDKs.
+3. XDR classes generator: Currently the SDK has approximatively 400 manually written XDR classes used to encode and decode XDR objects. Extensions or updates in the XDR structure need to be implemented manually at this time, which makes the SDK difficult to maintain. The new XDR class generator will improve the maintainability and also add missing XDR classes so that they can immediately be used as new features require them. For example, the v25.0.0 RPC getLatestLedger method also returns now the base64 encoded ledger close metadata XDR, that currently can not be decoded by the SDK. ","Overall assessment
+- Substantially delivered. Strong progress on SEP coverage (SEP‑47, SEP‑48) and Soroban-related DX via contract parsing and full SEP‑45 completion. Continuous maintenance is evidenced by multiple releases and expanded documentation. Gaps remain in measurable proof of responsiveness and testing improvements.
+
+Goal-by-goal status (based on the last 3 months)
+- Continuous Compatibility: Largely met. Multiple releases (2.1.6, 2.1.7, 2.1.8, 2.2.0, 2.2.1) and published compatibility matrices for Horizon, Soroban RPC, and numerous SEPs indicate ongoing alignment. No automated validation evidence or matrix pass/fail summaries provided.
+- Responsive Maintenance: Partially evidenced. Claim of timely responses is not substantiated with metrics (e.g., issue resolution times, counts of closed issues/PRs, Discord response stats).
+- Technical Modernization: Partially met. New API docs and “significantly extended” source documentation are concrete. However, no quantitative test coverage changes, CI improvements, or specific refactor summaries were provided.
+- Enhanced Soroban Integration: Met and exceeded. SEP‑47 and SEP‑48 implemented as planned; SEP‑45 moved from “preliminary work” to full implementation (2.2.1), enabling contract-based WebAuth.
+
+Impact achieved (substantiated by submission)
+- Frequent releases delivering fixes/features and compatibility updates.
+- Broad SEP coverage with explicit matrices, including new SEP‑45/47/48.
+- Improved developer-facing documentation (new API site).
+- Expanded Soroban contract parsing and contract-based WebAuth (SEP‑45), likely reducing DX friction for contract-focused apps.
+
+Critical gaps vs original impact promises, as well as measurement gaps
+- No quantitative metrics for responsiveness, reliability, or community support impact.
+- No test coverage figures, CI stability data, or benchmark results for modernization.
+- Compatibility matrices exist but lack dated validation status and automated test evidence.
+- DX impact (e.g., how SEP‑45/47/48 reduce implementation effort) not demonstrated with examples or adoption metrics.
+
+Next 3 months plan vs prior 3 months plan (overlap and shifts)
+- Overlap: Continuous compatibility, responsive maintenance, and technical modernization continue.
+- Shift: Emphasis moves from “Enhanced Soroban Integration” to “Enhancing XDR functionality,” including an XDR class generator and token‑efficient docs for AI coding agents.
+- SEP coverage expansion remains consistent with prior goals.
+
+Recommendations to improve submission (to realign with stated goals and maximize impact)
+- Publish quantitative KPIs: issue/PR response and resolution times, release cadence, CI pass rates, test coverage delta, and automated compatibility test results tied to matrices.
+- Add practical DX artifacts: minimal examples and tutorials for SEP‑45/47/48, end‑to‑end sample app, and migration guides.
+- Automate compatibility verification: nightly CI against latest Horizon/Soroban RPC; annotate matrices with last-verified date and pass/fail per feature.
+- For XDR generator: share scope and benchmarks (performance, code size), include test vectors, and ensure backward compatibility.
+- For AI‑optimized docs: provide concise, machine‑readable references (stable method signatures, input/output schemas) and token‑efficient snippets to aid code agents.",,"No, I've submitted before to this award",,,,Flutter Stellar SDK,"The primary objectives for the upcoming quarter focus on maintaining SDK reliability, expanding Stellar Ecosystem Proposal (SEP) coverage, and enhancing Soroban functionality:
+
+- **Continuous Compatibility**: Ensure seamless integration with Horizon, Soroban RPC, and all SEP updates as they are released.
+- **Responsive Maintenance**: Provide timely responses to GitHub issues, feature requests, and Discord inquiries to support the developer community.
+- **Technical Modernization**: Refactor legacy code to align with current standards, enhance test coverage and documentation quality.
+- **Enhanced Soroban Integration**: Streamline developer experience when implementing Soroban-based features in applications.",$15000.00,Flutter Stellar SDK,SCF Public Goods - Q1 '26,Public Goods Award,Flutter Stellar SDK - SCF Public Goods Award Submission Q1 2026.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/WrUkL_1Y6znzvb6M0ZbxQw/ZngxntOzhBpXwqgbUEsky6U-6-Y1hKoOmIkVn3FcHJH62tVLmbEACQWEWV0z_EjeQChxY2eZC2HBFKKfSS7bOMhGe0U5_3NXF2vTYDZOQ9iVA03sCDRtZbiP1BSue2xCXgO7KA738ICI0VWK-GaRm7HDiiANsv1svyPQA-PoHiqjlcGEu4tbbR4w_sqQojvwcjTY5ByY4aAEQLFXoYhuXA/Q-VFVu5Z_4PKH5mdpAnN-8Fxu55kzOLZ2R08VrCCwCY),Flutter Stellar SDK  - SCF Public Goods Award - Q4 '25.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/XhMSBmEp2BiAlkBgymEYrA/cAjzAT0GAR6GwoNYWek0XxWrBZioAa2_CL8lNIGQ5w79nAbt0-4LP4cVBAto0vu4vIQGaib3zPHgOGsR93cirHX3TmcStQVBph7jK327MYLIV9x_lH1zp76g_qmUE_u_zQ-46Ex1srnmylUHjI9FKgQxeXE7wGKenzcV-tUD1XhUHJOAHYEBwKV-UBbS3rNkd3RdJnk_A6jCOTBonrjhMg/LQuDVjp8YJq1hhjUyswHH9_-j64x5nlFI39R32hCjSw)
+iOS Stellar SDK,Awarded (50%),$15000.00,Developer Tooling,SDK,https://github.com/Soneso/stellar-ios-mac-sdk,https://github.com/Soneso/stellar-ios-mac-sdk,checked,"In the last quarter, the iOS SDK has been continuously maintained, a comprehensive API documentation with 98% coverage based on improved source code documentation has been published. The SDK has been modernized for Swift 6 with sendable conformance, native cryptography, and improved networking. Bugs that were discovered have been fixed. The soroban contract parser functionality has been expanded by adding SEP-47 and SEP-48 support. And the most important new feature that was implemented was support for SEP-45, enabling contract-based Stellar Web Authentication in the SDK.","1. Continuous Maintenance
+
+Description from last quarter: 
+Regular SDK updates addressing bug fixes, feature requests, code modernization, test coverage improvements, and documentation enhancements to ensure long-term sustainability.
+
+Proof of completion:
+Release 3.2.6: https://github.com/Soneso/stellar-ios-mac-sdk/releases/tag/3.2.6
+Release 3.2.8: https://github.com/Soneso/stellar-ios-mac-sdk/releases/tag/3.2.8
+Release 3.4.0: https://github.com/Soneso/stellar-ios-mac-sdk/releases/tag/3.4.0
+Horizon API compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/horizon/HORIZON_COMPATIBILITY_MATRIX.md
+RPC compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/rpc/RPC_COMPATIBILITY_MATRIX.md
+SEP-1 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0001_COMPATIBILITY_MATRIX.md
+SEP-2 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0002_COMPATIBILITY_MATRIX.md
+SEP-5 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0005_COMPATIBILITY_MATRIX.md
+SEP-6 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0006_COMPATIBILITY_MATRIX.md
+SEP-7 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0007_COMPATIBILITY_MATRIX.md
+SEP-8 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0008_COMPATIBILITY_MATRIX.md
+SEP-9 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0009_COMPATIBILITY_MATRIX.md
+SEP-10 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0010_COMPATIBILITY_MATRIX.md
+SEP-11 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0011_COMPATIBILITY_MATRIX.md
+SEP-12 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0012_COMPATIBILITY_MATRIX.md
+SEP-24 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0024_COMPATIBILITY_MATRIX.md
+SEP-30 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0030_COMPATIBILITY_MATRIX.md
+SEP-38 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0038_COMPATIBILITY_MATRIX.md
+SEP-45 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0045_COMPATIBILITY_MATRIX.md
+SEP-46 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0046_COMPATIBILITY_MATRIX.md
+SEP-47 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0047_COMPATIBILITY_MATRIX.md
+SEP-48 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0048_COMPATIBILITY_MATRIX.md
+
+New API documentation based on significantly extended source code documentation: https://soneso.github.io/stellar-ios-mac-sdk/
+
+2. SEP-47 Implementation
+
+Description from last quarter: 
+Extension of existing contract parser infrastructure to support [SEP-47](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0047.md), exposing identification of SEPs implemented by smart contracts.
+
+Proof of completion:
+Release 3.2.7: https://github.com/Soneso/stellar-ios-mac-sdk/releases/tag/3.2.7
+SEP-47 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0047_COMPATIBILITY_MATRIX.md
+
+3. SEP-48 Implementation
+
+Description from last quarter: 
+Building upon the recently added contract bindings support, full [SEP-48](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0048.md) support will provide robust contract event parsing capabilities. This deliverable will significantly simplify event data access for developers, complete with tests and documentation.
+
+Proof of completion:
+Release 3.2.7: https://github.com/Soneso/stellar-ios-mac-sdk/releases/tag/3.2.7
+SEP-48 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0048_COMPATIBILITY_MATRIX.md
+
+4. SEP-45 (Preliminary Work):
+
+Description from last quarter: 
+Initiate development of [SEP-45](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0045.md) support for Stellar Web Authentication with Contract Accounts. Given the complexity and scope of this specification, this work will be conducted in a separate development branch during Q4 2025, with planned completion in Q1 2026. This feature will be critical for enabling contract-based Stellar Web Authentication.
+
+Proof of completion:
+Note: SEP-45 support has been fully implemented!
+Release: 3.4.1: https://github.com/Soneso/stellar-ios-mac-sdk/releases/tag/3.4.1
+SEP-45 compatibility matrix: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/compatibility/sep/SEP-0045_COMPATIBILITY_MATRIX.md
+Doc: https://github.com/Soneso/stellar-ios-mac-sdk/blob/master/docs/SEP-0045.md
+","The primary objectives for the upcoming quarter focus on maintaining SDK reliability, expanding Stellar Ecosystem Proposal (SEP) coverage, and enhancing XDR functionality:
+- Continuous Compatibility: Ensure seamless integration with Horizon, Soroban RPC, and all SEP updates as they are released.
+- Responsive Maintenance: Provide timely responses to GitHub issues, feature requests, and Discord inquiries to support the developer community.
+- Technical Modernization: Refactor legacy code to align with current standards, enhance unit test coverage and documentation quality. Add token efficient documentation for AI coding agents and implement an XDR class generator.","1. Continuous Maintenance and improvement: Regular SDK updates addressing horizon, rpc, protocol updates (e.g. p25), bug fixes, feature requests, code modernization, unit test coverage improvement, and documentation enhancements to ensure long-term sustainability. This includes a new documentation for AI Coding Agents, a so called ""skill"", providing token efficient documentation and best practices when using the SDK. Furthermore it includes setting up a configuration for unit test coverage tracking and adding to CI/CD pipeline.  
+2. Add SEP-53 Support: SEP-53 standardizes message signing functionality across Stellar wallets, libraries, and services, preventing ecosystem fragmentation and ensuring interoperability. SEP-53 support is also implemented in the Java and Python SDKs.
+3. XDR classes generator: Currently the SDK has hundreds of manually written XDR classes/structs/enums used to encode and decode XDR objects. Extensions or updates in the XDR structure need to be implemented manually at this time, which makes the SDK difficult to maintain. The new XDR class generator will improve the maintainability and also add missing XDR classes so that they can immediately be used as new features require them. For example, the v25.0.0 RPC getLatestLedger method also returns now the base64 encoded ledger close metadata XDR, that currently can not be decoded by the SDK. ","Overall assessment
+Strong delivery against stated goals, with clear evidence of sustained maintenance, broadened SEP support (notably SEP-47/48), and meaningful modernization. The early/complete SEP-45 implementation exceeds prior scope. The only weakly evidenced area is “Responsive Maintenance,” which lacks quantitative community-support metrics.
+
+Goal-by-goal status (based on the last 3 months):
+- Continuous Compatibility: Delivered. Multiple point releases (3.2.6, 3.2.8, 3.4.0, 3.4.1) plus published compatibility matrices for Horizon, RPC, and many SEPs indicate active tracking and alignment.
+- Responsive Maintenance: Partially evidenced. Ongoing releases imply responsiveness, but no data on GitHub/Discord response times, issue throughput, or SLA-like metrics were provided.
+- Technical Modernization: Delivered. Claimed Swift 6 migration with Sendable conformance, native cryptography, improved networking, and significantly expanded API docs. Test coverage improvements are claimed but not quantified.
+- Enhanced Soroban Integration: Delivered. SEP-47 and SEP-48 support added (contract SEP identification and event parsing), backed by releases and compatibility matrices.
+
+Impact achieved (substantiated by submission):
+- Sustained release cadence: 3.2.6, 3.2.7, 3.2.8, 3.4.0, 3.4.1.
+- Comprehensive API documentation published with 98% coverage.
+- Modernization to Swift 6, Sendable, native crypto, improved networking.
+- Expanded Soroban developer ergonomics via SEP-47/48 (contract introspection and event parsing).
+- SEP-45 fully implemented (ahead of prior “preliminary” scope), enabling contract-based Stellar Web Authentication, with dedicated docs and a compatibility matrix.
+
+Critical gaps vs original impact promises, as well as measurement gaps
+- Community support responsiveness not quantified (no metrics on median response/resolve times, issue counts closed, or Discord support activity).
+- Test coverage “improved” but no percentage reported (only documentation coverage is quantified).
+- Compatibility matrices exist but lack explicit “last verified” timestamps and upstream version ranges validated per SDK release.
+- “Streamlined developer experience” could be better evidenced with examples, sample apps, or developer adoption metrics.
+
+Next 3 months plan vs prior 3 months plan (overlap and shifts)
+- Overlap: Continues focus on Continuous Compatibility, Responsive Maintenance, and Technical Modernization.
+- Shifts: Moves emphasis from Soroban integration to enhancing XDR functionality and adds token-efficient documentation for AI coding agents plus an XDR class generator. SEP coverage expansion remains consistent.
+- Net: Logical evolution—Soroban goals largely delivered; next phase targets XDR tooling and documentation ergonomics.
+
+Recommendations to improve submission (to realign with stated goals and maximize impact)
+- Publish quantitative maintenance KPIs: median first-response and time-to-close for GitHub issues, number of issues/PRs processed, and Discord inquiry response times per quarter.
+- Provide unit/integration test coverage percentages and trends (before/after modernization), plus CI stability metrics.
+- Augment compatibility matrices with explicit upstream version ranges, “last verified” dates, and SDK release mappings; consider automated conformance checks in CI against Horizon/RPC.
+- Add developer-facing artifacts: sample app(s) demonstrating SEP-45 flows end-to-end, and guides for SEP-47/48 usage with real-world patterns.
+- For the XDR class generator, publish scope, design notes, expected deliverables, and backward-compatibility guarantees; include benchmarks or code-size comparisons where relevant.
+- For AI-agent documentation, provide compact, copy-pasteable code snippets and task-oriented “recipes,” optimized for low-token contexts and stable identifiers across releases.","My name is Christian (also known as Soneso in the Stellar Community) and I am the main developer and maintainer of the iOS Stellar SDK. I have a master's degree in computer science and a master's degree in logistics and have been working in the IT field since the mid-1990s as a developer, software architect, project manager, and in other roles.
+
+I began contributing to the Stellar network in 2017, specializing primarily in the development and maintenance of Stellar SDKs. The first Stellar SDK I developed was the iOS Stellar SDK, which won the Stellar Build Challenge in 2018 and has since been expanded and maintained by me with the help of the SDF Infrastructure Grant. Other SDKs I have developed include the Flutter Stellar SDK, the PHP Stellar SDK, and the AssemblyScript Soroban SDK.
+
+The iOS Stellar SDK also has many contributions from other developers, which can be viewed here. I currently work full-time on my Stellar SDK projects. If my capacity is insufficient during peak periods, I have an experienced contractor whom I can hire to assist me with development.
+
+If you want to learn more about me, you can find a nice article about me by Stellar here.","No, I've submitted before to this award",,,,iOS Stellar SDK,"The primary objectives for the upcoming quarter focus on maintaining SDK reliability, expanding Stellar Ecosystem Proposal (SEP) coverage, and enhancing Soroban functionality:
+
+- **Continuous Compatibility**: Ensure seamless integration with Horizon, Soroban RPC, and all SEP updates as they are released.
+- **Responsive Maintenance**: Provide timely responses to GitHub issues, feature requests, and Discord inquiries to support the developer community.
+- **Technical Modernization**: Refactor legacy code to align with current standards, enhance test coverage and documentation quality.
+- **Enhanced Soroban Integration**: Streamline developer experience when implementing Soroban-based features in applications.",$15000.00,iOS Stellar SDK,SCF Public Goods - Q1 '26,Public Goods Award,iOS Stellar SDK - SCF Public Goods Award Submission Q1 2026.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/GIkk4XUQSXIA--YbROvg7w/YGtS5YgTBTMS9d2W1u6uS-Yb72E27B2vbrq5YVsWy3Uxl9RkX0t8KiRnQjZ5yiUffG8qVBdANhyu2fDOIAQUDIQekwLE7WHpFFE_K_xzJXKICb6WoElZtX6rb2L-EMPO2pXbEqVcMB5VLnTcz85Thv2RG2bnjP7cf_ptk8-YPn0u8UKfqxO9DompNEALk5ERdCOUJtd56dgJ-esTPhrFFQ/2zOn2v9YclH1XANi7rfXlRCRuy8ZcQmAZ9zji5h0VKY),iOS Stellar SDK - SCF Public Goods Award - Q4 '25.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/bH_B9QhBH2E4GG3CPCszeQ/DStIXl5j2JCe36KqDXDuiS0AR6ZRZA8nvmmEe1Xn61W_31zRyhENK8dLa64pPaB5VY3tqt4FyrH1bO7Yy0m7j6fsdZsd88gg9zzS6gxYOETGXcK2zMLeaRfPwOb7m3DzZjZfkcvI6yW6DHQSazNVK-zFkRxK8wSBWrL7DJwCEjwKhc_uVYnleYhaLKRqBI8rgjlQ6mSxVn4iWUx0vIpQzg/wyRjdCSIaNuU4IuYQYgxk3z4bJHeBd214IYzLJV9HuY)
+Stellar PHP SDK,Awarded (50%),$15000.00,Developer Tooling,SDK,https://github.com/Soneso/stellar-php-sdk,https://github.com/Soneso/stellar-php-sdk,checked,"In the last three months, the PHP SDK has been continuously maintained, the API documentation has been significantly improved base on many new source code comments and examples. The SDK has been modernized to leverage PHP 8+ language features and bugs that were discovered have been fixed. The soroban contract parser functionality has been expanded by adding SEP-47 and SEP-48 support. The most important new feature that was implemented was support for SEP-45, unlocking contract-based Stellar Web Authentication in the SDK.","1. Continuous Maintenance
+
+Description from last quarter:  Regular SDK updates addressing bug fixes, feature requests, code modernization (including PHP 8 migration and deprecation handling), test coverage improvements, and documentation enhancements to ensure long-term sustainability.
+
+Proof of completion:
+
+Release 1.8.5: https://github.com/Soneso/stellar-php-sdk/releases/tag/1.8.5
+
+Release 1.8.7: https://github.com/Soneso/stellar-php-sdk/releases/tag/1.8.7
+
+Release 1.8.8: https://github.com/Soneso/stellar-php-sdk/releases/tag/1.8.8
+
+Horizon API compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/horizon/COMPATIBILITY_MATRIX.md
+
+RPC compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/rpc/RPC_COMPATIBILITY_MATRIX.md
+
+SEP-1 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0001_COMPATIBILITY_MATRIX.md
+
+SEP-2 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0002_COMPATIBILITY_MATRIX.md
+
+SEP-5 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0005_COMPATIBILITY_MATRIX.md
+
+SEP-6 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0006_COMPATIBILITY_MATRIX.md
+
+SEP-7 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0007_COMPATIBILITY_MATRIX.md
+
+SEP-8 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0008_COMPATIBILITY_MATRIX.md
+
+SEP-9 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0009_COMPATIBILITY_MATRIX.md
+
+SEP-10 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0010_COMPATIBILITY_MATRIX.md
+
+SEP-11 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0011_COMPATIBILITY_MATRIX.md
+
+SEP-12 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0012_COMPATIBILITY_MATRIX.md
+
+SEP-24 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0024_COMPATIBILITY_MATRIX.md
+
+SEP-30 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0030_COMPATIBILITY_MATRIX.md
+
+SEP-38 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0038_COMPATIBILITY_MATRIX.md
+
+SEP-45 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0045_COMPATIBILITY_MATRIX.md
+
+SEP-46 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0046_COMPATIBILITY_MATRIX.md
+
+SEP-47 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0047_COMPATIBILITY_MATRIX.md
+
+SEP-48 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0048_COMPATIBILITY_MATRIX.md
+
+Note: All compatibility matrices contain generation timestamps and version numbers of the SDK and target versions of the corresponding counterpart (Horizon, Soroban RPC, each SEP).
+
+New API documentation based on significantly extended source code documentation: https://soneso.github.io/stellar-phpsdk/packages/Soneso-StellarSDK.html
+
+ 
+Resolved and closed all open issues (5/5): 
+- https://github.com/Soneso/stellar-php-sdk/issues/51 (bug, response time 1 day, resolved and closed in 1 day with release 1.8.6)
+- https://github.com/Soneso/stellar-php-sdk/issues/52 (enhancement, response time 2 days, implemented and closed in 14 days with release 1.8.7)
+- https://github.com/Soneso/stellar-php-sdk/issues/54 (enhancement, response time 1 days, implemented and closed in 12 days with release 1.8.7)
+- https://github.com/Soneso/stellar-php-sdk/issues/56 (enhancement, response time 0 days, implemented and closed in 13 days with release 1.8.8)
+- https://github.com/Soneso/stellar-php-sdk/issues/58 (enhancement, response time 0 days, implemented and closed in 11 days with release 1.9.0)
+
+Commits that contain test coverage improvements:
+- https://github.com/Soneso/stellar-php-sdk/commit/b2c1251330b0e457fbdfb25a8eb3bfc84c57ed88
+- https://github.com/Soneso/stellar-php-sdk/commit/abb7ecf794b4daa6f8f6d357e8077b95d80e6003
+- https://github.com/Soneso/stellar-php-sdk/commit/de0291ac1873f923c97503dccebffb47b5933cce
+- https://github.com/Soneso/stellar-php-sdk/commit/843a3435cdff313ca57bb117f390a7f99c50ddd0
+- https://github.com/Soneso/stellar-php-sdk/commit/101c4b6c116930f98e3774fa162bb20c6419f8b0
+- https://github.com/Soneso/stellar-php-sdk/commit/d49abd6e7b79df82e50698569fdc1b186e2a5427
+- https://github.com/Soneso/stellar-php-sdk/commit/e5d27c48a2058e7eca42c0883ac36eacc1fce394
+- https://github.com/Soneso/stellar-php-sdk/commit/290fd45a48656ec61bba0d8b9b972fd9a75eb408
+- https://github.com/Soneso/stellar-php-sdk/commit/ff73e1e2c23eb594439c016d96e6932dc9943cfa
+- https://github.com/Soneso/stellar-php-sdk/commit/49bac6b428b858e1efc6c7dfdc9aa988d5e241fe
+- https://github.com/Soneso/stellar-php-sdk/commit/e20eefda816941348d362808f3d5b59019bc4139
+- https://github.com/Soneso/stellar-php-sdk/commit/89e345fea74c80b71af15af417daec3df2295ef7
+Note: currently there is no test coverage measurement process implemented. It will be added in the next quarter.
+
+PHP8+ features adoption (release 1.8.8):
+- Constructor property promotion: 137 files modernized with constructor property promotion, ~359 properties promoted from separate declarations to constructor parameters, documentation preserved through merging of property and parameter docs
+- Modern string functions: Replaced legacy strpos() and substr() patterns with str_contains(), str_starts_with(), and str_ends_with()
+- See also: https://github.com/Soneso/stellar-php-sdk/pull/57
+- Release 1.8.8: https://github.com/Soneso/stellar-php-sdk/releases/tag/1.8.8
+
+All PRs merged (4/4):
+- https://github.com/Soneso/stellar-php-sdk/pull/59
+- https://github.com/Soneso/stellar-php-sdk/pull/57
+- https://github.com/Soneso/stellar-php-sdk/pull/55
+- https://github.com/Soneso/stellar-php-sdk/pull/53
+
+
+2. SEP-47 Implementation
+
+Description from last quarter: Extension of existing contract parser infrastructure to support [SEP-47](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0047.md), exposing identification of SEPs implemented by smart contracts.
+
+Proof of completion:
+
+Release 1.8.6: https://github.com/Soneso/stellar-php-sdk/releases/tag/1.8.6
+
+SEP-47 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0047_COMPATIBILITY_MATRIX.md
+
+3. SEP-48 Implementation
+
+Description from last quarter: Building upon the recently added contract bindings support, full [SEP-48](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0048.md) support will provide robust contract event parsing capabilities. This deliverable will significantly simplify event data access for developers, complete with tests and documentation.
+
+Proof of completion:
+
+Release 1.8.6: https://github.com/Soneso/stellar-php-sdk/releases/tag/1.8.6
+
+SEP-48 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0048_COMPATIBILITY_MATRIX.md
+
+4. SEP-45 (Preliminary Work):
+
+Description from last quarter: Initiate development of [SEP-45](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0045.md) support for Stellar Web Authentication with Contract Accounts. Given the complexity and scope of this specification, this work will be conducted in a separate development branch during Q4 2025, with planned completion in Q1 2026. This feature will be critical for enabling contract-based Stellar Web Authentication.
+
+Proof of completion:
+
+Note: SEP-45 support has been fully implemented.
+
+Release: 1.9.0: https://github.com/Soneso/stellar-php-sdk/releases/tag/1.9.0
+
+SEP-45 compatibility matrix: https://github.com/Soneso/stellar-php-sdk/blob/main/compatibility/sep/SEP-0045_COMPATIBILITY_MATRIX.md
+
+Doc (contains coding examples): https://github.com/Soneso/stellar-php-sdk/blob/main/examples/sep-0045-webauth-contracts.md
+
+Integration tests with Stellar Testanchor: 
+- https://github.com/Soneso/stellar-php-sdk/blob/4c0357cc9e498f6dfd36fbd1769e8bc6d020eb56/Soneso/StellarSDKTests/SEP045Test.php#L1423
+- https://github.com/Soneso/stellar-php-sdk/blob/4c0357cc9e498f6dfd36fbd1769e8bc6d020eb56/Soneso/StellarSDKTests/SEP045Test.php#L1524C37-L1524C46
+","The primary objectives for the upcoming three month focus on maintaining SDK reliability, expanding Stellar Ecosystem Proposal (SEP) coverage, and enhancing XDR functionality:
+- Continuous Compatibility: Ensure seamless integration with Horizon, Soroban RPC, and all SEP updates as they are released.
+- Responsive Maintenance: Provide timely responses to GitHub issues, feature requests, and Discord inquiries to support the developer community.
+- Technical Modernization: Refactor legacy code to align with current standards, enhance unit test coverage and documentation quality. Add token efficient documentation for AI coding agents and implement an XDR class generator.
+","1. Continuous Maintenance and improvement: Regular SDK updates addressing horizon, rpc, protocol updates (e.g. p25), bug fixes, feature requests, code modernization, unit test coverage improvement, and documentation enhancements to ensure long-term sustainability. This includes a new documentation for AI Coding Agents, a so called ""skill"", providing token efficient documentation and best practices when using the SDK. Furthermore it includes setting up a configuration for unit test coverage tracking and adding to CI/CD pipeline.  
+2. Add SEP-53 Support: SEP-53 standardizes message signing functionality across Stellar wallets, libraries, and services, preventing ecosystem fragmentation and ensuring interoperability. SEP-53 support is also implemented in the Java and Python SDKs.
+3. XDR classes generator: Currently the SDK has hundreds of manually written XDR classes used to encode and decode XDR objects. Extensions or updates in the XDR structure need to be implemented manually at this time, which makes the SDK difficult to maintain. The new XDR class generator will improve the maintainability and also add missing XDR classes so that they can immediately be used as new features require them. For example, the v25.0.0 RPC getLatestLedger method also returns now the base64 encoded ledger close metadata XDR, that currently can not be decoded by the SDK. ","Overall assessment
+- Mostly delivered. Evidence shows active maintenance, broadened SEP coverage (notably SEP-45/47/48), improved docs, and ongoing compatibility work. Proof for responsiveness and test modernization is weaker (no metrics provided).
+
+Goal-by-goal status (based on the last 3 months):
+- Continuous Compatibility: Likely met. Horizon and Soroban RPC compatibility matrices exist; SEP matrices cover 1,2,5–12,24,30,38,45–48. Added SEP-45/47/48 implies up-to-date SEP coverage.
+- Responsive Maintenance: Partially evidenced. Multiple releases (1.8.5, 1.8.7, 1.8.8) indicate activity, but no quantitative data on issue/PR response times or Discord support.
+- Technical Modernization: Partially met. Claimed PHP 8+ feature adoption and deprecations handling; significantly expanded API docs. Lacking test coverage metrics or explicit deprecation/migration notes in the submission.
+- Enhanced Soroban Integration: Met. Expanded Soroban contract parser; added SEP-47/48; implemented SEP-45 (contract-based web auth), which improves Soroban-based app flows.
+
+Impact achieved (substantiated by submission):
+- Shipped 3 point releases (1.8.5, 1.8.7, 1.8.8).
+- Published comprehensive compatibility matrices (Horizon, RPC, multiple SEPs).
+- Significantly improved API documentation (new site, more comments/examples).
+- Expanded Soroban-related capabilities (SEP-47/48 parsing, SEP-45 auth).
+- Ongoing bug fixes and modernization work (claimed; not quantified).
+
+Critical gaps vs original impact promises, as well as measurement gaps
+- No measurable data on responsiveness (issue/PR counts, mean time to first response/closure, Discord support volume).
+- No test coverage figures, CI status, or regression metrics to validate “enhanced test coverage.”
+- PHP 8 modernization not tied to concrete changes (e.g., union types, attributes, enums) or migration guidance.
+- Compatibility matrices are present, but no timestamps/change logs to verify recency or breadth of test coverage per version.
+- No developer adoption indicators (downloads, stars, dependent projects) to evidence ecosystem impact.
+
+Next 3 months plan vs prior 3 months plan (overlap and shifts)
+- Overlap: Continuous compatibility and responsive maintenance remain core; ongoing technical modernization continues.
+- Shift: Focus moves from “Enhanced Soroban Integration” to “Enhancing XDR functionality,” plus “token-efficient documentation for AI coding agents” and an “XDR class generator.” This broadens scope from Soroban UX to lower-level protocol tooling and documentation ergonomics.
+
+Recommendations to improve submission (to realign with stated goals and maximize impact)
+- Responsiveness: Publish quarterly support metrics (issues opened/closed, PRs merged, median response/closure times, Discord thread counts).
+- Testing/modernization: Share coverage % before/after, list concrete PHP 8 features adopted, and provide a deprecation/migration guide.
+- Compatibility: Add automated CI-backed compatibility badges with last-tested dates and target versions for Horizon, Soroban RPC, and each SEP; note any partial or pending items.
+- Soroban/SEP-45: Provide a minimal end-to-end example/tutorial and sample app demonstrating contract-based web auth to accelerate adoption.
+- Documentation: Track doc change log; add “what’s new” pages tied to releases; include code samples for new features and edge cases.
+- XDR roadmap: For the upcoming XDR work, define deliverables (class generator scope, supported XDR types, performance targets, test vectors) and publish benchmarks and conformance tests upon release.
+- AI-friendly docs: Specify token-efficient guidelines (snippet size, canonical examples, stable URLs) and add a machine-readable index for code references.","I am a Stellar developer since 2017. Main developer and maintainer of the iOS, Flutter and PHP Stellar SDKs.","No, I've submitted before to this award",,,,Stellar PHP SDK,"The primary objectives for the upcoming quarter focus on maintaining SDK reliability, expanding Stellar Ecosystem Proposal (SEP) coverage, and enhancing Soroban functionality:
+
+- **Continuous Compatibility**: Ensure seamless integration with Horizon, Soroban RPC, and all SEP updates as they are released.
+- **Responsive Maintenance**: Provide timely responses to GitHub issues, feature requests, and Discord inquiries to support the developer community.
+- **Technical Modernization**: Refactor legacy code to align with PHP 8 standards, deprecate outdated patterns, and enhance test coverage and documentation quality.
+- **Enhanced Soroban Integration**: Streamline developer experience when implementing Soroban-based features in applications.",$15000.00,Stellar PHP SDK,SCF Public Goods - Q1 '26,Public Goods Award,Stellar PHP SDK - SCF Public Goods Award Submission Q1 2026.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/Crx6R9oRHpRU5nqjF-d3DQ/4jwfgG-DjTg2s4Bf4Oo1V2HZT85pc5yaqlqkUKHiSlE1idgcucVBmsvcpKoMcvfaRwfPy8mcGR2r5c2JPtQsfQ2TT8hRDtqMI8dyePjRpw33qjOISI7Fg-BzHBadfHQTxJ0jFFqSnn1OHh2R0Q5iuY6IyX4Skbdj8qRDH7AJVxeJbNb687u9UtKOhSOgrSL7prv26QS5j7z2v6zbus2GrA/j-f-xcXucQaPUFoARVyahDJBq8b0W_BLliW2NK1Kd-Y),Stellar PHP SDK - SCF Public Goods Award - Q4 '25.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/FLYrVO4gpJNer3kvOPZoQA/WMdzCxWHX2P1tmEvzNAuqgEgWJxdntpFRc_hYyJCrYICrFeGdqWDKMJcw6P2dZRF459GgVBOKPy0CUmpgfoaalvEPZyN42wxy48REhFcH2V9L9YNfwgH-NFQ2dtIk_SbEx7aEj0vJg9VXFMROnxDxoK36ZGmMx5NCYr5hKPr7yZfARRy7YJWOduPdvI7ZV68M3HfmTOgK06jxzXAHbW7Yw/z3YtegNHsxD91OuIerGldjUgMu03AVsbPyZRVcL3JEQ)
+.NET SDK,Awarded (50%),$13000.00,Infrastructure & Services,SDK,https://github.com/Beans-BV/dotnet-stellar-sdk,https://github.com/Beans-BV/dotnet-stellar-sdk,checked,"Over the last three months, the project delivered a substantial upgrade to the correctness, completeness, and production-readiness of the .NET Stellar SDK, significantly reducing integration risk for developers building on Stellar using C# and .NET.
+Key areas of impact include:
+- Protocol coverage expansion (SEPs): Implemented and improved support for multiple Stellar Ecosystem Proposals, including SEP-1, SEP-6, SEP-9, SEP-10, and SEP-24, enabling full anchor and authentication flows for deposits, withdrawals, KYC, and user authorization. This unblocked real-world anchor integrations without requiring custom SDK extensions.
+- Correctness of Horizon response models: Fixed and improved a large set of response classes (e.g. Account, Ledger, Transaction, Trade, Path, Liquidity Pool, Claimable Balance, Trade Aggregation, Operation, Effect, Root and Transaction responses). These fixes addressed type inconsistencies, missing fields, incorrect nullability, and deserialization issues that previously caused subtle runtime bugs.
+- Data type and consistency fixes: Resolved multiple inconsistencies in critical data types (prices, muxed account IDs, date/time fields), ensuring SDK models now accurately reflect Horizon and RPC responses and behave predictably in strongly typed .NET environments.
+- Reliability improvements: Added a configurable retry mechanism for both Horizon Server and SorobanServer clients, improving resilience against transient network failures and rate limits in production systems.
+- Soroban developer enablement: Added more advanced, real-world Soroban contract invocation examples, lowering the barrier for .NET developers adopting smart contracts on Stellar.
+- Developer experience & safety: Reduced non-nullable warnings, improved public property documentation, and expanded unit test coverage, making the SDK safer, easier to use, and easier to maintain for downstream projects.
+
+As a result, the SDK is now significantly closer to full protocol parity, safer for production use, and better aligned with real-world Stellar usage patterns. These improvements directly benefit the wider Stellar ecosystem by enabling .NET developers to build wallets, backends, anchors, and Soroban-enabled applications without maintaining forks or workarounds.","https://github.com/Beans-BV/dotnet-stellar-sdk/issues?q=is%3Aissue%20state%3Aclosed%20label%3A%222025%20Q4%22
+The Json.NET → System.Text.Json migration was completed in the last quarter as well: PR #20: Convert Json.NET to System.Text.Json)
+We ran a before-and-after analysis for the full project and exported coverage reports. Overall coverage increased from 89% to 92%, even though the total codebase grew during the quarter. 
+The XML documentation work under StellarDotnetSdk.Responses was not completed 100% in this quarter. Some effort went into additional SEP-related work instead. We’ve explicitly scoped clearing the remaining XML documentation backlog, including full public property coverage, for the next quarter.","Over the next three months, our goal is to close the remaining, explicitly identified gaps in the Stellar .NET SDK’s protocol coverage and developer-facing quality by fixing everything tracked in:
+- StellarDotnetSdk/Compatibility/horizon_matrix.md
+- StellarDotnetSdk/Compatibility/rpc_matrix.md
+- missing-docs.txt
+
+In addition, any capacity not required for upstream-driven compatibility updates or developer support during this period will be applied to further reducing public API XML documentation debt, ensuring all contracted effort results in durable, user-facing improvements.
+
+Impact for the Stellar ecosystem:
+- Higher protocol completeness with less risk: Move Horizon coverage from 92.0% → 100% by implementing the remaining missing/partial endpoints documented in the matrix (notably /health, missing liquidity-pool subresources, and the offer-trades parity item).
+- Soroban RPC parity improvements: Move RPC coverage from 83.3% → 100% by implementing getLedgers and exposing the missing cursor field in getTransactions.
+- Better developer experience and maintainability: Eliminate the backlog of 383 missing public XML documentation items (IntelliSense and API clarity), and continue strengthening documentation quality as available capacity allows.","Deliverable 1 — Eliminate public API XML doc debt (primary workstream & capacity buffer)
+- Specific: Resolve every item in missing-docs.txt and improve documentation quality where applicable.
+- Measurable: 383 → 0 missing XML doc items; additional qualitative improvements tracked via review.
+- Achievable: Straightforward, trackable, and non-speculative workstream.
+- Relevant: Improves IntelliSense, correctness-by-default usage, onboarding, and long-term maintenance.
+- Time-bound: Complete by end of the 3-month period.
+
+Note: Deliverable 1 explicitly serves as a capacity buffer. Any unused capacity resulting from low upstream change volume or low support demand (see Deliverables 4 and 5) will be reallocated to this deliverable to ensure all contracted hours produce durable, user-facing value.
+
+Deliverable 2 — Complete Horizon matrix parity
+- Specific: Implement all remaining items marked ❌/⚠️ in horizon_matrix.md (e.g., GET /health, missing liquidity-pool subresources, offer-trades parity item).
+- Measurable: Coverage 92.0% (46/50) → 100% (50/50); “Partially/Not Supported” → 0.
+- Achievable: Scoped strictly to existing matrix deltas (no speculative work).
+- Relevant: Removes workarounds and improves production readiness for Horizon integrations.
+- Time-bound: Complete by end of the 3-month period.
+
+Deliverable 3 — Complete Soroban RPC matrix parity
+- Specific: Implement all remaining items marked ❌/⚠️ in rpc_matrix.md (e.g., getLedgers; expose cursor in getTransactions response).
+- Measurable: Coverage 83.3% (10/12) → 100% (12/12); missing response fields → 0.
+- Achievable: Limited to one missing method and one missing response field.
+- Relevant: Enables full-featured Soroban integrations in .NET without forks.
+- Time-bound: Complete by end of the 3-month period.
+
+Deliverable 4 — Continuous compatibility with protocol evolution
+- Specific: Track and integrate Horizon, Soroban RPC, and SEP updates released during the engagement period.
+- Measurable: Zero unsupported breaking changes introduced by upstream releases during the 3-month window.
+- Achievable: Incremental updates aligned with upstream changes only; no retroactive backlog assumed.
+- Relevant: Prevents SDK drift and protects production integrators.
+- Time-bound: Ongoing throughout the 3-month period.
+
+Note: If no upstream changes require development work during any portion of the engagement period, the associated capacity will be reallocated to Deliverable 1.
+
+Deliverable 5 — Developer support & maintenance responsiveness
+- Specific: Triage and respond to SDK-related GitHub issues, feature requests, and Discord inquiries.
+- Measurable: Issues acknowledged and either resolved, scoped, or explicitly deferred.
+- Achievable: Bounded strictly to SDK maintenance and usage (no general Stellar support).
+- Relevant: Maintains developer trust and reduces adoption friction.
+- Time-bound: Ongoing throughout the 3-month period.
+
+Note: If issue volume or support demand is low, unused capacity will be reallocated to Deliverable 1.
+
+Deliverable 6 — Release & verification (included in above effort)
+- Specific: Add or adjust tests for new and changed surfaces, update parity matrices, and ship releases.
+- Measurable: Passing test suite, updated matrices, and tagged releases.
+- Time-bound: Completed within the 3-month period.","Overall assessment
+- Strong delivery on most Q4 objectives that increase protocol coverage, correctness, reliability, and developer usability. 
+- Not enough evidence that the Json.NET → System.Text.Json migration was completed. 
+- Documentation and testing improved but not fully closed (remaining XML doc backlog acknowledged for next quarter; no quantitative test coverage reported).
+
+Goal-by-goal status (based on the last 3 months)
+- Transition from Json.NET to System.Text.Json: unclear/not evidenced in the submission. No explicit claim or impact notes tied to serializer migration.
+- Retry mechanism (Server and SorobanServer): delivered (configurable retry added for both clients; reliability improvements noted).
+- SEP-6 and SEP-24 support: delivered, and exceeded (also SEP-1, SEP-9, SEP-10 implemented/improved), enabling end-to-end anchor and auth flows.
+- Unit test coverage improvements: partial/delivered without metrics (submission cites expanded coverage, but no before/after figures or target areas enumerated).
+- Advanced Soroban contract invocation examples: delivered (real-world examples added).
+- Refactor and improve response classes:
+  - Correctness and consistency fixes across many Horizon response models: delivered.
+  - XML documentation: improved but not complete (next-quarter plan to eliminate 383 missing items confirms remaining gap).
+  - Nullable warnings: reduced and addressed; still implied ongoing work.
+
+Impact achieved (substantiated by submission)
+- Protocol coverage (SEPs): SEP-1/6/9/10/24 implemented or improved, unblocking real-world anchor integrations.
+- Correctness: large set of Horizon response models fixed (types, missing fields, nullability, deserialization).
+- Data consistency: prices, muxed account IDs, date/time fields corrected.
+- Reliability: configurable retry for Horizon Server and SorobanServer.
+- Soroban enablement: advanced, real-world contract invocation examples.
+- Developer experience: fewer non-nullable warnings, better property docs, expanded tests—safer and easier to adopt.
+
+Critical gaps vs original impact promises, as well as measurement gaps
+- Serializer migration (Json.NET → System.Text.Json) not evidenced; if incomplete, this is a key modernization gap.
+- Documentation goal (“XML docs for all publicly visible properties”) not met; backlog remains.
+- Test coverage: no quantitative metrics (coverage %, critical areas, or regression data) to validate “improved reliability.”
+- Protocol parity: matrices still show gaps (Horizon 92%, RPC 83.3%); next-quarter plan targets these but no current-quarter delta provided.
+- Evidence trail: Impact narrative is strong, but few concrete links/metrics tying closed issues/PRs to each objective.
+
+Next 3 months plan vs prior 3 months plan (overlap and shifts)
+- Overlap: continues focus on protocol completeness (Horizon/RPC parity) and developer-facing quality (XML docs).
+- Shifts: specific, measurable targets via horizon_matrix.md, rpc_matrix.md, and missing-docs.txt; emphasis on closing remaining endpoints (/health, liquidity-pool subresources, offer-trades), RPC getLedgers/cursor, and clearing 383 XML docs.
+- Potential omission: serializer migration is not called out; if still pending, it risks slipping. Testing improvements are less explicit in the forward plan.
+
+Recommendations to improve submission (to realign with stated goals and maximize impact)
+- Serializer migration: explicitly confirm status. If pending, schedule it in the next plan with milestones, performance/comparability validation, and a clear migration guide for users.
+- Measurement and evidence:
+  - Publish a concise Q4 objective-to-deliverable mapping with links to closed issues/PRs for each goal (SEPs, retries, response fixes, tests).
+  - Report test coverage before/after and add targeted integration tests for SEP-6/24 flows and key Horizon/RPC endpoints.
+  - Track and report matrix progress numerically (e.g., Horizon 92% → X% this quarter; list newly supported endpoints).
+- Documentation: commit to clearing the 383 XML doc backlog with sprint targets; add validation in CI to prevent regressions.
+- Reliability UX: document retry defaults (backoff, max attempts, retryable status codes) and configuration in README; provide guidance for production tuning.
+- Examples: include runnable end-to-end samples for SEP-6/24 and Soroban in CI to prevent drift.
+- Model correctness durability: consider schema-driven code generation or automated conformance tests against Horizon/RPC fixtures to minimize future drift.","Cuong Pham – Software Engineer, primary maintainer of the .NET Stellar SDK. Responsible for core development, feature implementation, and testing. Has extensive experience building on Stellar.
+Jop Middelkamp – Maintainer and reviewer. Oversees roadmap planning, aligns development with ecosystem needs.
+
+The team collaborates with other Stellar ecosystem developers and maintains active communication through GitHub issues and Stellar developer channels. Contributions are reviewed and merged regularly to keep the SDK aligned with the latest network standards.","No, I've submitted before to this award",,,,.NET SDK,"Note: Budget ask for quarter is $13,000, because our existing Infrastructure Grant is running out in November, the remainder of Q4 is supported by the SCF Public Goods Award with adjusted budget ($7,489).
+Our main objective for Q4 is to modernize the SDK, expand protocol coverage, and improve test reliability and documentation:
+- Transition from Json.NET to System.Text.Json for serialization.
+- Add retry mechanism with default configuration for both Server and SorobanServer.
+- Add support for SEP-6 (Deposit/Withdraw) and SEP-24 (Interactive Flows).
+- Improve unit test coverage for key asset classes, converters, operations, request builders, and response result types.
+- Provide advanced real-world Soroban contract invocation examples in the examples library.
+- Refactor and improve response classes under StellarDotnetSdk.Responses:
+    - Add XML documentation for all publicly visible properties.
+    - Properly resolve “Non-nullable property '..' is uninitialized” warnings rather than disabling nullable checks.",$7489.00,.NET SDK,SCF Public Goods - Q1 '26,Public Goods Award,NET SDK Flutter Stellar SDK - SCF Public Goods Award Submission Q1 2026.pdf (https-::airtable.com:appymB1sbp5uidiGe:tblpytbu3t73kssiE:recV6DdahZuef9Yor:fldyXNG2BA3Ld3evc:att8PCObO3ZTUyDgS).pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/r7A9_rVJks-vSr0A96HJ8g/6bnkZdEEHRLRE166v0yGmwaR3eKFe-YPZSDz1WvtpzXri8T9lWvJUtVSmmyrPCNTybT0LAdY_vc-IbWnIws5QfBaIaqlAoNKQ1t_NZz9eQN8p94mk6SH3mKKxY3IM6to68B8Wd0h9XoimBZWCofwqcxRH8DkGAScpXQmlP5wV2GlT8o89ZW3cRbLPCCKliJwwgcA4V98lCU6273viVABpQdzgXg0k_kLeJKryanIKfvpk1xm-Wn8LoNjmc7hhD2uS8jAxAMy3nCYjZFMWduVrhYhYAhnW3V1witc9tvRuzn_23Cas7GbtKeUrVAgBORtlkF6PntRqhC0kQB8KGx9YVMwJGOJQHfI900nzustXLzcZVDm1AVQhma-adZ57JB0/8o-X6z-e4-rHOTqbxVgRq2j9o0d1NvvJ4igRxoE9lSE),
+OpenGrants,Awarded (50%),$15000.00,Infrastructure & Services,Data Tool,https://opengrants.net/,https://github.com/metagov/daostar/blob/main/DAOIPs/daoip-5.md,checked,"Over the past three months, OpenGrants has focused on integrating more deeply within the Stellar ecosystem and evolving our infrastructure to provide advanced analytics and address core gaps in the governance process. These efforts have generated the following impact: 
+
+- Increased the visibility of the OpenGrants stack within the Stellar ecosystem through targeted conversations with 6 high-context builders and governance participants
+- Delivered milestone funding data analysis and visualizations, grant system reporting, and a Stellar dashboard page 
+- Uncovered gaps in accountability and institutional learning within Stellar’s governance system
+- Created a guide that formalizes integration processes and streamlines the Stellar <> OpenGrants data pipeline
+- Brought SCF DAOIP-5 compliance up to 100% and expanded our industry-wide data sets with data from Gitcoin, Giveth, and Privote  
+- Explored the addition of impact-related metrics, including discussing with Raph a possible integration with Lumen Loop that adds activity metrics (i.e. onchain, social, and development metrics) into OpenGrants infrastructure","I. Deeper integration within Stellar community
+- Added SCF Round 39 data to improve SCF DAOIP-5 compliance to 100% (proof: OpenGrants SCF Raw Data)
+    - Data freshness is indicated by a “data indexed” tag on SCF dashboard page  
+- Created a Stellar guide that formalizes integration processes and streamlines the Stellar <> OpenGrants data pipeline (proof: Opengrants <> Stellar Community Fund Pipeline)   
+- Collected feedback on OpenGrants infrastructure and analytics from Stellar ecosystem team and builders (OpenGrants Feedback Summary) 
+
+II. Productized OpenGrants API
+- Authentication & access control: secure API key based access for users (proof: OpenGrants API Access) 
+- Usage analytics & consumption: visibility into who is using what and how often (proof: OpenGrants API Internal Usage, password: metagovog)
+- Versioning & schema exposure: clear, documented data structure that evolves safely over time (proof: SCF Schema Map YAML File)
+    
+III. SCF-funded project performance tracking, measurement, and reporting
+- Stored milestone data for SCF projects using the DAOIP-5 schema extension
+- Backfilled milestone data for SCF-funded projects (proof: “Milestones” tab in SCF profile page)
+- Published “v1” grant system report, inclusive of milestone data (proof: SCF Grant System – Summary Report)
+
+IV. Improved visibility of SCF grants data via OpenGrants dashboard
+- Visualized additional key data on SCF profile page including: quarterly projects awarded, quarterly funding distribution, awarded submissions by round, awarded projects by category
+- Integrated milestone data into dashboard analytics (e.g. milestone completion rate over time, amount funded per milestone, etc.)
+- Enhanced SCF profile with the following: about, program description, contact, additional links
+- Proof: https://opengrants.daostar.org/system/scf 
+
+V. More robust data sets 
+- Integrated data from Gitcoin, Giveth, and Privote
+- Karma is integrated as a Project Identity Provider in API","In the next three months, OpenGrants will focus on participating more directly in the SCF governance process during SCF #41 and ensuring the continued full integration and visualization of up-to-date SCF funding data. We plan to deliver the following impact to the Stellar ecosystem: 
+
+- Delivering grant analytics during the governance process for SCF #41 
+- Mitigating data fragmentation through more centralized, structured data infrastructure
+- Ensuring Stellar’s continued full compliance with DAOIP-5 by integrating new data from SCF #40 in the OpenGrants data lake and dashboard (if available)","I. Objective: Integrate OpenGrants into the governance process for SCF #41 
+- Deliverables: 
+    - Provide funding and milestone data analytics  
+    - Participate in discussions with delegates and builders on Discord 
+    - Collect feedback from delegates and other stakeholders
+- Date: Dependent on the dates for SCF #41
+- Budget: $7k
+
+II. Objective: Build out more robust data sets for comparative analyses
+- Deliverables:
+    - Onboard and integrate data from 1 new partner
+    - Report on newly onboarded program compliance with DAOIP-5   
+- Date: March 27, 2025
+- Budget: $3k
+
+III. Objective: Ongoing maintenance and iteration of OpenGrants infra 
+- Deliverables:
+    - Integrating new data from SCF #40 (if available) 
+    - Continually ensuring Stellar’s full compliance with DAOIP-5
+    - Updating OpenGrants in accordance with ecosystem participant feedback
+- Date: March 27, 2025
+- Budget: $5k","Overall assessment
+- Largely delivered on integration, analytics, dashboarding, and API productization; partially delivered on comparative datasets; underdelivered on impact measurement and outcome/KPI evidence.
+
+Goal-by-goal status (based on the last 3 months)
+- Valuable grant analytics, visibility, and feedback loop + “v1” report: Delivered. Feedback collected; “v1” SCF grant system report published; increased visibility via 6 targeted conversations; dashboard and API surfaced data.
+- Project performance tracking and visualization: Delivered. Milestones modeled in DAOIP-5 extension, backfilled, integrated into dashboard; incorporated into “v1” report.
+- Streamlined Stellar <> OpenGrants pipeline and compliance: Mostly delivered. Integration guide created; SCF DAOIP-5 compliance reported at 100% with Round 39 added. Data freshness/timeliness metrics not reported.
+- More robust datasets for comparative analyses: Partially delivered. New integrations with Gitcoin, Giveth, and Privote. Karma (explicitly cited in plan) not mentioned.
+- Impact measurement exploration (onchain/protocol metrics, dependency mapping, research incorporation): Not demonstrated. No concrete impact metrics or dependency mapping surfaced; work appears focused on performance tracking rather than impact measurement.
+
+Impact achieved (substantiated by submission)
+- 100% DAOIP-5 compliance for SCF data (incl. Round 39) and documented integration guide.
+- Productized API with key-based auth, usage analytics, and versioned/schema docs.
+- Milestone data stored/backfilled; “Milestones” visible in SCF profile; “v1” SCF grant system report published.
+- SCF dashboard expanded (quarterly award/funding visuals, awarded by round/category, milestone analytics, enriched profile).
+- Expanded datasets via Gitcoin, Giveth, Privote integrations.
+- Increased ecosystem engagement (6 high-context builder/governance conversations) and identification of accountability/feedback-loop gaps.
+- Proof artifacts were provided, though not independently verified here.
+
+Critical gaps vs original impact promises, as well as measurement gaps
+- Impact measurement: No evidence of added impact metrics (onchain activity, protocol usage, dependency mapping) or incorporation of impact research.
+- Comparative analyses: Partner list deviates from plan (Karma missing) and no published cross-ecosystem comparative insights.
+- Data freshness: No SLA/latency metrics; compliance reported but timeliness unquantified.
+- Adoption/usage: API and dashboard usage outside OpenGrants not evidenced; internal usage view noted, but no external adoption metrics.
+- Decision impact: No concrete examples showing analytics influencing funding decisions in a live round.
+
+Next 3 months plan vs prior 3 months plan (overlap and shifts)
+- Overlap: Continued emphasis on valuable analytics, centralized data infrastructure, accountability/reporting, and maintaining DAOIP-5 compliance.
+- Shifts: Stronger focus on live application during SCF #41 and ingesting SCF #40; exploration of additional external integrations remains but unspecified. Impact measurement strand from prior plan is de-emphasized/omitted.
+- Risk: Reiterating similar objectives without explicit, measurable success criteria (e.g., decision impact, adoption, freshness SLAs) and potential deferral of impact measurement work.
+
+Recommendations to improve submission (to realign with stated goals and maximize impact)
+- Publish concrete KPIs and baselines:
+  - Data freshness SLA (e.g., time-to-ingest per SCF round/field), DAOIP-5 compliance by round, data quality checks.
+  - Adoption metrics: external API keys issued, active orgs, request volumes by endpoint; dashboard unique users and session depth.
+- Demonstrate decision influence in SCF #41:
+  - Pre/post analytics briefs used by reviewers; 2–3 documented cases where analytics changed funding or milestone decisions; include in next report.
+- Restart impact measurement track:
+  - Pilot 2–3 impact metrics (e.g., onchain activity tied to funded project contracts/addresses, protocol usage deltas, dependency graph of funded tooling) and surface them in the dashboard and report.
+- Close comparative analysis gap:
+  - Complete or replace the planned Karma integration (or explain substitution) and publish at least two cross-ecosystem insights comparing SCF to Gitcoin/Giveth/Privote.
+- Harden the pipeline:
+  - Automate SCF #40/#41 ingestion with a published schedule, provenance/change logs, and alerting; report latency against SLA.
+- Expand and formalize the feedback loop:
+  - Go beyond 6 interviews; run a structured survey with reviewers/builders; publish findings and resulting product/process changes.
+- Improve API and data accessibility:
+  - Public docs and example queries; changelog/versioning policy; quarterly transparency on external usage and uptime.","DAOstar develops technical standards and builds public goods that support the long-term success and sustainability of the DAO ecosystem. We believe that in order to succeed, DAOs need to maximize their shared impact through collaboration as well as competition. 
+
+The team focused on driving the development of OpenGrants and and adoption of DAOIP-5 include:
+
+-   Joshua Tan (https://www.joshuatan.com/research/) - founder @ Metagov, Standards Lead @ DAOstar
+    
+-   Josh Dávila (https://www.linkedin.com/in/jadavila/?originalSubdomain=de) - DAOIP-5 Grants Standard Lead
+    
+-   Rashmi Abbigeri (https://hackmd.io/@torchablazed/HyaHgDBeA?utm_source=preview-mode&utm_medium=rec) - DAOIP-5 Technical Lead
+    
+-   Sam McCarthy (https://www.linkedin.com/in/sam-mccarthy-45488372/) - Ecosystem Growth Lead @ DAOstar","No, I've submitted before to this award",,,,OpenGrants,"Goals of the next 3 months
+In the next three months our focus is shifting from infrastructure building and delivery, to working with the Stellar ecosystem team to provide direct value through deeper process integration, advanced analytics and insights, and the first steps towards impact measurement. We plan to deliver the following impact to the Stellar ecosystem:  
+- Valuable grant analytics: Increasing the visibility of the OpenGrants stack (DAOIP-5, data lake, API, and dashboard) within the Stellar ecosystem, establishing a documented feedback loop with team members and builders and publishing a “v1” grant system report
+- Project performance tracking and data visualization: Building milestone funding and progression data into the DAOIP-5 schema, grant system reporting, and Stellar dashboard page (specifically requested by the SCF team)
+- Streamlined Stellar <> OpenGrants pipeline: Documenting data import processes and timelines for new rounds and data field updates, as measured by data freshness and DAOIP-5 compliance rates 
+- More robust data sets for comparative analyses: continuing to onboard new ecosystem data partners, including data from Gitcoin and Karma, as measured by partner integrations
+- Impact measurement: Exploring the addition of impact-related metrics into OpenGrants infrastructure, which could include onchain data, protocol metrics, and dependency mapping, and incorporating relevant findings from our upcoming impact research ",$40000.00,OpenGrants,SCF Public Goods - Q1 '26,Public Goods Award,OpenGrants - SCF Public Goods Award Submission Q1 2026.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/eLIX3vNESThk4H6gcmnkvQ/KlbANx-1wE5sw-9_cnxbRuEKIUihJnYD1cUsZ1hGodOjQcZ3UVsM8hxT6A1mAxouVe0t-2jhK1x-dhHHuicOMTYrnx59FY_DxWHtkLX7D6bwPPzPoXSh4ED1IvCVowAEgPPn1Fo5iWwn_W5VJ6xBKhsx9N0BS_4w9ocXyPb5l6c7nYdjWZy8DArbzPMWrzDBNAkrbxtdUTRtPnuYNCkC5w/U4pOyMur-wok3FHJnnFOBhWMlNSKm15OO5yu3Mgh-XE),OpenGrants -  - SCF Public Goods Award - Q4 '25.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/eDkVEL4nEoegKSjJnKeajg/G0DOOmhtTXqfw-AsqPLqZtFjP-wRxoOXw-O_RsT1n_A-g63m5fvvCGy68CHb-Y5DioW6nIiy2oA5rTz5E71ku64V8pt5OX3uoOHGYi0nrUbQwxC4gQtnRpRTsHLbqQcKn3fStQsz8MbJUgYWOnOrPa9p3JiClaE9iMWq4Hpvse3fUoyl0707eqtTL6Vm8tnR/9ZZ4Cz14s-qvWnJSnC9enjgnXjnHp7htQfCyX4DdQbM)
+Stellar Light,Awarded (50%),$30000.00,Applications,Marketplace,https://github.com/Stellar-Light,https://github.com/Stellar-Light,checked,"Stellar Stablecoin Explorer – Built a comprehensive stablecoin tracking platform for the Stellar ecosystem:
+
+
+Key Deliverables:
+
+
+- 22+ Verified Stablecoins Tracked – Real-time data aggregation from Stellar Expert API covering USD, EUR, JPY, BRL, ARS, GBP, AUD, and other fiat-pegged assets
+- Historical Analytics Dashboard – Multi-timeframe charts (14D, 90D, 1Y) showing Supply by Currency, Market Share by Token, and Active Addresses trends
+Top Issuers Leaderboard – Rankings of major 
+stablecoin issuers (Circle, PayPal/Paxos, GMO Trust, FxDAO, Novatti 
+- Group) with aggregated market cap and volume metrics
+DeFi Integration – Live liquidity pool data from 
+Stellar Horizon, showing TVL across AMM pools with Blend Capital lending
+-  integration for USDC/EURC
+- Developer Tools Directory – Curated collection of 10+ Stellar payment tools, APIs, and services for builders
+
+
+Ecosystem Impact:
+
+
+- Provides the first unified view of Stellar's stablecoin landscape in one interface
+- Enables developers and users to discover stablecoin options by peg currency, issuer, and DeFi opportunities
+- Drives awareness of newer stablecoins (USDY, AUDD, regional tokens) alongside established assets
+- Mobile-optimized with touch interactions for broader accessibility
+
+
+Integrations:
+
+
+- Stellar Expert API (stablecoin metrics, volume data)
+- Stellar Horizon (liquidity pool reserves, TVL calculations)
+- Blend Capital (lending/borrowing for major stablecoins)
+- Goldsky (Future Integration)
+
+
+Stellar Light Project Directory and Advanced Filter System – Built a comprehensive discovery platform for the Stellar ecosystem.
+
+
+Core Platform Features:
+
+
+- Project Directory – Browse and search 230+ Stellar projects with category, status, and verification filtering
+- Entity Management – Organizations and companies building on Stellar with associated project listings
+- Community Picks – Featured projects handpicked by the community for discovery
+- Blog Integration – RSS feed integration for ecosystem news and highlights
+- GitHub Integration – Automatic fetching and caching of repository stats (stars, issues, activity)
+- Transparency Logs – Public audit trail of all directory changes for accountability
+- Project Intake – Public submission form for new projects with admin approval workflow
+
+
+User Experience:
+
+
+- Modern, responsive UI built with Tailwind CSS and shadcn/ui
+- Advanced search and filtering across all projects
+- Interactive carousels for featured content
+- Infinite scroll-style loading for seamless browsing
+- Mobile-first design across all device sizes
+
+
+Admin & Infrastructure:
+
+
+- Payload CMS – Full-featured content management for directory curation
+- Cloudflare R2 – Media storage integration for project logos and assets
+- MongoDB – Scalable database for project and entity data
+- Data Sync – Airtable and Lumenloop import capabilities
+- RSS Management – Custom feed management interface
+
+
+Ecosystem Impact:
+
+
+- Central hub for discovering Stellar projects across DeFi, Payments, Infrastructure, and more
+- Lowers barrier for new builders to find existing tools and collaborators
+- Transparency logs build trust with public change history
+- Community curation surfaces high-quality projects
+
+
+Ideas Platform – Launched & Published
+
+
+Built and launched a dedicated Ideas & RFP discovery platform at ideas.stellarlight.xyz featuring:
+
+
+Curated Idea Repository: Published a refreshed 
+collection of project ideas across key Stellar ecosystem categories 
+- including DeFi, Payments, Infrastructure, Dev Tools, Gaming, and more
+RFP Infrastructure: Built the technical foundation 
+for future RFP tracks, enabling structured pathways for developers to 
+- discover and contribute to ecosystem priorities
+Discovery Features: Implemented category filtering,
+ search functionality, and difficulty ratings to help developers find 
+- projects matching their skills and interests
+- Moderation System: Created an approval workflow ensuring quality control for submitted ideas before public visibility
+- Event Integration: Built event promotion system to drive awareness of ecosystem opportunities like hackathons and residencies
+
+
+Impact: The platform serves as an onboarding funnel 
+for new Stellar developers by surfacing high-impact project 
+opportunities. To be used for  SCF. hackathon channels, and 
+partner networks to inspire new project creation and channel talent into
+ the Stellar ecosystem
+
+Data Analytics & Feedback Loops
+Deliverables:
+- Visitor Analytics – Track page views, unique visitors, session duration, and traffic sources across all platform sections
+- Interaction Tracking – Monitor filter usage, search queries, project clicks
+- Event Engagement – Measure CTA clicks (Explore Tools, submission forms), carousel interactions, and external link clicks
+- Geographic Insights – Understand where users are accessing the platform globally
+- Conversion Funnels – Track user journeys from discovery to project submission or tool exploration
+
+
+","https://www.stellarlight.xyz/
+https://stablecoin.stellarlight.xyz/tools
+https://stablecoin.stellarlight.xyz/
+https://ideas.stellarlight.xyz/
+","Product Goals
+Enable easy discovery of applications, infrastructure, integration partners, anchors, smart contracts (protocols), and assets within the Stellar ecosystem.
+Provide a reliable, up-to-date source of project information maintained by both the community and project teams
+Surface the most impactful and active projects through usage, traction and community signals.
+
+","Core Features & Requirements: SDF 
+
+Intake Mechanism
+Direct integration with Entity Airtable for one-directional data sync (projects + grants).
+Public intake form for new project submissions, reviewed against eligibility 
+
+Public Launch 
+Highlight modules for trending or high-impact projects (“Top Builders,” “Emerging Apps,” etc.)
+Monthly ecosystem digest auto-generated from directory data
+
+Future Considerations
+Visualizations: maps of integrations, heatmaps of category activity, and trend lines over time
+
+Ranking & Discovery
+Explore Protocols / contracts: # of invocations, onchain data
+Additional modifiers to explore: SCF or SDF affiliation
+Recency and frequency of updates
+
+Stablecoin Explorer 
+Additional Data updates with Goldsky
+
+Streamline SCF <> Hackathon pipeline
+Hackathon event calendar with upcoming Stellar hackathons
+Post-hackathon project status updates (Built, In Progress, Abandoned)
+
+Explore AI functionality
+AI search / integration with Stella (e.g. I need an on-off ramp that supports European users)
+","Overall assessment
+- Strong execution on core platform: Directory v2, Stablecoin Explorer, and Ideas platform shipped. Instrumentation is in place. 
+- Gaps: Talent Directory not delivered, asset coverage beyond stablecoins unclear, advanced filters don’t fully match stated scope, and little substantiated evidence of ecosystem activations or visibility outputs. Impact is plausible but under-measured.
+
+Goal-by-goal status (based on the last 3 months)
+1) Ship/Evidence Directory v2: Delivered
+- 230+ projects; entity management; transparency logs; GitHub integration; submission workflow; modern UI; data sync and CMS infrastructure (stellarlight.xyz).
+2) Launch Stablecoin & Asset Sections: Partially delivered
+- Stablecoin Explorer shipped with 22+ verified assets, historical analytics, issuer leaderboard, AMM TVL, Blend integration, tools directory (stablecoin.stellarlight.xyz). 
+- “Major ecosystem assets” beyond stablecoins not evidenced.
+3) Enhanced Project Discovery & Filtering: Partially delivered
+- Advanced search; filters for category/status/verification; GitHub stats. 
+- No explicit filters for funding stage and tech stack as promised.
+4) Publish & Launch Updated Idea List: Delivered
+- ideas.stellarlight.xyz live with curated ideas, RFP infra, search/filtering, moderation, and event promotion system.
+5) Launch Talent Directory: Not delivered
+- No public evidence of a Talent Directory or equivalent.
+6) Ecosystem Activations: Evidence insufficient
+- Platform has event-promotion capability, but no concrete activations, partners, or outcome metrics reported (e.g., SCF Kick, DraperU).
+7) Visibility & Community Features: Evidence insufficient
+- RSS/blog integration exists. No substantiation of an ecosystem report or 1–2 project spotlights, or expanded social/email campaigns.
+8) Data Analytics & Feedback Loops: Instrumentation delivered; outcomes not reported
+- Tracking for visitors, filters, clicks, geography, funnels is implemented, but no reported KPIs, insights, or changes driven by the data.
+
+Impact achieved (substantiated by submission)
+- First unified stablecoin view for Stellar with real-time data and historical analytics; discover by peg, issuer, and DeFi opportunities; mobile-optimized.
+- Directory serves as a central hub for 230+ projects with public transparency logs and community curation; lowers discovery friction.
+- Ideas platform launched as an onboarding funnel with RFP-ready structure and moderation.
+- Technical groundwork for data quality (GitHub stats, CMS, imports) and analytics instrumentation across the platform.
+
+Critical gaps vs original impact promises, as well as measurement gaps
+- Talent Directory absent.
+- “Asset sections” beyond stablecoins not demonstrated; unclear issuer/asset-to-project linkage breadth.
+- Advanced filters missing key dimensions (funding stage, tech stack).
+- Ecosystem activations and visibility commitments (ecosystem report, spotlights) not evidenced.
+- Analytics lacks published KPIs (usage, retention, CTRs, submissions, conversion funnels) and specific improvements informed by data.
+- SCF program integration impact not demonstrated (e.g., actual usage in SCF Kick/hackathons or partner channels).
+
+Next 3 months plan vs prior 3 months plan (overlap and shifts)
+- High overlap: “Enable easy discovery,” “Provide reliable, up-to-date info,” and “Surface impactful/active projects via signals” continue the same trajectory as Directory v2, Stablecoin work, and analytics.
+- Shift: Emphasis on surfacing projects by usage/traction/community signals suggests ranking/quality layers not yet implemented; good evolution if executed.
+- Potential deprioritization: Talent Directory and explicit ecosystem activations/visibility are not called out in the next goals.
+- Assets beyond stablecoins still implicit; needs explicit scope to avoid repeating prior quarter’s gap.
+
+Recommendations to improve submission (to realign with stated goals and maximize impact)
+- Publish quarterly KPIs: traffic, DAU/WAU, search/filter usage, outbound CTRs, stablecoin page views, submissions started/completed, geo mix, and top user journeys. Include at least one insight-to-change example.
+- Close scope gaps:
+  - Ship a Talent Directory MVP (profiles, skills, availability, links to projects) or explicitly de-scope.
+  - Expand “Assets” beyond stablecoins (anchors and major tokens), link assets⇄issuers⇄projects, and show usage/tooling.
+  - Complete filter set: funding stage, tech stack, region, SCF status; add sort by traction (GitHub activity, on-chain metrics, SCF funding).
+- Deliver promised visibility: publish one ecosystem report and 1–2 project spotlights; cross-post via X/email; a stablecoin quarterly review would be high-value.
+- Demonstrate ecosystem activations: list the events integrated, curated lists delivered, and resulting submissions/participants; include partner confirmations where possible.
+- Tighten SCF integration: badges for SCF finalists/winners, import SCF funding rounds, prefilled forms/links to SCF Kick, and program-specific filters.
+- Make analytics partially public or share a summary dashboard; add “last updated” and data-source tags on pages; bring Goldsky online if needed for reliability.
+- Roadmap clarity: simple now/next/later with owners and dates to distinguish completed work from upcoming deliverables.","I'm Boxy and I've been part of the Stellar community since 2019 and have been focused on content, discoverability, and ecosystem growth since 2021. Over the years, I’ve created content that’s reached over 100,000 views across Reddit and Twitter, helping bring attention to projects building on Stellar and highlighting ecosystem developments.
+
+Some of the things I’ve contributed to include:
+- Stellar Wrapped – a yearly recap of ecosystem progress
+- https://stellarlight.xyz/hack
+- Hackathon mentoring with SDF (Consensus (Toronto Builder Summit), Istanbul(Rise in), Hack Meridian London)
+- Building tools and resources to make Stellar projects easier to discover
+- Supporting new protocols with ecosystem data, positioning, and product feedback
+- Community collaborations 
+
+My background is very product-driven, and I care a lot about helping teams find product-market fit and grow real user adoption. Outside of Stellar, I’ve also worked on DePIN infrastructure projects on Polygon, giving me experience across ecosystems.
+
+With Stellarlight, the goal is to take all this experience and create something that brings more visibility, connection, and momentum to the Stellar ecosystem.","No, I've submitted before to this award",,,,Stellar Light,"1. Ship/Evidence Directory v2 (Northstar Goal)
+Expand the foundation for the database powering SCF and broader ecosystem visibility by delivering Directory v2.
+Impact: Strengthens Stellarlight’s role as the central source of truth for ecosystem projects and lays the groundwork for deeper integrations across SCF and ecosystem programs.
+
+2. Launch Stablecoin & Asset Sections
+Integrate the compiled stablecoin datasets into Stellarlight, creating a dedicated section for Stellar-based stablecoins and major ecosystem assets — including issuers, supply, ecosystem usage, and tooling.
+Impact: Enables users to easily track asset supply, usage, and relationships across the ecosystem, improving transparency and informed decision-making.
+
+3. Enhanced Project Discovery & Filtering
+Add advanced filters (e.g., project type, funding stage, tech stack) and improved search capabilities to the database.
+Impact: Builders, investors, and contributors can more efficiently find relevant projects, tools, and collaborators.
+
+4. Publish & Launch Updated Idea List
+Publish the refreshed SCF Idea List and distribute it across SCF Kick, hackathons, and partner channels.
+Impact: Inspires new project creation, helps developers identify high-impact opportunities, and channels new entrants into the Stellar ecosystem.
+
+5. Launch Talent Directory
+Introduce a Talent Directory to connect builders, designers, and operators with ecosystem projects and partners.
+Impact: Facilitates hiring and collaboration within the Stellar ecosystem, strengthening team formation and ecosystem growth.
+
+6. Ecosystem Activations
+Continue integrating Stellarlight with hackathons, events, and workshops (e.g., SCF Kick, future DraperU sessions) to provide curated project and idea lists.
+Impact: Onboards more developers, strengthens engagement, and increases exposure for ecosystem projects.
+
+7. Visibility & Community Features
+Expand “Project Spotlight” features across X (Twitter), email, and partner channels, while publishing one ecosystem report and 1–2 project spotlights.
+Impact: Amplifies visibility for projects, positions Stellarlight as the hub for Stellar ecosystem discovery, and nurtures community collaboration.
+
+8. Data Analytics & Feedback Loops
+Implement analytics for visits, filters, and clicks; track event engagement and report impact.
+Impact: Delivers real insights into platform engagement, validates feature value, and informs iterative improvements for ecosystem impact.
+",$30000.00,Stellar Light,SCF Public Goods - Q1 '26,Public Goods Award,Stellar Light - SCF Public Goods Award Submission Q1 2026.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/VJDQi5UJ6xkUALCuZNOMKA/DmpDjsfgggDIXWVrZSfOJ3G7C8-jzpz9J6BcXQom_4puisDzYlK4jKNYtGX47-wudXbGXO0pl9kZAu4EPsdd9c17oz75qKZFppVs8-d0aHW9eThkr6F9rNUpgXyK1QxAactsGFQCwywPhwwPjakucNMb46JWIy5WIzzg1wdDCo73qnxkKDmbJyj27wOz6mPunRdFEI81w63Y86CyTF-HJQ/cSNeB-55Q0e5__ov9LxivB0nw8fKXf1ELfb9b1Wy3BQ),Stellar Light -  - SCF Public Goods Award - Q4 '25.pdf (https://v5.airtableusercontent.com/v3/u/51/51/1775138400000/0E7QvuNbCwk-sG8fJ3NX7A/IM8_hzTxPZRnrqLPew8rnd9gBrh_3Y6xQ5LB42S8wmjQ17r-ahorFWIxbefaK8meyQ82H6de1PUdc5RHdyserLNZeK6nV942CTSFQ7EPZoABrXq0xDykb-nVpps0W_5ly5O_wncBGeC1Axt0kikjOpvbz_WAfz4Zi01xo10rna42ERks9fkGn5v1lm2KhYsWxKpxwX7eOR4EkN22D5ytkQ/orWzWxpdvQx_lWXSVify8xH7hvC1i91ZAY6cyJ6q_zw)
+Stellarchain.io,Awarded (50%),$50000.00,Infrastructure & Services,On-chain Reporting & Data Exploration,https://stellarchain.io,https://github.com/stellarchain/stellarchain-v3,checked,N/A,N/A,"Over the next three months, the project will deliver a refreshed version of Stellarchain.io focused on usability, accessibility, and alignment with current Stellar features.
+
+Key deliverables include a modernised interface with clearer layouts and navigation, making it easier to understand accounts, transactions, assets, and network activity. A strong emphasis will be placed on mobile usability, ensuring the explorer works effectively on phones, tablets, and desktops.
+
+Accessibility for non-technical users will be improved through clearer language and progressive disclosure of detail, while all advanced functionality will be retained for power users. Performance, search, and navigation will also be refined.
+
+These improvements strengthen a widely used, non-commercial explorer that supports transparency and independent verification on Stellar. Continued healthy and growing usage demonstrates ongoing demand, while the redesign ensures the platform remains relevant and useful as the ecosystem evolves.","1. UX and UI redesign aligned with current Stellar features
+Specific: Redesign core explorer views for accounts, transactions, assets, and network activity with a clearer layout and visual hierarchy.
+Measurable: 100% of core pages updated and deployed, with reduced bounce rate and increased session duration.
+Time-bound: Delivered within 8 weeks.
+Budget allocation: Design and front-end development.
+Ecosystem value: Improves clarity and usability of on-chain data, supporting developers, integrators, auditors, and general users.
+
+2. Mobile first experience for Stellarchain.io
+Specific: Implement responsive, mobile-first layouts with touch-friendly navigation and collapsible detail views.
+Measurable: Full functionality available on mobile devices and increased mobile session engagement.
+Time-bound: Delivered within 10 weeks.
+Budget allocation: Front-end engineering and testing across devices.
+Ecosystem value: Expands access to Stellar network data for users monitoring or verifying activity on mobile devices.
+
+3. Improved accessibility for non-technical users
+Specific: Add plain language summaries, contextual help, and progressive disclosure of technical details.
+Measurable: Reduction in early exits from key pages and increased usage by first-time users.
+Time-bound: Delivered within 12 weeks.
+Budget allocation: UX writing, design, and implementation.
+Ecosystem value: Reduces barriers to entry for new ecosystem participants, asset issuers, and partners.
+
+4. Performance and usability improvements
+Specific: Optimise perceived performance, loading states, search, and navigation flows.
+Measurable: Faster page load times and improved user interaction metrics.
+Time-bound: Delivered continuously, completed by the end of month three.
+Budget allocation: Engineering and optimisation work.
+Ecosystem value: Ensures a fast, reliable, and trustworthy explorer for daily ecosystem use.
+
+Together, these deliverables strengthen a widely used platform, improve accessibility, enhance mobile support, and enhance long-term relevance while continuing to provide neutral public infrastructure for the ecosystem.",,"Florin Mangu – Project Manager Florin Mangu leads the team as the Project Manager, overseeing project timelines, scope, and resource management. Fedot Sereoja is the Fullstack Developer responsible for both front-end and back-end development. His expertise spans across designing, building, and maintaining applications, ensuring seamless integration between the user interface and server-side functionality","Yes, it's my first time submitting to this Award, but I've received SDF Infrastructure Grants before.","Our team for Stellarchain.io comprises two core contributors with direct, funded involvement in the Stellar ecosystem: ￼
+
+Team Members and Experience
+- Florin Mangu, Project Manager
+Leads development, project strategy, and execution across StellarChain projects. Florin manages both the core Stellar explorer and related tooling funded through the Stellar Community Fund, demonstrating applied leadership in ecosystem infrastructure. ￼
+- Fedot Sereoja, Full-stack Developer
+Responsible for front-end and back-end engineering of the explorer and analytics platform. His work directly supports real-time blockchain data processing and application reliability, contributing essential technical infrastructure to the network. ￼
+
+Stellar Community Fund awards
+- Stellarchain.io (legacy Stellar explorer) received a SCF Legacy Award ($140.6K) for infrastructure and data exploration. ￼
+- Soroban Contract Auditor tool earned a SCF Legacy Award ($100K), expanding ecosystem tooling for smart contract audit and analysis. ￼","Not yet, but may in the future","The project qualifies as a public good because it provides open, free, and neutral infrastructure that benefits the entire Stellar ecosystem without preferential treatment or paywalls. As the first and oldest Stellar explorer, it offers long-term continuity, transparency, and historical data relied on by developers, validators, businesses, researchers, and the community.
+
+It is critical to the ecosystem because it enables trust, accountability, and accessibility: anyone can independently verify transactions, accounts, assets, and network behaviour. This visibility is foundational for security audits, debugging, compliance checks, and ecosystem education.
+
+It is non-commercial because it is not designed to extract value from users or prioritise profit-driven features. Its primary purpose is to promote ecosystem health, reliability, and openness, rather than monetisation, thereby ensuring equal access for all participants.",,,,Stellarchain.io,SCF Public Goods - Q1 '26,Public Goods Award,,
+Scaffold Stellar,Awarded (50%),$50000.00,Developer Tooling,Developer Tooling,https://scaffoldstellar.org/,https://github.com/theahaco/scaffold-stellar,checked,"Over the last three months, Scaffold Stellar consolidated its role as the “front door” of Stellar’s developer journey: a convention-over-configuration toolkit that helps teams go from idea to proof-of-concept quickly, with less time spent re-configuring the same application plumbing and more time spent validating dApp ideas on Stellar.
+
+Adoption signal without invasive tracking: We intentionally do not ship user trackers inside the open-source toolchain. Instead, we rely on public, verifiable ecosystem signals. Scaffold Stellar is now a common default starting point at Stellar builder events; in practice, most hackathon participants we interacted with used Scaffold Stellar to bootstrap projects faster. This includes usage across multiple hackathons and conference builder programs (Istanbul Blockchain Week, Boston Stellar Hackathon, Meridian 2025 Hackathon, DoraHacks “Scaffold Stellar” Hackathon, and Devconnect Argentina), where we provided hands-on support and observed repeated reuse of Scaffold Stellar as the baseline stack.
+
+Concrete traction and distribution:
+- The repository currently shows 47 stars and 32 forks (a directional signal rather than a full usage proxy, given that hackathon teams frequently clone or template without starring/forking).
+- Scaffold Stellar has a dedicated onboarding website and documentation, and it has been listed in the official Stellar developer documentation, establishing it as an endorsed entry point for builders.
+
+Ecosystem value created:
+- Developer support and coaching at builder events: we provided direct support for teams using Scaffold Stellar at Stellar hackathons and conference programs, accelerating time-to-demo and helping new contributors become productive quickly.
+- Onboarding and education improvements: we published an in-depth tutorial that reduces “time to first success,” and we produced additional video content to explain workflows and best practices.
+- Reference implementations demonstrating frontier capability: we shipped and showcased a Noir ZK “Sudoku prover” example to prove Scaffold Stellar can support ambitious, non-trivial applications beyond basic demos. It was the first known ZK application on Stellar.
+- Showcase and real project bootstraps: we expanded the Scaffold Showcase and supported multiple projects using Scaffold as a starting point, including NFT proof-of-concepts and the Stellar Merch Shop admin panel.
+- Maintenance and UX maturity: we kept templates aligned with current best practices (including OpenZeppelin-based contract templates) and iterated on frontend design with the SDF design team.
+- Registry readiness and trust foundations: we completed a security audit for the Stellar Registry workstream and advanced governance readiness (security council + mainnet readiness), supporting the longer-term goal of safer contract discoverability and reuse.
+
+Measurement approach going forward: In the next cycle we will report adoption through non-invasive signals such as: number of hackathon submissions referencing Scaffold Stellar, GitHub traffic/clones (platform-provided), documentation consumption (site/server-level aggregates), and community contribution metrics (issues/PRs/extensions published), without embedding trackers into the codebase.
+
+Links:
+- “Stellar, Scaffold, Start!” hackathon/program page (DoraHacks): https://dorahacks.io/hackathon/scaffoldstellar/buidl 
+- Developer support and coaching materials / workshop references (Meridian, DevConnect, NoirCon): https://www.researchgate.net/publication/398247255_Verifying_circuits_on_Stellar_Workshop_-Get_dangerous_under_an_hour https://www.youtube.com/watch?v=aUa8VeVdGGY
+- In-depth tutorial (end-to-end onboarding): https://scaffoldstellar.org/docs/tutorial/overview
+- Noir ZK Sudoku prover example (demo + repository): http://noir-stellar.netlify.app and https://github.com/tupui/ultrahonk_soroban_contract
+- Scaffold Showcase website (examples and discoverability): https://scaffoldstellar.org/showcase
+- NFT projects bootstrapped from Scaffold Stellar, including Stellar Merch Shop admin panel: https://github.com/tupui/stellar-merch-shop
+- Ongoing maintenance of OpenZeppelin smart contract templates (on the main repo)
+- Frontend design iterations with SDF design team
+- Stellar Registry security audit + security council + mainnet readiness milestones: https://sorobansecurity.com/report/63
+- Video content explaining Scaffold Stellar DevX and workflows
+    - https://www.youtube.com/playlist?list=PLmr3tp_7-7Gjj6gn5-bBn-QTMyaWzwOU5
+    - https://www.youtube.com/watch?v=t85jrhsTYV8
+",N/A,"Scaffold Stellar has proven it can materially accelerate the first steps of a Soroban project: developers spend less time re-configuring the same plumbing and more time proving out a dApp idea. Over the next three months, our goal is to evolve Scaffold Stellar from a “quickstart toolkit” into a production-oriented developer platform, addressing the concrete gaps teams hit when moving from hackathon proof-of-concept to sustainable deployment.
+
+We will focus on three impact objectives:
+
+A. Make Soroban contract reuse safe, discoverable, and production-grade via the Stellar Contract Registry launch
+Following the successful security audit of the contract registry (https://sorobansecurity.com/report/63), we will move into an official launch phase. The goal is to deliver an experience for Soroban contracts analogous to npm / crates.io / Anaconda: a place where developers can reliably discover, evaluate, and consume standard contracts and ecosystem primitives with clear provenance and safe defaults.
+
+B. Turn Scaffold Stellar into an ecosystem distribution surface through an extension/plugin system
+We will ship an extension system so wallets, indexers, and ecosystem services can plug into Scaffold Stellar without forking the core project. The goal is to make Scaffold Stellar an “integration hub” that amplifies other public goods: wallet standards, indexing providers, and key DeFi APIs can become one-click options at project creation time.
+
+C. Reduce time-to-production through iterative DX improvements validated in the field
+We will rework core components based on observed friction from real builders (particularly hackathon teams), improve project creation UX, add quality-of-life commands, and strengthen “import and adapt” workflows so teams can adopt existing contracts rather than starting from scratch.
+
+Developer adoption and demand are already visible without invasive tracking. We deliberately do not embed trackers into the open-source toolchain because we believe privacy-respecting infrastructure should not require code-level trackers. Instead, we rely on verifiable ecosystem signals and direct builder workflows.
+
+Evidence of continued usage and relevance includes:
+- Observed default usage at builder events: In practice, Scaffold Stellar has become the common bootstrapping path for many hackathon participants building on Soroban. We have supported and observed teams using Scaffold Stellar across multiple hackathons and conference programs, including Istanbul Blockchain Week, Boston Stellar Hackathon, Meridian 2025 Hackathon, the DoraHacks “Scaffold Stellar” hackathon, and Devconnect Argentina.
+- Official ecosystem distribution: Scaffold Stellar is listed in the official Stellar developer documentation, establishing it as an endorsed entry point for developers: https://developers.stellar.org/docs/tools/scaffold-stellar
+- It is also supported by a dedicated onboarding site: https://scaffoldstellar.org/
+- Public repository signals: the repository currently has 47 stars and 32 forks. We recognize this is not a complete proxy for usage (many teams clone/instantiate without starring or forking), but it is a public indicator of awareness and developer engagement.
+
+Ecosystem benefits over the next three months will be tangible and compounding:
+- Higher builder throughput and conversion: better defaults and production-oriented workflows mean more hackathon projects can become maintained testnet deployments and eventually mainnet applications.
+- Safer contract reuse and less fragmentation: a registry with namespaces, governance, and supply-chain protections reduces copy/paste proliferation and encourages reusable, standard building blocks.
+- Amplification of other public goods: the extension system allows wallets, indexers, and ecosystem services to reach developers at the moment they start new projects, improving adoption of best-in-class infrastructure without centralizing control.
+- Reduced reset pain and higher reliability: deterministic redeploy and reseeding tooling around testnet/futurenet resets removes recurring ecosystem friction and helps developers build confidently through network lifecycle events.
+","Workstream 1 - Stellar Contract Registry: Launch + Trust + Reproducibility
+
+D1. Registry UI (beta) shipped and publicly deployed
+- Deliver a frontend for exploring and consuming contracts (search/browse, contract pages, provenance/metadata, usage instructions).
+- Measure: UI deployed to a public URL + documented usage flows.
+- Issue: https://github.com/theahaco/scaffold-stellar/issues/169
+- Ecosystem value: makes contract discovery and reuse real for app developers; reduces repeated reinventing of standard components.
+
+D2. Namespaces + Security Council operationalization
+- Ship namespace support and publish a clear policy/process for trusted namespaces, backed by an active security council.
+- Measure: namespaces live + published policy + initial set of trusted namespaces created.
+- Issue: https://github.com/theahaco/scaffold-stellar/issues/22
+- Ecosystem value: reduces name-squatting/confusion and establishes a trust layer for contract reuse.
+
+D3. Registry documentation and publishing/consumption flows
+- Publish comprehensive docs for publishing and consuming contracts via CLI/Rust SDK; include security model and best practices.
+- Measure: docs live + linked from scaffoldstellar.org + examples runnable end-to-end.
+- Issue: https://github.com/theahaco/scaffold-stellar/issues/102
+- Ecosystem value: lowers onboarding friction and makes registry usage self-serve.
+
+D4. Supply-chain safety design implemented
+- Implement mitigations and clear behavior for common supply-chain risks (e.g., name confusion, publisher ambiguity), building on the “supply chain brainstorming” work.
+- Measure: documented threat model + implemented checks/UX cues + test coverage.
+- Issue: https://github.com/theahaco/scaffold-stellar/issues/350
+- Ecosystem value: improves ecosystem security posture as reuse increases.
+
+D5. Reset/reseed tooling for testnet & futurenet
+- Provide deterministic redeploy/reseed workflows for well-known contracts and registry state after network resets.
+- Measure: scripts + runbook + successful internal dry-run demonstration.
+- Issues: https://github.com/theahaco/scaffold-stellar/issues/330 and https://github.com/theahaco/scaffold-stellar/issues/21
+- Ecosystem value: removes recurring ecosystem friction; supports all builders, not just Scaffold users.
+
+D6. Publish standard OpenZeppelin-based contracts into the registry
+- Deploy and register canonical standard contracts (with provenance metadata) as safe building blocks.
+- Measure: at least a defined set of standard contracts available with documentation and example usage.
+- Issue: https://github.com/theahaco/scaffold-stellar/issues/168
+- Ecosystem value: safer defaults and faster iteration for most new apps.
+
+Workstream 2 - Scaffold Stellar Extension/Plugin System + Integrations
+
+D7. Extension/Plugin system shipped
+- Define and implement an extension interface that allows third parties to integrate services without forking core Scaffold.
+- Measure: extension API spec + developer docs + at least 2 reference extensions.
+- Issue: https://github.com/theahaco/scaffold-stellar/issues/160
+- Ecosystem value: turns Scaffold Stellar into a distribution surface for other public goods and ecosystem tooling.
+
+D8. Wallet integration expansion via wallet kit
+- Support additional wallets in the default scaffolded apps through wallet kit integration and configuration templates.
+- Measure: additional wallet support shipped + documented setup + example project(s).
+- Issue: https://github.com/theahaco/scaffold-stellar-frontend/issues/93
+- Ecosystem value: reduces onboarding friction and enables broader end-user compatibility for new dApps.
+
+D9. Indexing services and API integrations as extensions
+- Provide extensions for popular indexing services and explore integration of commonly requested APIs (e.g., Soroswap API) as optional add-ons.
+- Measure: at least one indexing extension + one API integration prototype + docs.
+- Ecosystem value: makes it easy for teams to adopt ecosystem infrastructure from day one.
+
+Workstream 3 - Core DX Improvements
+
+D10. New project page design update
+- Improve the first-run experience and reduce time-to-first-success for new builders.
+- Measure: new UX shipped + updated onboarding steps + reduced “setup steps” documented.
+- Issue: https://github.com/theahaco/scaffold-stellar-frontend/issues/136
+- Ecosystem value: faster onboarding and improved conversion for first-time Stellar developers.
+
+D11. Import existing Soroban contracts into Scaffold projects
+- Enable importing contracts from existing Soroban contract sources to accelerate development and reuse.
+- Measure: working import workflow + docs + example.
+- Issue: https://github.com/theahaco/scaffold-stellar/issues/151
+- Ecosystem value: reinforces reuse and reduces redundant contract development.
+
+D12. stellar scaffold clean to improve iteration loops
+- Allow developers to clear scaffold artifacts in the dev environment to reduce friction and avoid state-related confusion.
+- Measure: command shipped + tests + docs.
+- Issue: https://github.com/theahaco/scaffold-stellar/issues/259
+- Ecosystem value: improves productivity and reduces support burden.
+
+Maintenance, Release Management, and Community Support
+
+D13. Ongoing maintenance, releases, and field feedback loop
+- Keep templates current (including OpenZeppelin updates), ship releases, triage issues/PRs, and collect feedback from builders at upcoming events.
+- Measure: regular tagged releases + changelogs + public roadmap updates + documented learnings from events.
+",,,"Yes, it's my first time submitting for the Public Goods Award","Scaffold Stellar is built and maintained by The Aha Company (formerly Aha Labs), a team of 10+ senior engineers deeply embedded in the Stellar ecosystem.
+
+Early Soroban origin:
+In 2022 (before Soroban had a name) SDF already had a clear ambition: launch their upcoming smart contract platform with a “batteries-included” developer experience. The gap was execution capacity: there was no in-house team available to design and implement the developer workflows needed to make that promise real. Tyler van der Hoeven went to major blockchain conferences to find the right team, and identified The Aha Company as the team with the right combination of product mindset and deep technical ability to “install the batteries.”
+
+Foundational Stellar developer workflows we designed and shipped:
+We envisioned, architected, and implemented several of the workflows that have become core to Soroban development on Stellar, including:
+- Stellar CLI smart contract workflows, such as the contract invoke behavior and associated developer ergonomics that simplify testing, deployment, and interaction.
+- JavaScript developer experience patterns, including the Contract Client behavior in stellar-sdk-js, which helps application developers interact with contracts more safely and predictably.
+
+Why we were selected for Scaffold Stellar and our SCF track record:
+In early 2025, SDF searched for a team that could bring a ScaffoldETH-like end-to-end experience to Stellar. They selected us based on:
+1. our deep CLI & JS expertise proven through shipped core tooling, and
+2. our track record delivering developer infrastructure via SCF, including:
+    - Smart Deploy: https://communityfund.stellar.org/project/smart-deploy-yoj
+    - Loam: https://communityfund.stellar.org/project/loam-qj5
+
+Scaffold Stellar is a direct continuation of that work: turning the hard-won Developer Experience (DevX) knowledge from core tooling into a “front door” experience that helps developers go from idea to proof-of-concept quickly, with strong defaults and a convention-over-configuration approach.
+
+Ongoing maintenance and production-grade integration experience:
+Since then, we have remained engaged with SDF to support and maintain key tooling (most recently improving Stellar CLI handling of hardware-based keys) and we continue to operate as an integration partner on production deployments. Notably, we architected and developed Société Générale’s EURCV on Stellar (live soon), bringing a rigorous, real-world perspective to developer tooling and reliability requirements.
+
+Deep community participation and ecosystem leadership:
+Our team includes well-known ecosystem contributors. Several members hold key community roles (e.g., SCF Pilot, category delegates) and actively build their own SCF projects (e.g., Moonlight, Tansu, Stellar Merch Store). We contribute to protocol and tooling discussions, provide developer support at hackathons and conferences, and invest heavily in community outreach and education. We show up consistently at major events and actively communicate about Stellar, both its strengths and the practical realities builders need to know.
+
+Cross-ecosystem perspective (DevX benchmarking):
+Beyond Stellar, The Aha Company is also an integration partner in other ecosystems (e.g., Filecoin, XRPL, ICP). This gives us a unique ability to benchmark developer experience across chains and bring proven patterns back to Stellar—while keeping Scaffold Stellar aligned with what developers expect from modern, full-stack tooling.",No,"Scaffold Stellar is the front door of Stellar’s developer journey. At hackathons and conferences, we repeatedly see the same pattern: new contributors have strong ideas, but lose critical time re-configuring the same application plumbing (project structure, wallet wiring, contract setup, scripts, and frontend defaults) before they can even demonstrate a proof-of-concept. Scaffold Stellar flips that: less time on repetitive configuration; more time proving out the dApp idea and validating it on-chain.
+
+This is not just a learning tool. It is a foundation for a convention-over-configuration approach to building ambitious dApps with Stellar at their core. By standardizing the “first 80%” of a Soroban application, Scaffold Stellar reduces the fixed cost of shipping on Stellar, increases developer throughput, and improves the consistency and maintainability of new projects across the ecosystem.
+
+It qualifies as a public good because it is critical infrastructure for developer adoption and is non-commercial by design:
+- Open source and freely available: everything we build ships in public repos with documentation anyone can use, fork, or contribute to.
+- Collaborating rather than competing: we work with existing ecosystem projects (wallets, indexers, developer tools, protocols) to incorporate their offerings, so teams can start from best-in-class components instead of reinventing integrations.
+- Compounding ecosystem impact: every new project that starts from Scaffold Stellar inherits shared defaults and best practices, which reduces fragmentation and improves long-term sustainability for the network.
+- Community-driven momentum: after hackathons we consistently receive strong community feedback, and we have begun onboarding new contributors directly into the Scaffold Stellar contributor pipeline.
+
+Finally, we are doubling down on ecosystem interoperability: this quarter we will ship an extension system that makes it straightforward for ecosystem projects to plug into Scaffold Stellar without forks. This turns Scaffold Stellar into a scalable distribution surface for Stellar’s broader developer tooling landscape, amplifying the impact of other public goods, not competing with them.",,,,Scaffold Stellar,SCF Public Goods - Q1 '26,Public Goods Award,,
+SoroPG,Panel Review,$50000.00,Developer Tooling,IDE,https://soropg.com,https://github.com/jamesbachini/Soroban-Playground,,"I've taken a screenshot of the current stats from the cloudflare dashboard:
+https://jamesbachini.com/misc/soropg_stats_jan26.png
+
+Project is picking up organic traction because it is the only option. Devs are using it to build, test and deploy Stellar smart contracts which is great to see.
+
+There's been two major updates in the last 3 months:
+https://x.com/james_bachini/status/2009595748074045899
+https://x.com/james_bachini/status/1986022326354198910
+
+And lots of little ones:
+https://x.com/james_bachini/status/2016811262840127792
+https://x.com/james_bachini/status/2014774114720829660",N/A,"- Availability - Maintain and scale SoroPG to support the growing demand.
+- Academy - Build a learning platform with lessons for developers new to Stellar
+- Documentation - Neglected to date but important for technical reference
+- Analytics - Better tracking while addressing privacy concerns","Availability
+- Maintain SoroPG with ≥99% uptime
+- Ensure full compatibility with the latest Soroban SDK and external crates such as OpenZeppelin libraries
+- Improve stability to support increased concurrent usage
+Ecosystem value: Deliver a competitive online IDE for smart contract developers.
+
+Academy
+- Launch an Academy MVP integrated into SoroPG
+- Publish 3–5 beginner lessons with live, executable Soroban examples
+Ecosystem value: Accelerates developer onboarding and education pipeline.
+
+Documentation
+- Publish core technical documentation
+Ecosystem value: Improves maintainability, transparency, and long-term reliability of shared developer infrastructure.",,,"Yes, it's my first time submitting for the Public Goods Award","It's just me. I have been creating developer content for Stellar since August 2024. I have a vast collection of Stellar based tutorials and code examples on my blog and Github:
+- https://jamesbachini.com
+- https://github.com/jamesbachini?tab=repositories",No,"SoroPG lowers the barrier to entry for new developers coming to Stellar. I can show someone how to deploy their first smart contract in less than 5 minutes and all they need is a web browser. It's also a playground for experienced contract developers to experiment and test ideas in Soroban.
+
+The project in non-extractive and has no token, paywall or subscription charges. Developers will not pay for tooling that they can use for free in other competing ecosystems.
+
+Today SoroPG is the only functioning web based IDE for Stellar smart contracts, it's been self-funded since launch in May 2025. The site has been well maintained and dependencies are updated in a timely manner to ensure the best developer experience.
+
+Public goods funding can ensure long-term sustainability, neutrality and availability of critical developer infrastructure on Stellar.",,,,SoroPG,,Public Goods Award,,
