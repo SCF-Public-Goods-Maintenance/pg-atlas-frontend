@@ -16,6 +16,7 @@ import { ErrorBoundary } from "../../components/atoms/ErrorBoundary";
 import { MetricsPanel } from "./components/MetricsPanel";
 import { ReposPanel } from "./components/ReposPanel";
 import { DependenciesPanel } from "./components/DependenciesPanel";
+import ContributorsPanel from "./components/ContributorsPanel";
 import { ProjectDetailSkeleton } from "./components/ProjectDetailSkeleton";
 import { ProjectDetailErrorFallback } from "./components/ProjectDetailErrorFallback";
 
@@ -73,29 +74,12 @@ function ProjectDetailContent({ canonicalId }: { canonicalId: string }) {
       <div className="mt-6 no-scrollbar flex-1 min-h-0 space-y-5 overflow-auto">
         <MetricsPanel project={project} />
         <ReposPanel repos={repos} />
+        <ContributorsPanel canonicalId={canonicalId} />
         <DependenciesPanel
           dependsOn={dependsOn}
           hasDependents={hasDependents}
         />
-        <ContributorsPanel />
       </div>
     </div>
-  );
-}
-
-/* ── contributors (empty until backend ships endpoint) ────── */
-
-function ContributorsPanel() {
-  return (
-    <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xs dark:border-white/15 dark:bg-white/5">
-      <div className="flex items-center justify-between">
-        <h3 className="text-base font-semibold text-surface-dark dark:text-white">
-          Contributors
-        </h3>
-        <span className="rounded-full bg-gray-100 px-2.5 py-1 text-sm font-medium text-surface-dark/60 dark:bg-white/10 dark:text-white/50">
-          0
-        </span>
-      </div>
-    </section>
   );
 }

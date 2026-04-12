@@ -24,8 +24,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@mui/material@9.0.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@mui/system@9.0.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react@19.2.4))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@pg-atlas/data-sdk':
-        specifier: ^0.4.1
-        version: 0.4.1
+        specifier: ^0.5.0
+        version: 0.5.0
       '@tanstack/react-query':
         specifier: ^5.62.0
         version: 5.96.1(react@19.2.4)
@@ -628,8 +628,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@pg-atlas/data-sdk@0.4.1':
-    resolution: {integrity: sha512-G98BO0oFMzFnqnJ/mXycSChYSd3SSXT++aixwQqEePhG3NMH0jiNNa7XmIdoVh3D0LnoK7TWkXEHrIKg4U07Cw==}
+  '@pg-atlas/data-sdk@0.5.0':
+    resolution: {integrity: sha512-OgWD0yA/H7IfAQ0LaS/He6YGkG/9MXavM0IaYhQ6CmHyEltpILnGvbbnQbYBRthdy625UWW4Vn+NDn4u8CqRPA==}
 
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
@@ -2456,7 +2456,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
-  '@pg-atlas/data-sdk@0.4.1': {}
+  '@pg-atlas/data-sdk@0.5.0': {}
 
   '@popperjs/core@2.11.8': {}
 

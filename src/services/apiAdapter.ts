@@ -22,12 +22,7 @@ export async function getLiveDashboardData(): Promise<Partial<DashboardOverview>
       lastComputed: metaData.last_updated || '2026-04-01T00:00:16.366169Z',
       metadataSummary: metaData,
       headline: {
-        totalProjects: metaData.total_projects,
-        activeProjects: metaData.active_projects,
-        totalRepos: metaData.total_repos,
-        totalExternalRepos: metaData.total_external_repos,
-        totalDependencyEdges: metaData.total_dependency_edges,
-        totalContributorEdges: metaData.total_contributor_edges,
+        ...metaData,
       } as DashboardOverview['headline'],
       currentRound: (() => {
         const latest = roundList[0]

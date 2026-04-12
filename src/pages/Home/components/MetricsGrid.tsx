@@ -64,10 +64,10 @@ const METRIC_CARDS: ReadonlyArray<{
 ];
 
 const CARD_CLASS =
-  "flex flex-col rounded-xl bg-white p-3 sm:p-4 shadow-sm dark:border dark:border-white/15 dark:bg-white/5 dark:shadow-none";
+  "flex flex-col justify-between rounded-xl bg-white p-3 sm:p-4 shadow-sm dark:border dark:border-white/15 dark:bg-white/5 dark:shadow-none";
 
 /**
- * Six headline metric cards sourced from `GET /metadata`.
+ * Headline metric cards sourced from `GET /metadata`.
  * Must render inside a `<Suspense fallback={<MetricsGridSkeleton />}>` boundary.
  */
 export default function MetricsGrid() {
@@ -82,7 +82,7 @@ export default function MetricsGrid() {
         return (
           <div key={card.key} className={CARD_CLASS}>
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-surface-dark/45 dark:text-white/70">
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-surface-dark/45 dark:text-white/70">
                 {card.label}
               </h3>
               <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gray-50 dark:bg-white/10">
@@ -92,12 +92,16 @@ export default function MetricsGrid() {
                 />
               </div>
             </div>
-            <p className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white">
-              {value != null ? value.toLocaleString() : "—"}
-            </p>
-            <p className="mt-1 text-xs text-surface-dark/35 dark:text-white/50">
-              {card.desc}
-            </p>
+
+            <div className="flex flex-col gap-y-2">
+              <p className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white">
+                {value != null ? value.toLocaleString() : "—"}
+              </p>
+
+              <p className="mt-1 text-sm text-surface-dark/35 dark:text-white/50">
+                {card.desc}
+              </p>
+            </div>
           </div>
         );
       })}
@@ -146,11 +150,8 @@ export function MetricsGridSkeleton() {
       aria-busy="true"
       aria-live="polite"
     >
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div
-          key={i}
-          className="flex flex-col rounded-xl bg-white p-3 sm:p-4 shadow-sm dark:border dark:border-white/15 dark:bg-white/5 dark:shadow-none"
-        >
+      {Array.from({ length: METRIC_CARDS.length }).map((_, i) => (
+        <div key={i} className={CARD_CLASS}>
           <div className="flex items-center justify-between">
             <div className="flex h-5 items-center">
               <Skeleton className="h-3 w-20" />

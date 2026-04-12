@@ -10,13 +10,18 @@ import {
   getProjectRepos,
   getProjectDependsOn,
   getProjectHasDependents,
+  getProjectContributors,
   type ListProjectsData,
   type GetProjectReposData,
+  type GetProjectContributorsData,
 } from "@pg-atlas/data-sdk";
 import { client } from "../client";
 
 type ListProjectsQuery = NonNullable<ListProjectsData["query"]>;
 type GetProjectReposQuery = NonNullable<GetProjectReposData["query"]>;
+type GetProjectContributorsQuery = NonNullable<
+  GetProjectContributorsData["query"]
+>;
 
 export const projectKeys = {
   all: ["projects"] as const,
@@ -32,6 +37,10 @@ export const projectKeys = {
     [...projectKeys.all, "depends-on", canonicalId] as const,
   hasDependents: (canonicalId: string) =>
     [...projectKeys.all, "has-dependents", canonicalId] as const,
+  contributors: (
+    canonicalId: string,
+    params: GetProjectContributorsQuery = {},
+  ) => [...projectKeys.all, "contributors", canonicalId, params] as const,
 };
 
 /* ── list ──────────────────────────────────────────────── */
@@ -171,6 +180,42 @@ export function useProjectHasDependents(canonicalId: string) {
   return useQuery({
     queryKey: projectKeys.hasDependents(canonicalId),
     queryFn: () => fetchProjectHasDependents(canonicalId),
+    enabled: Boolean(canonicalId),
+  });
+}
+
+/* ── contributors ──────────────────────────────────────── */
+
+async function fetchProjectContributors(
+  canonicalId: string,
+  query: GetProjectContributorsQuery,
+) {
+  const { data } = await getProjectContributors({
+    client,
+    path: { canonical_id: canonicalId },
+    query,
+    throwOnError: true,
+  });
+  return data;
+}
+
+export function useProjectContributorsSuspense(
+  canonicalId: string,
+  query: GetProjectContributorsQuery = {},
+) {
+  return useSuspenseQuery({
+    queryKey: projectKeys.contributors(canonicalId, query),
+    queryFn: () => fetchProjectContributors(canonicalId, query),
+  });
+}
+
+export function useProjectContributors(
+  canonicalId: string,
+  query: GetProjectContributorsQuery = {},
+) {
+  return useQuery({
+    queryKey: projectKeys.contributors(canonicalId, query),
+    queryFn: () => fetchProjectContributors(canonicalId, query),
     enabled: Boolean(canonicalId),
   });
 }

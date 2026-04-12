@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 
-import HomeHeader from "./components/HomeHeader";
 import DataTransparencyPanel, {
   DataTransparencyPanelFallback,
 } from "./components/DataTransparencyPanel";
 
 import CurrentRoundCard from "./components/CurrentRoundCard";
 import { ErrorBoundary } from "../../components/atoms/ErrorBoundary";
+// import HomeHeader from "./components/HomeHeader";
 
 import MetricsGrid, {
   MetricsGridSkeleton,
@@ -47,7 +47,7 @@ import EcosystemHealthCard, {
 export default function Home() {
   return (
     <div className="flex h-full flex-col overflow-x-hidden">
-      <HomeHeader />
+      {/* <HomeHeader /> */}
 
       <div
         className="grid gap-3 sm:gap-4 md:grid-cols-3 shrink-0"

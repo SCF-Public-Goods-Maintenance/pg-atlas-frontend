@@ -1,5 +1,5 @@
 import { roundList } from '../data/rounds'
-import type { RoundProjectData } from '../types/api'
+import type { RoundProjectData } from '../types/rounds'
 
 interface TrancheBucket {
   label: string
