@@ -9,6 +9,7 @@ import {
   FolderKanban,
   GitFork,
   BookOpen,
+  FileClock,
   Menu,
   X,
   Moon,
@@ -33,7 +34,10 @@ const navSections: NavSection[] = [
   },
   {
     label: "System",
-    items: [{ name: "About", href: "/about", icon: BookOpen }],
+    items: [
+      { name: "Gitlog", href: "/gitlog", icon: FileClock },
+      { name: "About", href: "/about", icon: BookOpen },
+    ],
   },
 ];
 
@@ -292,7 +296,7 @@ export default function DashboardLayout() {
           id="main-content"
           className={`no-scrollbar flex-1 overflow-y-auto ${isDark ? "bg-surface-dark" : "bg-surface-light"}`}
         >
-          <div className="h-full overflow-x-hidden px-3 pt-2 pb-3 sm:px-4 sm:pt-3 sm:pb-4 lg:px-6 lg:pb-6">
+          <div className="h-full overflow-x-hidden px-3 pt-4 pb-3 sm:px-4 sm:pt-4 sm:pb-4 lg:px-6 lg:pb-6">
             <Suspense fallback={<RouteFallback />}>
               <Outlet />
             </Suspense>

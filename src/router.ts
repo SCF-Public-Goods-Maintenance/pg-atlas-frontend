@@ -12,6 +12,8 @@ import { projectsIndexRoute } from "./routes/projects/index";
 import { projectRoute } from "./routes/projects/$canonicalId";
 import { reposIndexRoute } from "./routes/repos/index";
 import { repoRoute } from "./routes/repos/$canonicalId";
+import { gitlogIndexRoute } from "./routes/gitlog/index";
+import { gitlogArtifactRoute } from "./routes/gitlog/$artifactId";
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
@@ -26,6 +28,8 @@ const routeTree = rootRoute.addChildren([
   projectRoute,
   reposIndexRoute,
   repoRoute,
+  gitlogIndexRoute,
+  gitlogArtifactRoute,
 ]);
 
 export const router = createRouter({ routeTree });

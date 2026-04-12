@@ -1,4 +1,4 @@
-import type { ProjectSummary } from '@pg-atlas/data-sdk'
+import type { ProjectSummary, ProjectMetadata } from '@pg-atlas/data-sdk'
 
 export interface RoundProjectData {
   canonical_id: string | null
@@ -6,6 +6,8 @@ export interface RoundProjectData {
   proposal_pr_url?: string
   tansu_proposal_url?: string
   project_page_url?: string
+  awarded?: boolean | string
+  tranche_completion?: number
 }
 
 export interface RoundData {
@@ -17,13 +19,7 @@ export interface RoundData {
 }
 
 export type RoundEnrichedProject = ProjectSummary & {
-  metadata?: {
-    scf_submissions?: { round: string | number; title: string }[]
-    scf_awarded?: 'yes' | 'no' | 'ineligible'
-    scf_tranche_completion?: number
-    website?: string
-    description?: string
-  }
+  metadata?: ProjectMetadata
 }
 
 export interface RoundDetail extends Omit<RoundData, 'projects'> {

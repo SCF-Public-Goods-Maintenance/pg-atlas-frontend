@@ -9,11 +9,14 @@ import {
   getRepo,
   getRepoDependsOn,
   getRepoHasDependents,
+  getRepoContributors,
   type ListReposData,
+  type GetRepoContributorsData,
 } from "@pg-atlas/data-sdk";
 import { client } from "../client";
 
 type ListReposQuery = NonNullable<ListReposData["query"]>;
+type GetRepoContributorsQuery = NonNullable<GetRepoContributorsData["query"]>;
 
 export const repoKeys = {
   all: ["repos"] as const,
@@ -26,6 +29,8 @@ export const repoKeys = {
     [...repoKeys.all, "depends-on", canonicalId] as const,
   hasDependents: (canonicalId: string) =>
     [...repoKeys.all, "has-dependents", canonicalId] as const,
+  contributors: (canonicalId: string, params: GetRepoContributorsQuery = {}) =>
+    [...repoKeys.all, "contributors", canonicalId, params] as const,
 };
 
 /* ── list ──────────────────────────────────────────────── */
@@ -127,6 +132,42 @@ export function useRepoHasDependents(canonicalId: string) {
   return useQuery({
     queryKey: repoKeys.hasDependents(canonicalId),
     queryFn: () => fetchRepoHasDependents(canonicalId),
+    enabled: Boolean(canonicalId),
+  });
+}
+
+/* ── contributors ──────────────────────────────────────── */
+
+async function fetchRepoContributors(
+  canonicalId: string,
+  query: GetRepoContributorsQuery,
+) {
+  const { data } = await getRepoContributors({
+    client,
+    path: { canonical_id: canonicalId },
+    query,
+    throwOnError: true,
+  });
+  return data;
+}
+
+export function useRepoContributorsSuspense(
+  canonicalId: string,
+  query: GetRepoContributorsQuery = {},
+) {
+  return useSuspenseQuery({
+    queryKey: repoKeys.contributors(canonicalId, query),
+    queryFn: () => fetchRepoContributors(canonicalId, query),
+  });
+}
+
+export function useRepoContributors(
+  canonicalId: string,
+  query: GetRepoContributorsQuery = {},
+) {
+  return useQuery({
+    queryKey: repoKeys.contributors(canonicalId, query),
+    queryFn: () => fetchRepoContributors(canonicalId, query),
     enabled: Boolean(canonicalId),
   });
 }

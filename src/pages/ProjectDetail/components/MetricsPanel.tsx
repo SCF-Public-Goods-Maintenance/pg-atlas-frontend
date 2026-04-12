@@ -1,77 +1,83 @@
-import { Clock, ExternalLink, Github, HelpCircle } from "lucide-react";
+import {
+  AlertTriangle,
+  Clock,
+  ExternalLink,
+  Github,
+  TrendingUp,
+  UserCheck,
+  Users,
+  UsersRound,
+} from "lucide-react";
+import type { Metric } from "../../../types";
 import type { ProjectDetailResponse } from "@pg-atlas/data-sdk";
 
-export function MetricsPanel({
-  project,
-}: {
-  project: ProjectDetailResponse;
-}) {
-  const metrics = [
+const CARD_CLASS =
+  "flex flex-col justify-between rounded-xl bg-white p-3 sm:p-4 shadow-sm dark:border dark:border-white/15 dark:bg-white/5 dark:shadow-none";
+
+export function MetricsPanel({ project }: { project: ProjectDetailResponse }) {
+  const metrics: Metric[] = [
+    {
+      label: "Active Contributors (30d)",
+      value: project.active_contributors_30d,
+      icon: UserCheck,
+      provenance: "PG Atlas",
+    },
+    {
+      label: "Active Contributors (90d)",
+      value: project.active_contributors_90d,
+      icon: UsersRound,
+      provenance: "PG Atlas",
+    },
     {
       label: "Criticality",
       value: project.criticality_score,
-      color: "border-l-red-300",
-      tooltip:
-        "Criticality score — a 0–10 measure of how load-bearing this project is for the ecosystem.",
+      icon: AlertTriangle,
       provenance: "PG Atlas",
     },
     {
       label: "Pony Factor",
       value: project.pony_factor,
-      color: "border-l-amber-300",
-      tooltip:
-        "Pony factor — the minimum number of contributors whose departure would stall the project.",
+      icon: Users,
       provenance: "PG Atlas",
     },
     {
       label: "Adoption Score",
       value: project.adoption_score,
-      color: "border-l-emerald-300",
-      tooltip: "Derived from stars, downloads, and forks across project repos.",
+      icon: TrendingUp,
       provenance: "GitHub + deps.dev",
     },
-  ] as const;
+  ];
 
   return (
     <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xs dark:border-white/15 dark:bg-white/5">
       <h3 className="mb-4 text-base font-semibold text-surface-dark dark:text-white">
         Project metrics
       </h3>
-      <div className="grid gap-4 sm:grid-cols-3">
-        {metrics.map((m) => (
-          <div
-            key={m.label}
-            className={`rounded-xl border border-gray-100 border-l-4 ${m.color} bg-gray-50/50 p-5 dark:border-white/10 dark:bg-white/5`}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium uppercase tracking-wide text-surface-dark/60 dark:text-white/50">
-                {m.label}
-              </span>
-              <div className="group relative flex items-center">
-                <button
-                  type="button"
-                  aria-describedby={`tooltip-${m.label.toLowerCase().replace(/\s+/g, "-")}`}
-                  className="rounded-full p-0.5 text-surface-dark/30 transition-colors hover:text-surface-dark/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-white/25 dark:hover:text-white/40"
-                >
-                  <HelpCircle className="h-4 w-4 cursor-help" aria-hidden="true" />
-                </button>
-                <div
-                  id={`tooltip-${m.label.toLowerCase().replace(/\s+/g, "-")}`}
-                  role="tooltip"
-                  className="pointer-events-none absolute top-full right-0 z-50 mt-2 w-60 rounded-lg bg-surface-dark px-3 py-2 text-xs leading-snug text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100 group-focus-within:opacity-100 dark:bg-white dark:text-surface-dark"
-                >
-                  {m.tooltip}
+      <div className="grid gap-2 sm:gap-3 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+        {metrics.map((m) => {
+          const Icon = m.icon;
+          return (
+            <div key={m.label} className={CARD_CLASS}>
+              <div className="flex items-center justify-between gap-2">
+                <h4 className="text-xs font-semibold uppercase tracking-wide text-surface-dark/45 dark:text-white/70">
+                  {m.label}
+                </h4>
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gray-50 dark:bg-white/10">
+                  <Icon
+                    className="h-3.5 w-3.5 text-surface-dark/40 dark:text-white/60"
+                    aria-hidden="true"
+                  />
                 </div>
               </div>
+              <p className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white">
+                {(m.value ?? 0).toLocaleString()}
+              </p>
+              <p className="mt-1 text-xs text-surface-dark/35 dark:text-white/50">
+                {m.provenance}
+              </p>
             </div>
-            <div className="mt-3 text-3xl font-bold text-surface-dark dark:text-white">
-              {m.value != null ? m.value.toLocaleString() : "—"}
-            </div>
-            <div className="mt-2 text-sm text-surface-dark/40 dark:text-white/30">
-              {m.provenance}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-3">
@@ -142,8 +148,7 @@ export function MetricsPanel({
             {project.updated_at && (
               <span className="inline-flex items-center gap-1.5 text-sm text-surface-dark/50 dark:text-white/40">
                 <Clock className="h-4 w-4" />
-                Updated{" "}
-                {new Date(project.updated_at).toLocaleDateString()}
+                Updated {new Date(project.updated_at).toLocaleDateString()}
               </span>
             )}
           </div>

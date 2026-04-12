@@ -1,14 +1,8 @@
-import type { MetadataResponse } from '@pg-atlas/data-sdk'
+import type { MetadataResponse, ProjectSummary } from '@pg-atlas/data-sdk'
 import { computeAverageTrancheCompletion, computeTrancheDistribution, computeTotalAwarded } from '../lib/trancheHelpers'
 import { getLiveDashboardData } from './apiAdapter'
 
-export interface DashboardHeadlineMetrics {
-  totalProjects: number
-  activeProjects: number
-  totalRepos: number
-  totalExternalRepos: number
-  totalDependencyEdges: number
-  totalContributorEdges: number
+export type DashboardHeadlineMetrics = MetadataResponse & {
   totalAwardedProjects?: number
   averageTrancheCompletion?: number
   trancheDistribution?: Array<{ label: string; value: number; color: string }>
@@ -21,13 +15,7 @@ export interface DashboardRoundSpotlight {
   category: string
 }
 
-export interface TopCriticalProject {
-  canonical_id: string
-  display_name: string
-  criticality_score: number
-  pony_factor: number
-  activity_status: string
-}
+export type TopCriticalProject = Pick<ProjectSummary, 'canonical_id' | 'display_name' | 'criticality_score' | 'pony_factor' | 'activity_status'>
 
 export interface RiskBucket {
   label: string
@@ -64,12 +52,13 @@ export async function getDashboardOverview(): Promise<DashboardOverview> {
       last_updated: '2026-04-01T00:00:16.366169Z',
     },
     headline: {
-      totalProjects: 641,
-      activeProjects: 407,
-      totalRepos: 2652,
-      totalExternalRepos: 4746,
-      totalDependencyEdges: 9074,
-      totalContributorEdges: 0,
+      total_projects: 641,
+      active_projects: 407,
+      total_repos: 2652,
+      total_external_repos: 4746,
+      total_dependency_edges: 9074,
+      total_contributor_edges: 0,
+      last_updated: '2026-04-01T00:00:16.366169Z',
       totalAwardedProjects: computeTotalAwarded(),
       averageTrancheCompletion: computeAverageTrancheCompletion(),
       trancheDistribution: computeTrancheDistribution(),
