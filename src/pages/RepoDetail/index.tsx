@@ -13,6 +13,7 @@ import { MetricsPanel } from "./components/MetricsPanel";
 import { Breadcrumb } from "../../components/atoms/Breadcrumb";
 import { DependenciesPanel } from "./components/DependenciesPanel";
 import ContributorsPanel from "./components/ContributorsPanel";
+import SubGraphExplorer from "../../components/molecules/SubGraphExplorer";
 import { RepoDetailSkeleton } from "./components/RepoDetailSkeleton";
 import { ErrorBoundary } from "../../components/atoms/ErrorBoundary";
 import { RepoDetailErrorFallback } from "./components/RepoDetailErrorFallback";
@@ -83,6 +84,11 @@ function RepoDetailContent({ canonicalId }: { canonicalId: string }) {
         <DependenciesPanel
           dependsOn={dependsOn}
           hasDependents={hasDependents}
+        />
+        <SubGraphExplorer
+          canonicalId={canonicalId}
+          displayName={repo.display_name}
+          pageType="repo"
         />
       </div>
     </div>

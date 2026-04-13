@@ -17,6 +17,7 @@ import { MetricsPanel } from "./components/MetricsPanel";
 import { ReposPanel } from "./components/ReposPanel";
 import { DependenciesPanel } from "./components/DependenciesPanel";
 import ContributorsPanel from "./components/ContributorsPanel";
+import SubGraphExplorer from "../../components/molecules/SubGraphExplorer";
 import { ProjectDetailSkeleton } from "./components/ProjectDetailSkeleton";
 import { ProjectDetailErrorFallback } from "./components/ProjectDetailErrorFallback";
 
@@ -78,6 +79,11 @@ function ProjectDetailContent({ canonicalId }: { canonicalId: string }) {
         <DependenciesPanel
           dependsOn={dependsOn}
           hasDependents={hasDependents}
+        />
+        <SubGraphExplorer
+          canonicalId={canonicalId}
+          displayName={project.display_name}
+          pageType="project"
         />
       </div>
     </div>
