@@ -16,10 +16,12 @@ function ReposTable() {
     pageIndex: 0,
     pageSize: 20,
   });
+  const [globalFilter, setGlobalFilter] = useState("");
 
   const { data } = useReposListSuspense({
     limit: pagination.pageSize,
     offset: pagination.pageIndex * pagination.pageSize,
+    ...(globalFilter ? { search: globalFilter } : {}),
   });
 
   const repos = data?.items ?? [];
@@ -84,9 +86,16 @@ function ReposTable() {
     columns,
     data: repos,
     manualPagination: true,
+    manualFiltering: true,
     rowCount,
     onPaginationChange: setPagination,
-    state: { pagination },
+    onGlobalFilterChange: (updater) => {
+      const next =
+        typeof updater === "function" ? updater(globalFilter) : updater;
+      setGlobalFilter(next ?? "");
+      setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+    },
+    state: { pagination, globalFilter },
     initialState: { density: "compact" },
     muiTableBodyRowProps: ({ row }) => ({
       onClick: () =>
