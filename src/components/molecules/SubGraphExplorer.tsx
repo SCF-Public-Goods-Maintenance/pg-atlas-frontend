@@ -47,6 +47,7 @@ export default function SubGraphExplorer({
   const containerRef = useRef<HTMLDivElement>(null);
   const cyRef = useRef<Core | null>(null);
   const [direction, setDirection] = useState<TraversalDirection>("dependents");
+  const directionRef = useRef<TraversalDirection>(direction);
   const [nodeCount, setNodeCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -84,6 +85,8 @@ export default function SubGraphExplorer({
   );
 
   /* ── add neighbors to the graph ──────────────────────────── */
+
+  const unlockTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const expandNode = useCallback(
     async (nodeCanonicalId: string, nodeLabel: string, dir: TraversalDirection) => {
@@ -159,8 +162,8 @@ export default function SubGraphExplorer({
           } as cytoscape.LayoutOptions).run();
 
           // Unlock after layout
-          setTimeout(() => {
-            cy.nodes().unlock();
+          unlockTimeoutRef.current = setTimeout(() => {
+            cyRef.current?.nodes().unlock();
           }, 500);
         }
 
@@ -225,7 +228,7 @@ export default function SubGraphExplorer({
       const originalId = data.originalId;
       if (!originalId) return;
 
-      expandNode(originalId, data.label, direction);
+      expandNode(originalId, data.label, directionRef.current);
     };
 
     cy.on("tap", "node", handleTap);
@@ -243,8 +246,9 @@ export default function SubGraphExplorer({
     });
 
     return () => {
-      cy.destroy();
-      cyRef.current = null;
+      if (unlockTimeoutRef.current) {
+        clearTimeout(unlockTimeoutRef.current);
+      }
     };
     // Only run on mount — direction changes handled separately
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -255,6 +259,7 @@ export default function SubGraphExplorer({
   const handleDirectionChange = useCallback(
     (newDir: TraversalDirection) => {
       setDirection(newDir);
+      directionRef.current = newDir;
 
       const cy = cyRef.current;
       if (!cy) return;

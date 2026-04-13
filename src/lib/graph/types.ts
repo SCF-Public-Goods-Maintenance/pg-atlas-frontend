@@ -31,7 +31,9 @@ export interface GraphEdgeData {
   id: string;
   source: string;
   target: string;
+  /** Number of dependencies represented by this edge (for aggregated edges) */
   edgeCount?: number;
+  /** Confidence level of the dependency relationship */
   confidence?: string;
 }
 
