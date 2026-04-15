@@ -1,31 +1,22 @@
 import yaml from 'js-yaml'
 import type { RoundData } from '../../types/rounds'
 
-// Import YAML files as raw strings using Vite's ?raw suffix
-import r2025Q3Raw from './2025q3.yaml?raw'
-import r2025Q4Raw from './2025q4.yaml?raw'
-import r2026Q1Raw from './2026q1.yaml?raw'
-import r2026Q2Raw from './2026q2.yaml?raw'
+export type RoundMeta = Omit<RoundData, 'projects'> & { id: string; projectCount?: number }
 
-const parseRound = (raw: string): RoundData => {
-  return yaml.load(raw) as RoundData
-}
-
-const r2025Q3 = parseRound(r2025Q3Raw)
-const r2025Q4 = parseRound(r2025Q4Raw)
-const r2026Q1 = parseRound(r2026Q1Raw)
-const r2026Q2 = parseRound(r2026Q2Raw)
-
-export const rounds: Record<string, RoundData> = {
-  '2025Q3': r2025Q3,
-  '2025Q4': r2025Q4,
-  '2026Q1': r2026Q1,
-  '2026Q2': r2026Q2,
-}
-
-export const roundList: RoundData[] = [
-  r2026Q2,
-  r2026Q1,
-  r2025Q4,
-  r2025Q3,
+export const roundListMeta: RoundMeta[] = [
+  { id: '2026Q2', name: 'Public Goods Award', year: 2026, quarter: 2, voting_closed: '2026-04-10', projectCount: 5 },
+  { id: '2026Q1', name: 'Public Goods Award', year: 2026, quarter: 1, voting_closed: '2026-01-10', projectCount: 11 },
+  { id: '2025Q4', name: 'Public Goods Award', year: 2025, quarter: 4, voting_closed: '2025-10-10', projectCount: 10 },
+  { id: '2025Q3', name: 'Public Goods Award', year: 2025, quarter: 3, voting_closed: '2025-07-14', projectCount: 9 },
 ]
+
+// Import YAML files as raw string promises using Vite's dynamic glob
+const rawRounds = import.meta.glob('./*.yaml', { query: '?raw', import: 'default' })
+
+export async function getRound(roundId: string): Promise<RoundData | null> {
+  const filename = `./${roundId.toLowerCase()}.yaml`;
+  const loader = rawRounds[filename] as (() => Promise<string>) | undefined;
+  if (!loader) return null;
+  const raw = await loader();
+  return yaml.load(raw) as RoundData;
+}

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Link, useParams } from "@tanstack/react-router";
 import {
   useReactTable,
@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 import type { ProjectSummary } from "@pg-atlas/data-sdk";
 import type { RoundData } from "../../types/rounds";
-import { rounds } from "../../data/rounds";
+import { getRound } from "../../data/rounds";
 import { Breadcrumb } from "../../components/atoms/Breadcrumb";
 import { ErrorBoundary } from "../../components/atoms/ErrorBoundary";
 
@@ -197,7 +197,23 @@ function RoundHeader({
 }
 
 function RoundContent({ roundId }: { roundId: string }) {
-  const config = rounds[roundId];
+  const [config, setConfig] = useState<RoundData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    getRound(roundId).then((data) => {
+      if (active) {
+        setConfig(data);
+        setLoading(false);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, [roundId]);
+
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
@@ -219,6 +235,16 @@ function RoundContent({ roundId }: { roundId: string }) {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
+
+  if (loading) {
+    return (
+      <div className="animate-pulse space-y-6">
+        <div className="h-6 w-32 rounded bg-gray-200 dark:bg-white/10" />
+        <div className="h-10 w-64 rounded bg-gray-200 dark:bg-white/10" />
+        <div className="h-96 w-full rounded-2xl bg-gray-200 dark:bg-white/10" />
+      </div>
+    );
+  }
 
   if (!config) {
     return (
