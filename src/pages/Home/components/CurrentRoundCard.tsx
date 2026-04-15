@@ -2,21 +2,9 @@ import React from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, FolderKanban, RotateCw, Vote } from "lucide-react";
 import Button from "../../../components/atoms/Button";
-import { roundList } from "../../../data/rounds";
+import { roundListMeta, prefetchRound, type RoundMeta } from "../../../data/rounds";
 
-const FALLBACK_ROUND_ID = "2026Q1";
-
-function getCurrentRound() {
-  const current = roundList[0];
-  if (!current) return null;
-  return current;
-}
-
-function formatRoundId(year: number, quarter: number) {
-  return `${year}Q${quarter}`;
-}
-
-function formatVotingDate(dateStr?: string): string | null {
+function formatVotingDate(dateStr?: string | Date): string | null {
   if (!dateStr) return null;
   const date = new Date(dateStr);
   if (Number.isNaN(date.getTime())) return null;
@@ -56,25 +44,33 @@ function StatTile({
   );
 }
 
-export default function CurrentRoundCard() {
-  const round = getCurrentRound();
-  const roundId = round
-    ? formatRoundId(round.year, round.quarter)
-    : FALLBACK_ROUND_ID;
-  const quarter = round?.quarter ?? 1;
-  const year = round?.year ?? 2026;
-  const projectCount = round?.projects.length ?? 0;
-  const votingClosed = round ? formatVotingDate(round.voting_closed) : null;
-  const totalRounds = roundList.length;
+export default function CurrentRoundCard({ roundMeta }: { roundMeta?: RoundMeta }) {
+  const round = roundMeta ?? roundListMeta[0];
+
+  if (!round) {
+    return null;
+  }
+
+  const roundId = round.id;
+  const quarter = round.quarter;
+  const year = round.year;
+  const projectCount = round.projectCount ?? 0;
+  const votingClosed = formatVotingDate(round.voting_closed);
+  const totalRounds = roundListMeta.length;
+
+  const isCurrent = roundId === roundListMeta[0].id;
 
   const isVotingOpen = (() => {
-    if (!round?.voting_closed) return true; // Assume open if no close date
+    if (!round.voting_closed) return true; // Assume open if no close date
     const closeDate = new Date(round.voting_closed);
     return !Number.isNaN(closeDate.getTime()) && closeDate > new Date();
   })();
 
   return (
-    <div className="relative flex flex-1 flex-col overflow-hidden rounded-xl bg-white p-4 sm:p-5 shadow-sm dark:bg-white/5 dark:border dark:border-white/15 dark:shadow-none">
+    <div
+      className="relative flex flex-1 flex-col overflow-hidden rounded-xl bg-white p-4 sm:p-5 shadow-sm dark:bg-white/5 dark:border dark:border-white/15 dark:shadow-none"
+      onMouseEnter={() => prefetchRound(roundId)}
+    >
 
       {/* Watermark quarter number */}
       <span
@@ -92,10 +88,16 @@ export default function CurrentRoundCard() {
 
       {/* Top: badge + live indicator */}
       <div className="relative flex items-center justify-between">
-        <span className="rounded-md bg-primary-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-primary-500 ring-1 ring-inset ring-primary-500/20 dark:text-primary-400 dark:ring-primary-400/20">
-          Current Round
-        </span>
-        {isVotingOpen && (
+        {isCurrent ? (
+          <span className="rounded-md bg-primary-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-primary-500 ring-1 ring-inset ring-primary-500/20 dark:text-primary-400 dark:ring-primary-400/20">
+            Current Round
+          </span>
+        ) : (
+          <span className="rounded-md bg-gray-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-surface-dark/60 ring-1 ring-inset ring-surface-dark/10 dark:bg-white/10 dark:text-white/60 dark:ring-white/15">
+            Previous Round
+          </span>
+        )}
+        {isVotingOpen && isCurrent && (
           <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-500 dark:text-emerald-400">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -113,14 +115,14 @@ export default function CurrentRoundCard() {
           <span className="text-surface-dark/30 dark:text-white/25">{year}</span>
         </h3>
         <p className="mt-1 text-sm font-medium text-surface-dark/55 dark:text-white/50">
-          {round?.name ?? "Public Goods Award"}
+          {round.name ?? "Public Goods Award"}
         </p>
       </div>
 
       {/* Stats row */}
       <div className="relative mt-auto pt-5">
         <div className="grid grid-cols-3 gap-2">
-          <StatTile label="Projects" value={projectCount} icon={FolderKanban} />
+          <StatTile label="Projects" value={projectCount || "—"} icon={FolderKanban} />
           <StatTile label="Rounds" value={totalRounds} icon={RotateCw} />
           <StatTile label="Voted" value={votingClosed ?? "—"} icon={Vote} />
         </div>

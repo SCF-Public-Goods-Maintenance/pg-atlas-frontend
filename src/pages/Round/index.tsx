@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Link, useParams } from "@tanstack/react-router";
 import {
   useReactTable,
@@ -12,10 +12,6 @@ import {
 import {
   Trophy,
   ArrowUpRight,
-  Github,
-  CircleCheck,
-  Wrench,
-  CircleDashed,
   SearchX,
   ArrowLeft,
   ArrowUpDown,
@@ -26,8 +22,7 @@ import {
 } from "lucide-react";
 import type { ProjectSummary } from "@pg-atlas/data-sdk";
 import type { RoundData } from "../../types/rounds";
-import { useProjectsList } from "../../lib/api/queries/projects";
-import { rounds } from "../../data/rounds";
+import { getRound } from "../../data/rounds";
 import { Breadcrumb } from "../../components/atoms/Breadcrumb";
 import { ErrorBoundary } from "../../components/atoms/ErrorBoundary";
 
@@ -46,12 +41,11 @@ interface RoundRow {
 
 function buildRows(
   config: RoundData,
-  projectIndex: Map<string, ProjectSummary>,
 ): RoundRow[] {
   return config.projects.map((p) => ({
     canonicalId: p.canonical_id ?? "",
     displayName: p.name,
-    summary: p.canonical_id ? projectIndex.get(p.canonical_id) ?? null : null,
+    summary: null,
     proposalPrUrl: p.proposal_pr_url,
     tansuProposalUrl: p.tansu_proposal_url,
     projectPageUrl: p.project_page_url,
@@ -67,7 +61,6 @@ function useRoundColumns() {
         header: "Project",
         cell: (info) => {
           const row = info.row.original;
-          const category = row.summary?.category ?? "Uncategorized";
           return (
             <div className="flex flex-col">
               {row.canonicalId ? (
@@ -83,84 +76,16 @@ function useRoundColumns() {
                   {row.displayName}
                 </span>
               )}
-              <span className="text-xs text-surface-dark/50 dark:text-white/40">
-                {category}
-              </span>
             </div>
           );
         },
       }),
       columnHelper.display({
-        id: "status",
-        header: "Status",
-        cell: (info) => {
-          const status = info.row.original.summary?.activity_status;
-          if (!status) {
-            return <span className="text-xs text-surface-dark/30">—</span>;
-          }
-          const className = `inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ${status === "live"
-              ? "bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400"
-              : status === "in-dev"
-                ? "bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400"
-                : "bg-gray-100 text-gray-700 dark:bg-white/10 dark:text-white/60"
-            }`;
-          return (
-            <span className={className}>
-              {status === "live" ? (
-                <CircleCheck className="h-3 w-3" />
-              ) : status === "in-dev" ? (
-                <Wrench className="h-3 w-3" />
-              ) : (
-                <CircleDashed className="h-3 w-3" />
-              )}
-              {status}
-            </span>
-          );
-        },
-      }),
-      columnHelper.display({
-        id: "criticality",
-        header: "Criticality",
-        cell: (info) => {
-          const score = info.row.original.summary?.criticality_score;
-          return (
-            <span className="font-mono text-sm">
-              {score != null ? score.toFixed(2) : "—"}
-            </span>
-          );
-        },
-        meta: { align: "right" },
-      }),
-      columnHelper.display({
-        id: "pony",
-        header: "Pony",
-        cell: (info) => {
-          const pony = info.row.original.summary?.pony_factor;
-          return (
-            <span className="font-mono text-sm">{pony ?? "—"}</span>
-          );
-        },
-        meta: { align: "right" },
-      }),
-      columnHelper.display({
-        id: "adoption",
-        header: "Adoption",
-        cell: (info) => {
-          const adoption = info.row.original.summary?.adoption_score;
-          return (
-            <span className="font-mono text-sm">
-              {adoption != null ? adoption.toLocaleString() : "—"}
-            </span>
-          );
-        },
-        meta: { align: "right" },
-      }),
-      columnHelper.display({
         id: "links",
         header: () => <span className="block text-right">Links</span>,
+        meta: { align: "right" },
         cell: (info) => {
           const row = info.row.original;
-          const gitUrl = row.summary?.git_owner_url;
           return (
             <div className="flex justify-end gap-3 text-surface-dark/40 dark:text-white/40">
               {row.proposalPrUrl && (
@@ -194,20 +119,9 @@ function useRoundColumns() {
                   rel="noopener noreferrer"
                   className="hover:text-primary-500"
                   title="Project Page"
-                  aria-label="Proposal PR"
+                  aria-label="Project Page"
                 >
                   <Globe className="h-4 w-4" />
-                </a>
-              )}
-              {gitUrl && (
-                <a
-                  href={gitUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary-500"
-                  aria-label="GitHub"
-                >
-                  <Github className="h-4 w-4" />
                 </a>
               )}
               {row.canonicalId && (
@@ -279,23 +193,30 @@ function RoundHeader({
 }
 
 function RoundContent({ roundId }: { roundId: string }) {
-  const config = rounds[roundId];
-  const { data } = useProjectsList({ limit: 200 });
+  const [config, setConfig] = useState<RoundData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    getRound(roundId).then((data) => {
+      if (active) {
+        setConfig(data);
+        setLoading(false);
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, [roundId]);
+
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
 
-  const projectIndex = useMemo(() => {
-    const index = new Map<string, ProjectSummary>();
-    for (const p of (data?.items ?? []) as ProjectSummary[]) {
-      index.set(p.canonical_id, p);
-    }
-    return index;
-  }, [data]);
-
   const rows = useMemo(() => {
     if (!config) return [];
-    return buildRows(config, projectIndex);
-  }, [config, projectIndex]);
+    return buildRows(config);
+  }, [config]);
 
   const columns = useRoundColumns();
 
@@ -310,6 +231,16 @@ function RoundContent({ roundId }: { roundId: string }) {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
   });
+
+  if (loading) {
+    return (
+      <div className="animate-pulse space-y-6">
+        <div className="h-6 w-32 rounded bg-gray-200 dark:bg-white/10" />
+        <div className="h-10 w-64 rounded bg-gray-200 dark:bg-white/10" />
+        <div className="h-96 w-full rounded-2xl bg-gray-200 dark:bg-white/10" />
+      </div>
+    );
+  }
 
   if (!config) {
     return (

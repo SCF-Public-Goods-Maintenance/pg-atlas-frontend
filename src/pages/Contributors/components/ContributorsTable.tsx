@@ -69,6 +69,9 @@ export default function ContributorsTable({ search }: ContributorsTableProps) {
     state: { pagination },
     initialState: { density: "compact" },
     enableColumnActions: false,
+    enableGlobalFilter: false,
+    enableColumnFilters: false,
+    enableSorting: false,
     muiTableBodyRowProps: ({ row }) => ({
       onClick: () =>
         navigate({

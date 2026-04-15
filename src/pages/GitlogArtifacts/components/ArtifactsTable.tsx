@@ -85,6 +85,9 @@ export default function ArtifactsTable({ repo }: ArtifactsTableProps) {
     state: { pagination },
     initialState: { density: "compact" },
     enableColumnActions: false,
+    enableGlobalFilter: false,
+    enableColumnFilters: false,
+    enableSorting: false,
     muiTableBodyRowProps: ({ row }) => ({
       onClick: () =>
         navigate({

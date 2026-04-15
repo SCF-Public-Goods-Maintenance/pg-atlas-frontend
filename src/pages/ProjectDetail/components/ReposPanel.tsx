@@ -3,6 +3,12 @@ import { ArrowUpRight, FolderGit2, GitBranch } from "lucide-react";
 import type { RepoSummary } from "@pg-atlas/data-sdk";
 
 export function ReposPanel({ repos }: { repos: RepoSummary[] }) {
+  const sortedRepos = [...repos].sort(
+    (a, b) =>
+      new Date(b.latest_commit_date ?? 0).getTime() -
+      new Date(a.latest_commit_date ?? 0).getTime(),
+  );
+
   return (
     <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xs dark:border-white/15 dark:bg-white/5">
       <div className="flex items-center justify-between">
@@ -20,7 +26,7 @@ export function ReposPanel({ repos }: { repos: RepoSummary[] }) {
         </p>
       ) : (
         <div className="no-scrollbar mt-3 max-h-[280px] divide-y divide-gray-100 overflow-y-auto rounded-xl border border-gray-100 dark:divide-white/10 dark:border-white/10">
-          {repos.map((r) => (
+          {sortedRepos.map((r) => (
             <Link
               key={r.canonical_id}
               to="/repos/$canonicalId"
