@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, FolderKanban, RotateCw, Vote } from "lucide-react";
 import Button from "../../../components/atoms/Button";
-import { roundListMeta, type RoundMeta } from "../../../data/rounds";
+import { roundListMeta, prefetchRound, type RoundMeta } from "../../../data/rounds";
 
 function formatVotingDate(dateStr?: string | Date): string | null {
   if (!dateStr) return null;
@@ -62,7 +62,10 @@ export default function CurrentRoundCard({ roundMeta }: { roundMeta?: RoundMeta 
   })();
 
   return (
-    <div className="relative flex flex-1 flex-col overflow-hidden rounded-xl bg-white p-4 sm:p-5 shadow-sm dark:bg-white/5 dark:border dark:border-white/15 dark:shadow-none">
+    <div 
+      className="relative flex flex-1 flex-col overflow-hidden rounded-xl bg-white p-4 sm:p-5 shadow-sm dark:bg-white/5 dark:border dark:border-white/15 dark:shadow-none"
+      onMouseEnter={() => prefetchRound(roundId)}
+    >
 
       {/* Watermark quarter number */}
       <span

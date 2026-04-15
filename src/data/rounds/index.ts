@@ -10,13 +10,29 @@ export const roundListMeta: RoundMeta[] = [
   { id: '2025Q3', name: 'Public Goods Award', year: 2025, quarter: 3, voting_closed: '2025-07-14', projectCount: 9 },
 ]
 
-// Import YAML files as raw string promises using Vite's dynamic glob
 const rawRounds = import.meta.glob('./*.yaml', { query: '?raw', import: 'default' })
 
+const cache = new Map<string, RoundData>()
+
 export async function getRound(roundId: string): Promise<RoundData | null> {
-  const filename = `./${roundId.toLowerCase()}.yaml`;
-  const loader = rawRounds[filename] as (() => Promise<string>) | undefined;
-  if (!loader) return null;
-  const raw = await loader();
-  return yaml.load(raw) as RoundData;
+  const idLowerCase = roundId.toLowerCase()
+  
+  if (cache.has(idLowerCase)) {
+    return cache.get(idLowerCase)!
+  }
+
+  const filename = `./${idLowerCase}.yaml`
+  const loader = rawRounds[filename] as (() => Promise<string>) | undefined
+  if (!loader) return null
+  
+  const raw = await loader()
+  const parsed = yaml.load(raw) as RoundData
+  
+  cache.set(idLowerCase, parsed)
+  return parsed
+}
+
+export function prefetchRound(roundId: string) {
+  // Trigger getRound silently to prepopulate the cache
+  getRound(roundId).catch(() => {})
 }
