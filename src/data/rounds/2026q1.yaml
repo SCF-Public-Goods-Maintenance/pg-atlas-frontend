@@ -5,61 +5,61 @@ voting_closed: 2026-01-25
 projects:
   - canonical_id: daoip-5:scf:project:scout
     name: "Scout"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
-  - canonical_id: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
+  - canonical_id: daoip-5:scf:project:xlm.sh
     name: "Stellar hardware wallet integration"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
-  - canonical_id: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
+  - canonical_id:
     name: "Java Stellar SDK"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
   - canonical_id: daoip-5:scf:project:python_stellar_sdk
     name: "Python Stellar SDK"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
   - canonical_id: daoip-5:scf:project:flutter_wallet_sdk
     name: "Flutter Stellar SDK"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
-  - canonical_id: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
+  - canonical_id:
     name: "iOS Stellar SDK"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
   - canonical_id: daoip-5:scf:project:stellar_php_sdk
     name: "Stellar PHP SDK"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
-  - canonical_id: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
+  - canonical_id: daoip-5:scf:project:beans_app
     name: ".NET SDK"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
-  - canonical_id: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
+  - canonical_id:
     name: "OpenGrants"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
   - canonical_id: daoip-5:scf:project:stellar_light
     name: "Stellar Light"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
   - canonical_id: daoip-5:scf:project:stellarchain.io
     name: "Stellarchain.io"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
-  - canonical_id: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
+  - canonical_id:
     name: "Scaffold Stellar"
-    proposal_pr_url: 
-    tansu_proposal_url: 
-    project_page_url: 
+    proposal_pr_url:
+    tansu_proposal_url:
+    project_page_url:
