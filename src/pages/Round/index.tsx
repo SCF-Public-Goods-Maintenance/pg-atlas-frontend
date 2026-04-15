@@ -12,10 +12,6 @@ import {
 import {
   Trophy,
   ArrowUpRight,
-  Github,
-  CircleCheck,
-  Wrench,
-  CircleDashed,
   SearchX,
   ArrowLeft,
   ArrowUpDown,

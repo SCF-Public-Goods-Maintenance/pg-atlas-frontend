@@ -46,6 +46,11 @@ function StatTile({
 
 export default function CurrentRoundCard({ roundMeta }: { roundMeta?: RoundMeta }) {
   const round = roundMeta ?? roundListMeta[0];
+
+  if (!round) {
+    return null;
+  }
+
   const roundId = round.id;
   const quarter = round.quarter;
   const year = round.year;
@@ -62,7 +67,7 @@ export default function CurrentRoundCard({ roundMeta }: { roundMeta?: RoundMeta 
   })();
 
   return (
-    <div 
+    <div
       className="relative flex flex-1 flex-col overflow-hidden rounded-xl bg-white p-4 sm:p-5 shadow-sm dark:bg-white/5 dark:border dark:border-white/15 dark:shadow-none"
       onMouseEnter={() => prefetchRound(roundId)}
     >

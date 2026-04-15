@@ -16,7 +16,7 @@ const cache = new Map<string, RoundData>()
 
 export async function getRound(roundId: string): Promise<RoundData | null> {
   const idLowerCase = roundId.toLowerCase()
-  
+
   if (cache.has(idLowerCase)) {
     return cache.get(idLowerCase)!
   }
@@ -24,15 +24,19 @@ export async function getRound(roundId: string): Promise<RoundData | null> {
   const filename = `./${idLowerCase}.yaml`
   const loader = rawRounds[filename] as (() => Promise<string>) | undefined
   if (!loader) return null
-  
+
   const raw = await loader()
-  const parsed = yaml.load(raw) as RoundData
-  
-  cache.set(idLowerCase, parsed)
-  return parsed
+  try {
+    const parsed = yaml.load(raw) as RoundData
+    cache.set(idLowerCase, parsed)
+    return parsed
+  } catch (e) {
+    console.error(`Failed to parse YAML for round ${roundId}:`, e)
+    return null
+  }
 }
 
 export function prefetchRound(roundId: string) {
   // Trigger getRound silently to prepopulate the cache
-  getRound(roundId).catch(() => {})
+  getRound(roundId).catch(() => { })
 }
