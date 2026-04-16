@@ -71,7 +71,7 @@ export default function Home() {
         aria-label="Critical metrics"
       >
         <div className="flex flex-col gap-3 sm:gap-4">
-          <CurrentRoundCard />
+          <CurrentRoundCard showTotalRounds={true} />
           <ErrorBoundary fallback={<TopCriticalCardFallback />}>
             <Suspense fallback={<TopCriticalCardSkeleton />}>
               <TopCriticalCard />
