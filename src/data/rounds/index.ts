@@ -3,12 +3,26 @@ import type { RoundData } from '../../types/rounds'
 
 export type RoundMeta = Omit<RoundData, 'projects'> & { id: string; projectCount?: number }
 
-export const roundListMeta: RoundMeta[] = [
-  { id: '2026Q2', name: 'Public Goods Award', year: 2026, quarter: 2, voting_closed: '2026-04-10', projectCount: 5 },
-  { id: '2026Q1', name: 'Public Goods Award', year: 2026, quarter: 1, voting_closed: '2026-01-10', projectCount: 11 },
-  { id: '2025Q4', name: 'Public Goods Award', year: 2025, quarter: 4, voting_closed: '2025-10-10', projectCount: 10 },
-  { id: '2025Q3', name: 'Public Goods Award', year: 2025, quarter: 3, voting_closed: '2025-07-14', projectCount: 9 },
-]
+const rawRoundsEager = import.meta.glob('./*.yaml', { query: '?raw', import: 'default', eager: true }) as Record<string, string>
+
+export const roundListMeta: RoundMeta[] = Object.entries(rawRoundsEager).map(([path, raw]) => {
+  const data = yaml.load(raw) as RoundData
+  const id = path.split('/').pop()?.replace('.yaml', '').toUpperCase() || ''
+  
+  // Format voting_closed to string if it's a Date
+  const voting_closed = data.voting_closed instanceof Date 
+    ? data.voting_closed.toISOString().split('T')[0] 
+    : data.voting_closed
+
+  return {
+    id,
+    name: data.name,
+    year: data.year,
+    quarter: data.quarter,
+    voting_closed,
+    projectCount: data.projects?.length || 0
+  }
+}).sort((a, b) => (b.year * 10 + b.quarter) - (a.year * 10 + a.quarter))
 
 const rawRounds = import.meta.glob('./*.yaml', { query: '?raw', import: 'default' })
 
