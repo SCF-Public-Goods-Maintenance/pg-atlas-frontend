@@ -44,7 +44,13 @@ function StatTile({
   );
 }
 
-export default function CurrentRoundCard({ roundMeta }: { roundMeta?: RoundMeta }) {
+export default function CurrentRoundCard({ 
+  roundMeta,
+  showTotalRounds = false
+}: { 
+  roundMeta?: RoundMeta;
+  showTotalRounds?: boolean;
+}) {
   const round = roundMeta ?? roundListMeta[0];
 
   if (!round) {
@@ -121,9 +127,9 @@ export default function CurrentRoundCard({ roundMeta }: { roundMeta?: RoundMeta 
 
       {/* Stats row */}
       <div className="relative mt-auto pt-5">
-        <div className="grid grid-cols-3 gap-2">
+        <div className={showTotalRounds ? "grid grid-cols-3 gap-2" : "grid grid-cols-2 gap-2"}>
           <StatTile label="Projects" value={projectCount || "—"} icon={FolderKanban} />
-          <StatTile label="Rounds" value={totalRounds} icon={RotateCw} />
+          {showTotalRounds && <StatTile label="Rounds" value={totalRounds} icon={RotateCw} />}
           <StatTile label="Voted" value={votingClosed ?? "—"} icon={Vote} />
         </div>
       </div>
