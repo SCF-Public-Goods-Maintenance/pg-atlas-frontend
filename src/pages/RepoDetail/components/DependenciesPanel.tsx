@@ -61,7 +61,7 @@ function DepList({
           {items.length}
         </span>
       </div>
-      {items.length === 0 ? (
+      {items.length === 0 || (internal.length === 0 && external.length === 0) ? (
         <p className="text-sm text-surface-dark/50 dark:text-white/40">
           {emptyText}
         </p>
