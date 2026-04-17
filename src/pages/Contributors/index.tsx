@@ -7,21 +7,37 @@ import {
   ContributorsTableFallback,
   ContributorsTableSkeleton,
 } from "./components/ContributorsTableFallbacks";
+import { contributorsIndexRoute } from "../../routes/contributors/index";
 
 const SEARCH_DEBOUNCE_MS = 300;
 
 export default function Contributors() {
-  const [inputValue, setInputValue] = useState("");
-  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const search = contributorsIndexRoute.useSearch();
+  const navigate = contributorsIndexRoute.useNavigate();
+  const [inputValue, setInputValue] = useState(search.search ?? "");
+  const [prevSearch, setPrevSearch] = useState(search.search);
 
-  // Debounce typing so we don't fire a request on every keystroke. A
-  // short delay keeps the UI responsive while avoiding API thrash.
+  // Sync input value when URL change (e.g. browser back button) during render phase
+  if (search.search !== prevSearch) {
+    setPrevSearch(search.search);
+    setInputValue(search.search ?? "");
+  }
+
+  // Debounce typing so we don't fire a request on every keystroke.
   useEffect(() => {
     const handle = window.setTimeout(() => {
-      setDebouncedSearch(inputValue.trim());
+      if (inputValue !== (search.search ?? "")) {
+        navigate({
+          search: (prev) => ({
+            ...prev,
+            search: inputValue.trim() || undefined,
+            pageIndex: 0,
+          }),
+        });
+      }
     }, SEARCH_DEBOUNCE_MS);
     return () => window.clearTimeout(handle);
-  }, [inputValue]);
+  }, [inputValue, navigate, search.search]);
 
   return (
     <div>
@@ -53,7 +69,7 @@ export default function Contributors() {
       <MuiThemeProvider>
         <ErrorBoundary fallback={<ContributorsTableFallback />}>
           <Suspense fallback={<ContributorsTableSkeleton />}>
-            <ContributorsTable search={debouncedSearch} />
+            <ContributorsTable />
           </Suspense>
         </ErrorBoundary>
       </MuiThemeProvider>

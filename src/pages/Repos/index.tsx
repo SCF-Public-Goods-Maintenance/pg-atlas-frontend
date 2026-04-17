@@ -1,22 +1,27 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import {
   MaterialReactTable,
   useMaterialReactTable,
   type MRT_ColumnDef,
   type MRT_PaginationState,
+  type MRT_Updater,
 } from "material-react-table";
 import MuiThemeProvider from "../../components/atoms/MuiThemeProvider";
 import { useReposListSuspense } from "../../lib/api/queries/repos";
 import type { RepoSummary } from "@pg-atlas/data-sdk";
+import { reposIndexRoute } from "../../routes/repos/index";
 
 function ReposTable() {
-  const navigate = useNavigate();
-  const [pagination, setPagination] = useState<MRT_PaginationState>({
-    pageIndex: 0,
-    pageSize: 20,
-  });
-  const [globalFilter, setGlobalFilter] = useState("");
+  const genericNavigate = useNavigate();
+  const search = reposIndexRoute.useSearch();
+  const navigate = reposIndexRoute.useNavigate();
+
+  const pagination: MRT_PaginationState = {
+    pageIndex: search.pageIndex ?? 0,
+    pageSize: search.pageSize ?? 20,
+  };
+  const globalFilter = search.search ?? "";
 
   const { data } = useReposListSuspense({
     limit: pagination.pageSize,
@@ -88,18 +93,31 @@ function ReposTable() {
     manualPagination: true,
     manualFiltering: true,
     rowCount,
-    onPaginationChange: setPagination,
-    onGlobalFilterChange: (updater) => {
-      const next =
-        typeof updater === "function" ? updater(globalFilter) : updater;
-      setGlobalFilter(next ?? "");
-      setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+    onPaginationChange: (updater: MRT_Updater<MRT_PaginationState>) => {
+      const next = typeof updater === "function" ? updater(pagination) : updater;
+      navigate({
+        search: (prev) => ({
+          ...prev,
+          pageIndex: next.pageIndex,
+          pageSize: next.pageSize,
+        }),
+      });
+    },
+    onGlobalFilterChange: (updater: MRT_Updater<string>) => {
+      const next = typeof updater === "function" ? updater(globalFilter) : updater;
+      navigate({
+        search: (prev) => ({
+          ...prev,
+          search: next || undefined,
+          pageIndex: 0,
+        }),
+      });
     },
     state: { pagination, globalFilter },
     initialState: { density: "compact" },
     muiTableBodyRowProps: ({ row }) => ({
       onClick: () =>
-        navigate({
+        genericNavigate({
           to: "/repos/$canonicalId",
           params: { canonicalId: row.original.canonical_id },
         }),

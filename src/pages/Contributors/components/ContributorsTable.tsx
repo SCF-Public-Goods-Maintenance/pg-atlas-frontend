@@ -1,34 +1,34 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import {
   MaterialReactTable,
   useMaterialReactTable,
   type MRT_ColumnDef,
   type MRT_PaginationState,
+  type MRT_Updater,
 } from "material-react-table";
 import type { ContributorSummary } from "@pg-atlas/data-sdk";
 import { useContributorsListSuspense } from "../../../lib/api/queries/contributors";
-
-interface ContributorsTableProps {
-  search: string;
-}
+import { contributorsIndexRoute } from "../../../routes/contributors/index";
 
 /**
- * Paginated contributor table backed by `listContributors`. Search is
- * controlled by the parent so the input can debounce independently of
- * the table's own pagination state.
+ * Paginated contributor table backed by `listContributors`.
+ * Search and pagination state are synchronized with the URL.
  */
-export default function ContributorsTable({ search }: ContributorsTableProps) {
-  const navigate = useNavigate();
-  const [pagination, setPagination] = useState<MRT_PaginationState>({
-    pageIndex: 0,
-    pageSize: 20,
-  });
+export default function ContributorsTable() {
+  const genericNavigate = useNavigate();
+  const searchParams = contributorsIndexRoute.useSearch();
+  const navigate = contributorsIndexRoute.useNavigate();
+
+  const pagination: MRT_PaginationState = {
+    pageIndex: searchParams.pageIndex ?? 0,
+    pageSize: searchParams.pageSize ?? 20,
+  };
 
   const { data } = useContributorsListSuspense({
     limit: pagination.pageSize,
     offset: pagination.pageIndex * pagination.pageSize,
-    search: search || null,
+    search: searchParams.search || null,
   });
 
   const contributors = data?.items ?? [];
@@ -65,7 +65,16 @@ export default function ContributorsTable({ search }: ContributorsTableProps) {
     data: contributors,
     manualPagination: true,
     rowCount,
-    onPaginationChange: setPagination,
+    onPaginationChange: (updater: MRT_Updater<MRT_PaginationState>) => {
+      const next = typeof updater === "function" ? updater(pagination) : updater;
+      navigate({
+        search: (prev) => ({
+          ...prev,
+          pageIndex: next.pageIndex,
+          pageSize: next.pageSize,
+        }),
+      });
+    },
     state: { pagination },
     initialState: { density: "compact" },
     enableColumnActions: false,
@@ -74,7 +83,7 @@ export default function ContributorsTable({ search }: ContributorsTableProps) {
     enableSorting: false,
     muiTableBodyRowProps: ({ row }) => ({
       onClick: () =>
-        navigate({
+        genericNavigate({
           to: "/contributors/$id",
           params: { id: String(row.original.id) },
         }),

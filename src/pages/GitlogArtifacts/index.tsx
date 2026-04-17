@@ -7,6 +7,7 @@ import {
   ArtifactsTableFallback,
   ArtifactsTableSkeleton,
 } from "./components/ArtifactsTableFallbacks";
+import { gitlogIndexRoute } from "../../routes/gitlog/index";
 
 const FILTER_DEBOUNCE_MS = 300;
 
@@ -16,15 +17,32 @@ const FILTER_DEBOUNCE_MS = 300;
  * `listGitlogArtifacts`; supports repo-canonical-id filtering.
  */
 export default function GitlogArtifacts() {
-  const [inputValue, setInputValue] = useState("");
-  const [debouncedRepo, setDebouncedRepo] = useState("");
+  const search = gitlogIndexRoute.useSearch();
+  const navigate = gitlogIndexRoute.useNavigate();
+  const [inputValue, setInputValue] = useState(search.repo ?? "");
+  const [prevRepo, setPrevRepo] = useState(search.repo);
 
+  // Sync input value when URL change (e.g. browser back button) during render phase
+  if (search.repo !== prevRepo) {
+    setPrevRepo(search.repo);
+    setInputValue(search.repo ?? "");
+  }
+
+  // Debounce typing so we don't fire a request on every keystroke.
   useEffect(() => {
     const handle = window.setTimeout(() => {
-      setDebouncedRepo(inputValue.trim());
+      if (inputValue !== (search.repo ?? "")) {
+        navigate({
+          search: (prev) => ({
+            ...prev,
+            repo: inputValue.trim() || undefined,
+            pageIndex: 0,
+          }),
+        });
+      }
     }, FILTER_DEBOUNCE_MS);
     return () => window.clearTimeout(handle);
-  }, [inputValue]);
+  }, [inputValue, navigate, search.repo]);
 
   return (
     <div>
@@ -57,7 +75,7 @@ export default function GitlogArtifacts() {
       <MuiThemeProvider>
         <ErrorBoundary fallback={<ArtifactsTableFallback />}>
           <Suspense fallback={<ArtifactsTableSkeleton />}>
-            <ArtifactsTable repo={debouncedRepo} />
+            <ArtifactsTable />
           </Suspense>
         </ErrorBoundary>
       </MuiThemeProvider>
