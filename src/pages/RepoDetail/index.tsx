@@ -81,14 +81,14 @@ function RepoDetailContent({ canonicalId }: { canonicalId: string }) {
           <ParentProjectPanel parent={repo.parent_project} />
         )}
         <ContributorsPanel canonicalId={canonicalId} />
-        <DependenciesPanel
-          dependsOn={dependsOn}
-          hasDependents={hasDependents}
-        />
         <SubGraphExplorer
           canonicalId={canonicalId}
           displayName={repo.display_name}
           pageType="repo"
+        />
+        <DependenciesPanel
+          dependsOn={dependsOn}
+          hasDependents={hasDependents}
         />
       </div>
     </div>

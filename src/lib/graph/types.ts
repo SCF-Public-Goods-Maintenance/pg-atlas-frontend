@@ -19,8 +19,10 @@ export interface GraphNodeData {
   nodeType: GraphNodeType;
   /** True for the node placed at the center of the graph */
   isRoot: boolean;
-  /** True if this node's neighbors have been loaded */
-  isExpanded: boolean;
+  /** True if this node's neighbors have been loaded in 'dependents' direction */
+  expandedDependents?: boolean;
+  /** True if this node's neighbors have been loaded in 'dependencies' direction */
+  expandedDependencies?: boolean;
   /** True while neighbors are being fetched */
   isLoading: boolean;
 }

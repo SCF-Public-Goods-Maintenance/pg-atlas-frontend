@@ -33,7 +33,8 @@ function makeNodeElement(
     label,
     nodeType,
     isRoot,
-    isExpanded: isRoot,
+    expandedDependents: false,
+    expandedDependencies: false,
     isLoading: false,
   };
   return { data };
