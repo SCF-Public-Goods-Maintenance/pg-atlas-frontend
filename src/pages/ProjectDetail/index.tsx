@@ -76,14 +76,14 @@ function ProjectDetailContent({ canonicalId }: { canonicalId: string }) {
         <MetricsPanel project={project} />
         <ReposPanel repos={repos} />
         <ContributorsPanel canonicalId={canonicalId} />
-        <DependenciesPanel
-          dependsOn={dependsOn}
-          hasDependents={hasDependents}
-        />
         <SubGraphExplorer
           canonicalId={canonicalId}
           displayName={project.display_name}
           pageType="project"
+        />
+        <DependenciesPanel
+          dependsOn={dependsOn}
+          hasDependents={hasDependents}
         />
       </div>
     </div>

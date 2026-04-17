@@ -97,7 +97,10 @@ export default function SubGraphExplorer({
       const node = cy.getElementById(safeId);
 
       // Already expanded in this direction? Skip.
-      if (node.data("isExpanded")) return;
+      const isExpanded = dir === "dependents" 
+        ? node.data("expandedDependents") 
+        : node.data("expandedDependencies");
+      if (isExpanded) return;
 
       node.data("isLoading", true);
       setLoading(true);
@@ -167,7 +170,11 @@ export default function SubGraphExplorer({
           }, 500);
         }
 
-        node.data("isExpanded", true);
+        if (dir === "dependents") {
+          node.data("expandedDependents", true);
+        } else {
+          node.data("expandedDependencies", true);
+        }
         node.data("isLoading", false);
         setNodeCount(cy.nodes().length);
       } catch (err) {
@@ -204,7 +211,8 @@ export default function SubGraphExplorer({
         label: displayName,
         nodeType: pageType === "project" ? "project" : "repo",
         isRoot: true,
-        isExpanded: false,
+        expandedDependents: false,
+        expandedDependencies: false,
         isLoading: false,
       } as GraphNodeData,
       position: { x: 0, y: 0 },
@@ -222,7 +230,10 @@ export default function SubGraphExplorer({
       if (!node.isNode()) return;
 
       const data = node.data() as GraphNodeData & { originalId?: string };
-      if (data.isExpanded || data.isLoading) return;
+      const isExpanded = directionRef.current === "dependents"
+        ? data.expandedDependents
+        : data.expandedDependencies;
+      if (isExpanded || data.isLoading) return;
       if (data.nodeType === "external-repo") return; // non-expandable
 
       const originalId = data.originalId;
@@ -260,21 +271,7 @@ export default function SubGraphExplorer({
     (newDir: TraversalDirection) => {
       setDirection(newDir);
       directionRef.current = newDir;
-
-      const cy = cyRef.current;
-      if (!cy) return;
-
-      // Remove all except root
-      const rootId = sanitizeId(canonicalId);
-      cy.elements().forEach((el) => {
-        if (el.id() !== rootId) el.remove();
-      });
-
-      const root = cy.getElementById(rootId);
-      root.data("isExpanded", false);
-      root.position({ x: 0, y: 0 });
-
-      setNodeCount(1);
+      // Auto-expand root in the new direction to facilitate combined exploration
       expandNode(canonicalId, displayName, newDir);
     },
     [canonicalId, displayName, expandNode],
@@ -283,8 +280,23 @@ export default function SubGraphExplorer({
   /* ── reset graph ─────────────────────────────────────────── */
 
   const handleReset = useCallback(() => {
-    handleDirectionChange(direction);
-  }, [direction, handleDirectionChange]);
+    const cy = cyRef.current;
+    if (!cy) return;
+
+    // Remove all except root
+    const rootId = sanitizeId(canonicalId);
+    cy.elements().forEach((el) => {
+      if (el.id() !== rootId) el.remove();
+    });
+
+    const root = cy.getElementById(rootId);
+    root.data("expandedDependents", false);
+    root.data("expandedDependencies", false);
+    root.position({ x: 0, y: 0 });
+
+    setNodeCount(1);
+    expandNode(canonicalId, displayName, direction);
+  }, [canonicalId, displayName, direction, expandNode]);
 
   /* ── fit to viewport ─────────────────────────────────────── */
 
@@ -305,6 +317,15 @@ export default function SubGraphExplorer({
         <span className="ml-auto text-xs text-surface-dark/50 dark:text-white/40">
           {nodeCount} node{nodeCount !== 1 ? "s" : ""}
         </span>
+
+        <button
+          type="button"
+          onClick={() => expandNode(canonicalId, displayName, direction)}
+          className="text-xs font-medium text-surface-dark/40 transition-colors hover:text-primary-500 dark:text-white/30 dark:hover:text-primary-400"
+          title="Load focus node in current direction"
+        >
+          Load new:
+        </button>
 
         {/* direction toggle */}
         <div className="flex rounded-lg border border-gray-200 dark:border-white/15">
