@@ -1,35 +1,35 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import {
   MaterialReactTable,
   useMaterialReactTable,
   type MRT_ColumnDef,
   type MRT_PaginationState,
+  type MRT_Updater,
 } from "material-react-table";
 import type { GitLogArtifactSummary, SubmissionStatus } from "@pg-atlas/data-sdk";
 import { useGitlogArtifactsListSuspense } from "../../../lib/api/queries/gitlog";
 import { StatusBadge } from "./StatusBadge";
-
-interface ArtifactsTableProps {
-  repo: string;
-}
+import { gitlogIndexRoute } from "../../../routes/gitlog/index";
 
 /**
- * Paginated table of gitlog processing attempts. `repo` filters by
- * repo canonical_id (exact match) — controlled by the parent so the
- * filter input can debounce independently.
+ * Paginated table of gitlog processing attempts.
+ * Search and pagination state are synchronized with the URL.
  */
-export default function ArtifactsTable({ repo }: ArtifactsTableProps) {
-  const navigate = useNavigate();
-  const [pagination, setPagination] = useState<MRT_PaginationState>({
-    pageIndex: 0,
-    pageSize: 20,
-  });
+export default function ArtifactsTable() {
+  const genericNavigate = useNavigate();
+  const searchValues = gitlogIndexRoute.useSearch();
+  const navigate = gitlogIndexRoute.useNavigate();
+
+  const pagination: MRT_PaginationState = {
+    pageIndex: searchValues.pageIndex ?? 0,
+    pageSize: searchValues.pageSize ?? 20,
+  };
 
   const { data } = useGitlogArtifactsListSuspense({
     limit: pagination.pageSize,
     offset: pagination.pageIndex * pagination.pageSize,
-    repo: repo || null,
+    repo: searchValues.repo || null,
   });
 
   const items = data?.items ?? [];
@@ -81,7 +81,16 @@ export default function ArtifactsTable({ repo }: ArtifactsTableProps) {
     data: items,
     manualPagination: true,
     rowCount,
-    onPaginationChange: setPagination,
+    onPaginationChange: (updater: MRT_Updater<MRT_PaginationState>) => {
+      const next = typeof updater === "function" ? updater(pagination) : updater;
+      navigate({
+        search: (prev) => ({
+          ...prev,
+          pageIndex: next.pageIndex,
+          pageSize: next.pageSize,
+        }),
+      });
+    },
     state: { pagination },
     initialState: { density: "compact" },
     enableColumnActions: false,
@@ -90,7 +99,7 @@ export default function ArtifactsTable({ repo }: ArtifactsTableProps) {
     enableSorting: false,
     muiTableBodyRowProps: ({ row }) => ({
       onClick: () =>
-        navigate({
+        genericNavigate({
           to: "/gitlog/$artifactId",
           params: { artifactId: String(row.original.id) },
         }),
