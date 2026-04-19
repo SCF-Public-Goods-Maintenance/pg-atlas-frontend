@@ -173,7 +173,7 @@ function MetricCardPlaceholder({
   mobilecompact = false,
 }: {
   label: string;
-  icon: any;
+  icon: React.ElementType;
   desc: string;
   mobilecompact?: boolean;
 }) {
