@@ -70,7 +70,10 @@ export default function MetricsGrid() {
               {metadata.total_external_repos.toLocaleString()}
             </p>
             <p className="mt-1 text-sm text-surface-dark/35 dark:text-white/50">
-              Stellar | External
+              Stellar | External •{" "}
+              <span className="opacity-80">
+                {metadata.active_repos_90d.toLocaleString()} active
+              </span>
             </p>
           </div>
         </div>
@@ -142,7 +145,7 @@ export function MetricsGridFallback() {
         <MetricCardPlaceholder
           label="Repositories"
           icon={Database}
-          desc="Stellar | External"
+          desc="Stellar | External • 0 active"
         />
       </div>
       <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-col">
