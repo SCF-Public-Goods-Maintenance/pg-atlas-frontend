@@ -53,11 +53,13 @@ export default function Home() {
         className="grid gap-3 sm:gap-4 md:grid-cols-3 shrink-0"
         aria-label="Headline metrics"
       >
-        <ErrorBoundary fallback={<MetricsGridFallback />}>
-          <Suspense fallback={<MetricsGridSkeleton />}>
-            <MetricsGrid />
-          </Suspense>
-        </ErrorBoundary>
+        <div className="md:col-span-2">
+          <ErrorBoundary fallback={<MetricsGridFallback />}>
+            <Suspense fallback={<MetricsGridSkeleton />}>
+              <MetricsGrid />
+            </Suspense>
+          </ErrorBoundary>
+        </div>
 
         <ErrorBoundary fallback={<EcosystemHealthCardFallback />}>
           <Suspense fallback={<EcosystemHealthCardSkeleton />}>
