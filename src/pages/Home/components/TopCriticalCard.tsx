@@ -27,7 +27,7 @@ function Header({ right }: { right?: React.ReactNode }) {
           aria-hidden="true"
         />
         <h3 className="text-sm font-semibold text-surface-dark dark:text-white">
-          Top Critical Projects
+          Popular Building Blocks
         </h3>
       </div>
       {right}
@@ -137,13 +137,13 @@ export default function TopCriticalCard() {
               <th className="px-3 py-2 text-left text-sm font-medium text-surface-dark/40 dark:text-white/70">
                 <ColumnHeader
                   label="Criticality"
-                  tooltip="Criticality score — a 0–10 measure of how load-bearing this project is for the ecosystem. Higher means more downstream projects depend on it."
+                  tooltip="Criticality score — a measure of how load-bearing this project is for the ecosystem. A count of how many downstream projects depend on it."
                 />
               </th>
               <th className="px-3 py-2 text-left text-sm font-medium text-surface-dark/40 dark:text-white/70">
                 <ColumnHeader
                   label="Pony Factor"
-                  tooltip="Pony factor — the minimum number of contributors whose departure would cause the project to stall. Lower means more concentration risk."
+                  tooltip="Pony factor — the smallest number of contributors who have built >50% of the project, approximated by repo commits. Lower means more concentration risk."
                 />
               </th>
               <th className="px-3 py-2 text-left text-sm font-medium text-surface-dark/40 dark:text-white/70">
@@ -271,7 +271,7 @@ export function TopCriticalCardFallback() {
           aria-hidden="true"
         />
         <p className="text-sm font-medium text-surface-dark/60 dark:text-white/70">
-          Top critical data unavailable
+          Building block data unavailable
         </p>
         <p className="text-xs text-surface-dark/40 dark:text-white/50">
           We'll retry on your next refresh.
