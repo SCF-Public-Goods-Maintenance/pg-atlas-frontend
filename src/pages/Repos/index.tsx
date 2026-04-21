@@ -5,12 +5,14 @@ import {
   useMaterialReactTable,
   type MRT_ColumnDef,
   type MRT_PaginationState,
+  type MRT_SortingState,
   type MRT_Updater,
 } from "material-react-table";
 import MuiThemeProvider from "../../components/atoms/MuiThemeProvider";
 import { useReposListSuspense } from "../../lib/api/queries/repos";
 import type { RepoSummary } from "@pg-atlas/data-sdk";
 import { reposIndexRoute } from "../../routes/repos/index";
+import { toSortParam } from "../../lib/api/sorting";
 
 function ReposTable() {
   const genericNavigate = useNavigate();
@@ -22,11 +24,13 @@ function ReposTable() {
     pageSize: search.pageSize ?? 20,
   };
   const globalFilter = search.search ?? "";
+  const sorting: MRT_SortingState = search.sorting ?? [];
 
   const { data } = useReposListSuspense({
     limit: pagination.pageSize,
     offset: pagination.pageIndex * pagination.pageSize,
     ...(globalFilter ? { search: globalFilter } : {}),
+    sort: toSortParam(sorting),
   });
 
   const repos = data?.items ?? [];
@@ -99,7 +103,10 @@ function ReposTable() {
     data: repos,
     manualPagination: true,
     manualFiltering: true,
+    manualSorting: true,
     rowCount,
+
+    /* ── pagination ─────────────────────────────────────── */
     onPaginationChange: (updater: MRT_Updater<MRT_PaginationState>) => {
       const next = typeof updater === "function" ? updater(pagination) : updater;
       navigate({
@@ -110,6 +117,8 @@ function ReposTable() {
         }),
       });
     },
+
+    /* ── global search ─────────────────────────────────── */
     onGlobalFilterChange: (updater: MRT_Updater<string>) => {
       const next = typeof updater === "function" ? updater(globalFilter) : updater;
       navigate({
@@ -120,7 +129,20 @@ function ReposTable() {
         }),
       });
     },
-    state: { pagination, globalFilter },
+
+    /* ── sorting ───────────────────────────────────────── */
+    onSortingChange: (updater: MRT_Updater<MRT_SortingState>) => {
+      const next = typeof updater === "function" ? updater(sorting) : updater;
+      navigate({
+        search: (prev) => ({
+          ...prev,
+          sorting: next.length > 0 ? next : undefined,
+          pageIndex: 0,
+        }),
+      });
+    },
+
+    state: { pagination, globalFilter, sorting },
     initialState: { density: "compact" },
     muiTableBodyRowProps: ({ row }) => ({
       onClick: () =>
