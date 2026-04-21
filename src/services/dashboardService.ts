@@ -117,9 +117,11 @@ export async function getDashboardOverview(): Promise<DashboardOverview> {
         },
       ],
       processingNotes: [
-        'We surface canonical vs derived fields with a visible provenance tag in each UI section.',
-        'All charts/tables are read-only in v0; no writes are exposed publicly.',
-        'Scores are recomputed in background; reads serve last-known values.',
+        'The dependency graph is seeded from living projects (live / in-dev) and walks upstream to collect every dependency they still rely on — tracing energy from active leaves into the substrate beneath.',
+        'Criticality is the count of packages transitively stacked on top of a dependency — a keystone-species score for the ecosystem.',
+        'Adoption score (0–100) is a percentile composite of stars, forks, and downloads. Missing signals are excluded from the ranking, not zeroed.',
+        'Pony factor de-duplicates contributors by hashed email across a project's repos, so multi-repo maintainers are counted once.',
+        'Duplicate SBOMs are detected semantically — cosmetic differences like timestamps or package ordering are stripped before hashing.',
       ],
     },
   }

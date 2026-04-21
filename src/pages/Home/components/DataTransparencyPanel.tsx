@@ -77,10 +77,11 @@ const SOURCES: ReadonlyArray<SourceEntry> = [
  * Processing notes shown inside the transparency panel.
  */
 const PROCESSING_NOTES: ReadonlyArray<string> = [
-  "Risk distribution on this page is aggregated client-side from a 100-project sample of `GET /projects`. Totals are indicative, not exact.",
-  "Dependency coverage % is computed as `total_dependency_edges / (total_repos + total_external_repos)`.",
-  "Round-scoped data (awarded, tranche, proposal counts) is curated in `src/data/rounds/*.json` and rendered at build time.",
-  "Criticality, pony factor, and adoption scores are sourced directly from the API and may be `null` until the backend computes them.",
+  "The dependency graph is seeded from living projects (live / in-dev) and walks upstream to collect every dependency they still rely on — tracing energy from active leaves into the substrate beneath.",
+  "Criticality is the count of packages transitively stacked on top of a dependency — a keystone-species score for the ecosystem.",
+  "Adoption score (0–100) is a percentile composite of stars, forks, and downloads. Missing signals are excluded from the ranking, not zeroed.",
+  "Pony factor de-duplicates contributors by hashed email across a project's repos, so multi-repo maintainers are counted once.",
+  "Duplicate SBOMs are detected semantically — cosmetic differences like timestamps or package ordering are stripped before hashing.",
 ];
 
 function KindBadge({ kind }: { kind: SourceEntry["kind"] }) {
