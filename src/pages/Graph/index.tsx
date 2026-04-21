@@ -31,14 +31,14 @@ export default function Graph() {
 
         <h3 className="text-lg font-semibold text-surface-dark dark:text-white">Coming in v1</h3>
         <p className="mt-2 max-w-sm text-center text-sm text-surface-dark/50 dark:text-white/40">
-          Full interactive dependency graph with search, filtering, and node exploration. Explore project-level subgraphs on detail pages in the meantime.
+          Full interactive dependency graph with search, filtering, and node exploration. Explore repository-level subgraphs on detail pages in the meantime.
         </p>
 
         <Link
-          to="/rounds"
+          to="/repos"
           className="group mt-6 inline-flex items-center gap-1.5 rounded-xl bg-surface-dark px-4 py-2 text-sm font-medium text-white hover:bg-surface-dark/85 dark:bg-white dark:text-surface-dark dark:hover:bg-white/90 transition-colors"
         >
-          Browse projects
+          Browse repos
           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
         </Link>
       </div>

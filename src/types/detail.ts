@@ -10,4 +10,6 @@ export interface Metric {
   value: number | null | undefined;
   icon: ComponentType<{ className?: string }>;
   provenance: string;
+  /** Controls how the value is displayed. Defaults to `'integer'`. */
+  format?: "integer" | "decimal";
 }

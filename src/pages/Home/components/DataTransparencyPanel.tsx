@@ -1,10 +1,11 @@
 import React from "react";
 import {
-  ExternalLink,
   FileText,
   Github,
   Info,
   Layers,
+  Package,
+  Search,
   ShieldCheck,
   Telescope,
 } from "lucide-react";
@@ -21,54 +22,66 @@ interface SourceEntry {
 
 /**
  * Explicit provenance for every data source the frontend surfaces.
- * `kind` distinguishes raw canonical records from values we compute
- * client-side or that the backend already aggregated — per the spec's
- * "canonical vs computed/aggregated labels" requirement.
  */
 const SOURCES: ReadonlyArray<SourceEntry> = [
   {
+    label: "OpenGrants",
+    description:
+      "Stellar Community Fund project information and Build Award submissions.",
+    icon: ShieldCheck,
+    kind: "canonical",
+    href: "https://scf.stellar.org",
+  },
+  {
     label: "GitHub",
     description:
-      "Repository metadata, commit activity, stars/forks/downloads, and contributor history.",
+      "Repository metadata, commit activity, stars/forks, and contributor history.",
     icon: Github,
     kind: "canonical",
     href: "https://github.com",
   },
   {
-    label: "deps.dev",
+    label: "Open Source Insights",
     description:
-      "Open-source dependency graph — used for the project / repo / external-repo dependency edges.",
-    icon: ExternalLink,
+      "Package dependencies and download counts for Cargo, Gem, Golang, Maven, NPM, Nuget, and PyPI.",
+    icon: Search,
     kind: "canonical",
     href: "https://deps.dev",
   },
   {
-    label: "OpenGrants",
+    label: "Packagist",
     description:
-      "Stellar Community Fund submissions, tranche completions, and award decisions.",
-    icon: ShieldCheck,
+      "Package dependencies and download counts for the Composer PHP ecosystem.",
+    icon: Package,
     kind: "canonical",
+    href: "https://packagist.org",
+  },
+  {
+    label: "Pub.dev",
+    description:
+      "Package dependencies and download counts for Dart and Flutter apps.",
+    icon: Package,
+    kind: "canonical",
+    href: "https://pub.dev",
   },
   {
     label: "PG Atlas",
     description:
-      "Internal criticality scoring, pony factor, and risk bucketing computed server-side from the above sources.",
+      "Criticality scores, Pony Factor, and Adoption scores computed on the repo level and aggregated to projects. Original source of #BuiltOnStellar project dependencies.",
     icon: Telescope,
     kind: "derived",
   },
 ];
 
 /**
- * Processing notes shown inside the transparency panel. These describe
- * client-side derivations the user should be aware of when interpreting
- * the dashboard numbers. Sourced from the frontend itself so it stays
- * honest when the backend aggregates evolve.
+ * Processing notes shown inside the transparency panel.
  */
 const PROCESSING_NOTES: ReadonlyArray<string> = [
-  "Risk distribution on this page is aggregated client-side from a 100-project sample of `GET /projects`. Totals are indicative, not exact.",
-  "Dependency coverage % is computed as `total_dependency_edges / (total_repos + total_external_repos)`.",
-  "Round-scoped data (awarded, tranche, proposal counts) is curated in `src/data/rounds/*.json` and rendered at build time — the API has no `/rounds` endpoint yet.",
-  "Criticality, pony factor, and adoption scores are sourced directly from the API and may be `null` until the backend computes them.",
+  "The dependency graph is seeded from living projects (live / in-dev) and walks upstream to collect every dependency they still rely on — tracing energy from active leaves into the substrate beneath.",
+  "Criticality is the count of packages transitively stacked on top of a dependency — a keystone-species score for the ecosystem.",
+  "Adoption score (0–100) is a percentile composite of stars, forks, and downloads. Missing signals are excluded from the ranking, not zeroed.",
+  "Pony factor de-duplicates contributors by hashed email across a project's repos, so multi-repo maintainers are counted once.",
+  "Duplicate SBOMs are detected semantically — cosmetic differences like timestamps or package ordering are stripped before hashing.",
 ];
 
 function KindBadge({ kind }: { kind: SourceEntry["kind"] }) {
@@ -89,14 +102,6 @@ function KindBadge({ kind }: { kind: SourceEntry["kind"] }) {
   );
 }
 
-/**
- * Narrow single-column transparency card — designed to sit as the third
- * column alongside the Top Critical and All Rounds tables in row 2 of
- * the dashboard. Sources stack on top, processing notes below, both
- * scrollable if the column runs out of vertical room.
- *
- * Static content + `/metadata.last_updated` timestamp; no suspense needed.
- */
 export default function DataTransparencyPanel() {
   const { data: metadata, isLoading } = useMetadata();
   const lastUpdated = (() => {
@@ -106,7 +111,7 @@ export default function DataTransparencyPanel() {
   })();
 
   return (
-    <section className="flex flex-col rounded-xl bg-white p-3 sm:p-4 shadow-sm dark:bg-white/5 dark:border dark:border-white/15 dark:shadow-none">
+    <section className="flex flex-col h-full rounded-xl bg-white p-3 sm:p-4 shadow-sm dark:bg-white/5 dark:border dark:border-white/15 dark:shadow-none">
       <div className="flex flex-col gap-1 border-b border-gray-100 pb-3 dark:border-white/10">
         <div className="flex items-center gap-2">
           <Info
@@ -130,7 +135,7 @@ export default function DataTransparencyPanel() {
         </div>
       </div>
 
-      <div className="mt-3 flex-1 space-y-4 overflow-auto">
+      <div className="mt-3 flex-1 space-y-4 overflow-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-200 dark:scrollbar-thumb-white/10">
         {/* Sources */}
         <div>
           <h4 className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-surface-dark/50 dark:text-white/50">
@@ -203,7 +208,6 @@ export default function DataTransparencyPanel() {
   );
 }
 
-/** Error fallback — ultra-minimal so the panel never takes down the page. */
 export function DataTransparencyPanelFallback() {
   return (
     <section className="flex flex-col items-center justify-center rounded-xl bg-white p-5 text-center text-xs text-surface-dark/50 shadow-sm dark:bg-white/5 dark:border dark:border-white/15 dark:shadow-none dark:text-white/50">
