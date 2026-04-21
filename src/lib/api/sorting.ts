@@ -13,6 +13,7 @@ export function toSortParam(
 ): string | undefined {
   if (!sorting || sorting.length === 0) return undefined;
   return sorting
+    .filter((s) => s.id && !s.id.includes(':') && !s.id.includes(',')) // sorting by id with : or , will break the query
     .map((s) => `${s.id}:${s.desc ? "desc" : "asc"}`)
     .join(",");
 }

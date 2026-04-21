@@ -151,12 +151,14 @@ export function MetricsGridFallback() {
       <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-col">
         <MetricCardPlaceholder
           label="D Edges"
+          desktopLabel="Dependency Edges"
           icon={Link2}
           desc="Total dependency links"
           mobilecompact
         />
         <MetricCardPlaceholder
           label="C Edges"
+          desktopLabel="Contributor Edges"
           icon={Users}
           desc="Total contributor links"
           mobilecompact
@@ -168,11 +170,13 @@ export function MetricsGridFallback() {
 
 function MetricCardPlaceholder({
   label,
+  desktopLabel,
   icon: Icon,
   desc,
   mobilecompact = false,
 }: {
   label: string;
+  desktopLabel?: string;
   icon: React.ElementType;
   desc: string;
   mobilecompact?: boolean;
@@ -180,8 +184,17 @@ function MetricCardPlaceholder({
   return (
     <div className={CARD_CLASS}>
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-surface-dark/45 dark:text-white/70">
-          {label}
+        <h3
+          className={`${mobilecompact ? "text-xs sm:text-sm" : "text-sm"} font-semibold uppercase tracking-wide text-surface-dark/45 dark:text-white/70`}
+        >
+          {desktopLabel ? (
+            <>
+              <span className="sm:hidden">{label}</span>
+              <span className="hidden sm:inline">{desktopLabel}</span>
+            </>
+          ) : (
+            label
+          )}
         </h3>
         <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gray-50 dark:bg-white/10">
           <Icon
@@ -191,7 +204,9 @@ function MetricCardPlaceholder({
         </div>
       </div>
       <p
-        className={`mt-2 font-bold text-surface-dark/30 dark:text-white/40 ${mobilecompact ? "text-xl" : "text-3xl"}`}
+        className={`${mobilecompact ? "mt-1" : "mt-1.5"} sm:mt-2 font-bold text-surface-dark/30 dark:text-white/40 ${
+          mobilecompact ? "text-lg sm:text-3xl" : "text-2xl sm:text-3xl"
+        }`}
       >
         0
       </p>
