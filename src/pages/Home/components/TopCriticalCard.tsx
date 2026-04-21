@@ -142,8 +142,8 @@ export default function TopCriticalCard() {
               </th>
               <th className="px-3 py-2 text-left text-sm font-medium text-surface-dark/40 dark:text-white/70">
                 <ColumnHeader
-                  label="Pony Factor"
-                  tooltip="Pony factor — the smallest number of contributors who have built >50% of the project, approximated by repo commits. Lower means more concentration risk."
+                  label="Adoption"
+                  tooltip="Adoption score — a composite metric (0–99.99) reflecting downstream usage, stars, forks, and package downloads."
                 />
               </th>
               <th className="px-3 py-2 text-left text-sm font-medium text-surface-dark/40 dark:text-white/70">
@@ -174,11 +174,13 @@ export default function TopCriticalCard() {
                 </td>
                 <td className="px-3 py-2 text-left font-mono text-sm">
                   {p.criticality_score != null
-                    ? p.criticality_score.toFixed(2)
+                    ? Math.round(p.criticality_score)
                     : "—"}
                 </td>
                 <td className="px-3 py-2 text-left font-mono text-sm">
-                  {p.pony_factor ?? "—"}
+                  {p.adoption_score != null
+                    ? p.adoption_score.toFixed(2)
+                    : "—"}
                 </td>
                 <td className="px-3 py-2">
                   <span
@@ -226,7 +228,7 @@ export function TopCriticalCardSkeleton() {
                 Criticality
               </th>
               <th className="px-3 py-2 text-left text-sm font-medium text-surface-dark/40 dark:text-white/70">
-                Pony Factor
+                Adoption
               </th>
               <th className="px-3 py-2 text-left text-sm font-medium text-surface-dark/40 dark:text-white/70">
                 Status

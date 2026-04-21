@@ -55,15 +55,13 @@ function ProjectsTable() {
         size: 150,
       },
       {
-        accessorKey: "pony_factor",
-        header: "Pony Factor",
-        size: 120,
-      },
-      {
         accessorKey: "criticality_score",
         header: "Criticality",
         size: 120,
-        Cell: ({ cell }) => cell.getValue<number | null>()?.toFixed(2) ?? "—",
+        Cell: ({ cell }) => {
+          const v = cell.getValue<number | null>();
+          return v != null ? Math.round(v).toLocaleString() : "—";
+        },
       },
       {
         accessorKey: "adoption_score",

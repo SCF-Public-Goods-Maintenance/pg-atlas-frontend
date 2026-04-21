@@ -15,7 +15,7 @@ export interface DashboardRoundSpotlight {
   category: string
 }
 
-export type TopCriticalProject = Pick<ProjectSummary, 'canonical_id' | 'display_name' | 'criticality_score' | 'pony_factor' | 'activity_status'>
+export type TopCriticalProject = Pick<ProjectSummary, 'canonical_id' | 'display_name' | 'criticality_score' | 'adoption_score' | 'activity_status'>
 
 export interface RiskBucket {
   label: string
@@ -75,16 +75,16 @@ export async function getDashboardOverview(): Promise<DashboardOverview> {
       { roundId: '2025Q3', label: 'Round 2025Q3', isCurrent: false },
     ],
     topCriticalProjects: [
-      { canonical_id: 'stellar-sdk', display_name: 'Stellar SDK', criticality_score: 0.95, pony_factor: 2, activity_status: 'live' },
-      { canonical_id: 'soroban-cli', display_name: 'Soroban CLI', criticality_score: 0.91, pony_factor: 3, activity_status: 'live' },
-      { canonical_id: 'freighter', display_name: 'Freighter Wallet', criticality_score: 0.88, pony_factor: 4, activity_status: 'live' },
-      { canonical_id: 'stellar-core', display_name: 'Stellar Core', criticality_score: 0.85, pony_factor: 2, activity_status: 'live' },
-      { canonical_id: 'horizon', display_name: 'Horizon API', criticality_score: 0.82, pony_factor: 3, activity_status: 'live' },
-      { canonical_id: 'soroban-examples', display_name: 'Soroban Examples', criticality_score: 0.78, pony_factor: 5, activity_status: 'live' },
-      { canonical_id: 'stellar-disbursement', display_name: 'Stellar Disbursement', criticality_score: 0.74, pony_factor: 3, activity_status: 'in-dev' },
-      { canonical_id: 'kelp', display_name: 'Kelp Trading Bot', criticality_score: 0.71, pony_factor: 1, activity_status: 'live' },
-      { canonical_id: 'stellar-anchor', display_name: 'Anchor Platform', criticality_score: 0.68, pony_factor: 4, activity_status: 'live' },
-      { canonical_id: 'soroban-rpc', display_name: 'Soroban RPC', criticality_score: 0.65, pony_factor: 2, activity_status: 'in-dev' },
+      { canonical_id: 'stellar-sdk', display_name: 'Stellar SDK', criticality_score: 95, adoption_score: 82.45, activity_status: 'live' },
+      { canonical_id: 'soroban-cli', display_name: 'Soroban CLI', criticality_score: 91, adoption_score: 74.18, activity_status: 'live' },
+      { canonical_id: 'freighter', display_name: 'Freighter Wallet', criticality_score: 88, adoption_score: 69.33, activity_status: 'live' },
+      { canonical_id: 'stellar-core', display_name: 'Stellar Core', criticality_score: 85, adoption_score: 91.07, activity_status: 'live' },
+      { canonical_id: 'horizon', display_name: 'Horizon API', criticality_score: 82, adoption_score: 77.62, activity_status: 'live' },
+      { canonical_id: 'soroban-examples', display_name: 'Soroban Examples', criticality_score: 78, adoption_score: 45.89, activity_status: 'live' },
+      { canonical_id: 'stellar-disbursement', display_name: 'Stellar Disbursement', criticality_score: 74, adoption_score: 38.14, activity_status: 'in-dev' },
+      { canonical_id: 'kelp', display_name: 'Kelp Trading Bot', criticality_score: 71, adoption_score: 52.71, activity_status: 'live' },
+      { canonical_id: 'stellar-anchor', display_name: 'Anchor Platform', criticality_score: 68, adoption_score: 61.05, activity_status: 'live' },
+      { canonical_id: 'soroban-rpc', display_name: 'Soroban RPC', criticality_score: 65, adoption_score: 56.30, activity_status: 'in-dev' },
     ],
     riskDistribution: [
       { label: 'Low', count: 98, color: '#10b981' },

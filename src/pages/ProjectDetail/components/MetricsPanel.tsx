@@ -45,6 +45,7 @@ export function MetricsPanel({ project }: { project: ProjectDetailResponse }) {
       value: project.adoption_score,
       icon: TrendingUp,
       provenance: "GitHub + deps.dev",
+      format: "decimal",
     },
   ];
 
@@ -70,7 +71,11 @@ export function MetricsPanel({ project }: { project: ProjectDetailResponse }) {
                 </div>
               </div>
               <p className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white">
-                {(m.value ?? 0).toLocaleString()}
+                {m.value != null
+                  ? m.format === "decimal"
+                    ? m.value.toFixed(2)
+                    : Math.round(m.value).toLocaleString()
+                  : "—"}
               </p>
               <p className="mt-1 text-xs text-surface-dark/35 dark:text-white/50">
                 {m.provenance}
