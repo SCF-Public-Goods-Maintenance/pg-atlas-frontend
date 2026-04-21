@@ -63,8 +63,8 @@ function ProjectsTable() {
         size: 130,
         filterVariant: "select",
         filterSelectOptions: [
-          { label: "Public Good", value: "public-good" },
-          { label: "SCF Project", value: "scf-project" },
+          { text: "Public Good", label: "Public Good", value: "public-good" },
+          { text: "SCF Project", label: "SCF Project", value: "scf-project" },
         ],
       },
       {
@@ -73,10 +73,10 @@ function ProjectsTable() {
         size: 130,
         filterVariant: "select",
         filterSelectOptions: [
-          { label: "Live", value: "live" },
-          { label: "In Dev", value: "in-dev" },
-          { label: "Discontinued", value: "discontinued" },
-          { label: "Non-responsive", value: "non-responsive" },
+          { text: "Live", label: "Live", value: "live" },
+          { text: "In Dev", label: "In Dev", value: "in-dev" },
+          { text: "Discontinued", label: "Discontinued", value: "discontinued" },
+          { text: "Non-responsive", label: "Non-responsive", value: "non-responsive" },
         ],
       },
       {
