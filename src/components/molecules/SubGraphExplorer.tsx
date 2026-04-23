@@ -116,7 +116,7 @@ export default function SubGraphExplorer({
             nodeLabel,
             result.data,
             dir,
-            { includeExternal: false },
+            { includeExternal: true },
           );
         } else {
           newElements = projectNeighborsToElements(

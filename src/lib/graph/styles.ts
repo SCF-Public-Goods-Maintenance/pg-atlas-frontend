@@ -11,7 +11,7 @@ import type { Stylesheet } from "cytoscape";
 const NODE_COLORS: Record<string, string> = {
   project: "#914cff",
   repo: "#3b82f6",
-  "external-repo": "#64748b",
+  "external-repo": "#facc15",
 };
 
 const graphStyles: Stylesheet[] = [
@@ -62,6 +62,7 @@ const graphStyles: Stylesheet[] = [
       "border-style": "dashed",
       width: 24,
       height: 24,
+      color: "#facc15",
     } as unknown as Record<string, string | number>,
   },
 

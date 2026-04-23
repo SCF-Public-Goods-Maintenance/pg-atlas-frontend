@@ -38,11 +38,14 @@ export function ReposPanel({ repos }: { repos: RepoSummary[] }) {
                   className="h-4 w-4 shrink-0 text-surface-dark/30 dark:text-white/30"
                   aria-hidden="true"
                 />
-                <span className="truncate text-sm font-medium text-surface-dark dark:text-white">
+                <span
+                  className="truncate text-sm font-medium text-surface-dark dark:text-white"
+                  title={r.display_name}
+                >
                   {r.display_name}
                 </span>
                 <span className="hidden shrink-0 text-xs text-surface-dark/40 dark:text-white/30 sm:inline">
-                  {r.latest_version ? `v${r.latest_version}` : r.visibility}
+                  {r.latest_version ? r.latest_version : r.visibility}
                 </span>
               </div>
               <div className="flex shrink-0 items-center gap-3">

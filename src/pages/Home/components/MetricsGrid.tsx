@@ -35,7 +35,10 @@ export default function MetricsGrid() {
             </div>
           </div>
           <div className="flex flex-col gap-y-2">
-            <p className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white">
+            <p
+              className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white"
+              title={`${metadata.active_projects.toLocaleString()} / ${metadata.total_projects.toLocaleString()}`}
+            >
               {metadata.active_projects.toLocaleString()}
               <span className="mx-2 text-surface-dark/20 dark:text-white/20 font-light">
                 /
@@ -62,7 +65,10 @@ export default function MetricsGrid() {
             </div>
           </div>
           <div className="flex flex-col gap-y-2">
-            <p className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white">
+            <p
+              className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white"
+              title={`${metadata.total_repos.toLocaleString()} | ${metadata.total_external_repos.toLocaleString()}`}
+            >
               {metadata.total_repos.toLocaleString()}
               <span className="mx-2 text-surface-dark/20 dark:text-white/20 font-light">
                 |
@@ -96,7 +102,10 @@ export default function MetricsGrid() {
             </div>
           </div>
           <div className="flex flex-col gap-y-1 sm:gap-y-2">
-            <p className="mt-1 sm:mt-2 truncate text-lg sm:text-3xl font-bold text-surface-dark dark:text-white">
+            <p
+              className="mt-1 sm:mt-2 truncate text-lg sm:text-3xl font-bold text-surface-dark dark:text-white"
+              title={metadata.total_dependency_edges.toLocaleString()}
+            >
               {metadata.total_dependency_edges.toLocaleString()}
             </p>
             <p className="hidden sm:block mt-1 text-sm text-surface-dark/35 dark:text-white/50">
@@ -120,7 +129,10 @@ export default function MetricsGrid() {
             </div>
           </div>
           <div className="flex flex-col gap-y-1 sm:gap-y-2">
-            <p className="mt-1 sm:mt-2 truncate text-lg sm:text-3xl font-bold text-surface-dark dark:text-white">
+            <p
+              className="mt-1 sm:mt-2 truncate text-lg sm:text-3xl font-bold text-surface-dark dark:text-white"
+              title={metadata.total_contributor_edges.toLocaleString()}
+            >
               {metadata.total_contributor_edges.toLocaleString()}
             </p>
             <p className="hidden sm:block mt-1 text-sm text-surface-dark/35 dark:text-white/50">

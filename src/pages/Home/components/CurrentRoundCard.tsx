@@ -37,7 +37,10 @@ function StatTile({
           />
         </div>
       </div>
-      <p className="mt-1.5 truncate text-lg font-bold text-surface-dark dark:text-white sm:text-xl">
+      <p
+        className="mt-1.5 truncate text-lg font-bold text-surface-dark dark:text-white sm:text-xl"
+        title={value.toString()}
+      >
         {value}
       </p>
     </div>

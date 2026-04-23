@@ -105,8 +105,10 @@ function DepItem({
 }) {
   const content = (
     <>
-      <span className="truncate">{dep.display_name}</span>
-      <div className="ml-2 flex shrink-0 items-center gap-2">
+      <span className="truncate" title={dep.display_name}>
+        {dep.display_name}
+      </span>
+      <div className="ml-2 flex min-w-0 shrink-0 items-center gap-2">
         {dep.confidence && (
           <span
             className={`rounded-full px-2 py-0.5 text-xs font-medium ${
@@ -119,7 +121,10 @@ function DepItem({
           </span>
         )}
         {dep.version_range && (
-          <span className="text-sm font-mono text-surface-dark/40 dark:text-white/30">
+          <span
+            className="max-w-[120px] truncate text-sm font-mono text-surface-dark/40 dark:text-white/30"
+            title={dep.version_range}
+          >
             {dep.version_range}
           </span>
         )}
