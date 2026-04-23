@@ -128,7 +128,10 @@ export default function DataTransparencyPanel() {
           {isLoading ? (
             <Skeleton className="h-3 w-32" />
           ) : (
-            <span className="truncate font-mono text-surface-dark/70 dark:text-white/70">
+            <span
+              className="truncate font-mono text-surface-dark/70 dark:text-white/70"
+              title={lastUpdated ?? "unknown"}
+            >
               {lastUpdated ?? "unknown"}
             </span>
           )}
@@ -151,7 +154,10 @@ export default function DataTransparencyPanel() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5">
-                      <span className="truncate text-xs font-medium text-surface-dark dark:text-white">
+                      <span
+                        className="truncate text-xs font-medium text-surface-dark dark:text-white"
+                        title={s.label}
+                      >
                         {s.label}
                       </span>
                       <KindBadge kind={s.kind} />

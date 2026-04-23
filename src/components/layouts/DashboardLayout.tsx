@@ -274,7 +274,10 @@ export default function DashboardLayout() {
             >
               <Menu className="h-5 w-5" />
             </button>
-            <h1 className="text-lg font-bold text-surface-dark truncate dark:text-white">
+            <h1
+              className="text-lg font-bold text-surface-dark truncate dark:text-white"
+              title={currentNav.name}
+            >
               {currentNav.name}
             </h1>
             <button

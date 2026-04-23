@@ -66,7 +66,7 @@ export function repoNeighborsToElements(
   direction: TraversalDirection,
   opts: { includeExternal?: boolean } = {},
 ): ElementDefinition[] {
-  const { includeExternal = false } = opts;
+  const { includeExternal = true } = opts;
 
   const elements: ElementDefinition[] = [];
 

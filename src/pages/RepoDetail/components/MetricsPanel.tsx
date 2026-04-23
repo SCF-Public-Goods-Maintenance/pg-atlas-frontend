@@ -83,7 +83,16 @@ export function MetricsPanel({ repo }: { repo: RepoDetailResponse }) {
                   />
                 </div>
               </div>
-              <p className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white">
+              <p
+                className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white"
+                title={
+                  m.value != null
+                    ? m.format === "decimal"
+                      ? m.value.toFixed(2)
+                      : Math.round(m.value).toLocaleString()
+                    : "—"
+                }
+              >
                 {m.value != null
                   ? m.format === "decimal"
                     ? m.value.toFixed(2)
@@ -104,7 +113,7 @@ export function MetricsPanel({ repo }: { repo: RepoDetailResponse }) {
         </span>
         {repo.latest_version && (
           <span className="rounded-full border border-gray-200 px-3 py-1.5 text-sm font-mono text-surface-dark/70 dark:border-white/15 dark:text-white/60">
-            v{repo.latest_version}
+            {repo.latest_version}
           </span>
         )}
         {repo.repo_url && (

@@ -71,7 +71,9 @@ function DepList({
                 params={{ canonicalId: dep.project.canonical_id }}
                 className="flex items-center justify-between rounded-lg px-3 py-2 text-base text-surface-dark transition-colors hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
               >
-                <span className="truncate">{dep.project.display_name}</span>
+                <span className="truncate" title={dep.project.display_name}>
+                  {dep.project.display_name}
+                </span>
                 <span className="ml-2 shrink-0 text-sm text-surface-dark/50 dark:text-white/40">
                   {dep.edge_count} edge{dep.edge_count === 1 ? "" : "s"}
                 </span>

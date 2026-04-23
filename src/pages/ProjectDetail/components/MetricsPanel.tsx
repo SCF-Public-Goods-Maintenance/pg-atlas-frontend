@@ -70,7 +70,16 @@ export function MetricsPanel({ project }: { project: ProjectDetailResponse }) {
                   />
                 </div>
               </div>
-              <p className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white">
+              <p
+                className="mt-1.5 sm:mt-2 truncate text-2xl sm:text-3xl font-bold text-surface-dark dark:text-white"
+                title={
+                  m.value != null
+                    ? m.format === "decimal"
+                      ? m.value.toFixed(2)
+                      : Math.round(m.value).toLocaleString()
+                    : "—"
+                }
+              >
                 {m.value != null
                   ? m.format === "decimal"
                     ? m.value.toFixed(2)
