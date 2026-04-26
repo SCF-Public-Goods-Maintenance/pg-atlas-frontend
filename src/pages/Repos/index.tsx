@@ -86,6 +86,13 @@ function ReposTable() {
           cell.getValue<number | null>()?.toLocaleString() ?? "—",
       },
       {
+        accessorKey: "adoption_downloads",
+        header: "Downloads",
+        size: 100,
+        Cell: ({ cell }) =>
+          cell.getValue<number | null>()?.toLocaleString() ?? "—",
+      },
+      {
         accessorKey: "latest_commit_date",
         header: "Last Commit",
         size: 140,
