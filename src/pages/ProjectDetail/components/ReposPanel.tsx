@@ -59,6 +59,11 @@ export function ReposPanel({ repos }: { repos: RepoSummary[] }) {
                     {r.adoption_forks} forks
                   </span>
                 )}
+                {r.adoption_downloads != null && (
+                  <span className="hidden text-xs text-surface-dark/40 dark:text-white/30 sm:inline">
+                    {r.adoption_downloads.toLocaleString()} downloads
+                  </span>
+                )}
                 <ArrowUpRight
                   className="h-3.5 w-3.5 text-surface-dark/20 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 dark:text-white/20"
                   aria-hidden="true"
