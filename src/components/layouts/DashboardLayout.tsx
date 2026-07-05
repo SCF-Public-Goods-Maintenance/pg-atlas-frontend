@@ -297,7 +297,7 @@ export default function DashboardLayout() {
 
         <main
           id="main-content"
-          className={`no-scrollbar flex-1 overflow-y-auto ${isDark ? "bg-surface-dark" : "bg-surface-light"}`}
+          className={`flex-1 overflow-y-auto min-h-0 ${isDark ? "bg-surface-dark" : "bg-surface-light"}`}
         >
           <div className="h-full overflow-x-hidden px-3 pt-4 pb-3 sm:px-4 sm:pt-4 sm:pb-4 lg:px-6 lg:pb-6">
             <Suspense fallback={<RouteFallback />}>

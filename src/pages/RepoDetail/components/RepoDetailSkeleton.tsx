@@ -14,7 +14,7 @@ export function RepoDetailSkeleton() {
       <Skeleton className="h-9 w-80" />
       <Skeleton className="mt-2 h-5 w-96" />
 
-      <div className="no-scrollbar mt-6 flex-1 min-h-0 space-y-5 overflow-auto">
+      <div className="mt-6 flex-1 min-h-0 space-y-5 overflow-auto">
         {/* MetricsPanel skeleton */}
         <section className="rounded-2xl border border-gray-100 bg-white p-6 shadow-xs dark:border-white/15 dark:bg-white/5">
           <Skeleton className="mb-4 h-5 w-32" />

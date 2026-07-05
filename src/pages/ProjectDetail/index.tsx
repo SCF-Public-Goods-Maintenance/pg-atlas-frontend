@@ -72,7 +72,7 @@ function ProjectDetailContent({ canonicalId }: { canonicalId: string }) {
         </code>
       </p>
 
-      <div className="mt-6 no-scrollbar flex-1 min-h-0 space-y-5 overflow-auto">
+      <div className="mt-6 flex-1 min-h-0 space-y-5 overflow-auto">
         <MetricsPanel project={project} />
         <ReposPanel repos={repos} />
         <ContributorsPanel canonicalId={canonicalId} />
