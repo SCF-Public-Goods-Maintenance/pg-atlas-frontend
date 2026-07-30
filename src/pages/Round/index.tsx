@@ -357,8 +357,8 @@ function RoundContent({ roundId }: { roundId: string }) {
 
           <div className="rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 text-xs text-surface-dark/50 dark:border-white/10 dark:bg-white/[0.02] dark:text-white/30">
             Voting takes place on <strong>Tansu</strong> — PG Atlas does not
-            embed Tansu or display voting outcomes. This leaderboard is for
-            informational context only.
+            embed Tansu or display voting outcomes. This overview is a curated
+            selection of links for each proposal in the round.
           </div>
         </>
       )}
