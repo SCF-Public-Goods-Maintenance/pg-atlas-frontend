@@ -1,107 +1,107 @@
 name: "Public Goods Award"
 year: 2026
 quarter: 2
-voting_closed:
+voting_closed: 2026-28-04
 projects:
-  - canonical_id:
+  - canonical_id: daoip-5:scf:project:soropg
     name: "SoroPG"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/35
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=15
     project_page_url:
 
-  - canonical_id:
+  - canonical_id: daoip-5:scf:project:refractorspace
     name: "RefractorSpace"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/39
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=1
     project_page_url:
 
-  - canonical_id:
+  - canonical_id: daoip-5:scf:project:stellar_ios_mac_sdk
     main_repo_id: pkg:github/Soneso/stellar-ios-mac-sdk
     name: "iOS Stellar SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/42
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=5
     project_page_url:
 
-  - canonical_id: daoip-5:scf:project:flutter_wallet_sdk
+  - canonical_id: daoip-5:scf:project:flutter_stellar_sdk
     name: "Flutter Stellar SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/44
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=6
     project_page_url:
 
   - canonical_id: daoip-5:scf:project:stellar_php_sdk
     name: "Stellar PHP SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/46
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=4
     project_page_url:
 
   - canonical_id: daoip-5:scf:project:solidity_contracts_on_soroban
     name: "Hyperledger Solang"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/50
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=11
     project_page_url:
 
-  - canonical_id: daoip-5:scf:project:xlm.sh
+  - canonical_id: daoip-5:scf:project:stellar_hardware_wallet_support
     name: "Stellar Hardware Wallet Support"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/52
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=10
     project_page_url:
 
-  - canonical_id: daoip-5:scf:project:xlm.sh
+  - canonical_id: daoip-5:scf:project:java_stellar_sdk
     name: "Java Stellar SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/54
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=2
     project_page_url:
 
   - canonical_id: daoip-5:scf:project:python_stellar_sdk
     name: "Python Stellar SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/56
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=3
     project_page_url:
 
   - canonical_id: daoip-5:scf:project:soroban_security_portal
     name: "Soroban Security Portal"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/59
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=0
     project_page_url:
 
   - canonical_id: daoip-5:scf:project:stellarchain.io
     name: "StellarChain"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/61
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=13
     project_page_url:
 
-  - canonical_id:
+  - canonical_id: daoip-5:scf:project:scaffold_stellar
     name: "Scaffold Stellar"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/63
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=14
     project_page_url:
 
-  - canonical_id:
+  - canonical_id: daoip-5:scf:project:stellar_registry
     name: "Stellar Registry"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/65
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=8
     project_page_url:
 
   - canonical_id: daoip-5:scf:project:scout
     name: "Scout"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/67
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=16
     project_page_url:
 
-  - canonical_id: daoip-5:scf:project:beans_app
+  - canonical_id: daoip-5:scf:project:.net_stellar_sdk
     name: ".NET SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/68
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=7
     project_page_url:
 
   - canonical_id: daoip-5:scf:project:stellar_light
     name: "Stellar Light"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/76
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=12
     project_page_url:
 
-  - canonical_id:
+  - canonical_id: daoip-5:scf:project:opengrants
     name: "OpenGrants"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/79
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpga&id=9
     project_page_url:

@@ -8,12 +8,12 @@ projects:
     proposal_pr_url:
     tansu_proposal_url:
     project_page_url:
-  - canonical_id: daoip-5:scf:project:xlm.sh
+  - canonical_id: daoip-5:scf:project:stellar_hardware_wallet_support
     name: "Stellar hardware wallet integration"
     proposal_pr_url:
     tansu_proposal_url:
     project_page_url:
-  - canonical_id:
+  - canonical_id: daoip-5:scf:project:java_stellar_sdk
     name: "Java Stellar SDK"
     proposal_pr_url:
     tansu_proposal_url:
@@ -23,12 +23,12 @@ projects:
     proposal_pr_url:
     tansu_proposal_url:
     project_page_url:
-  - canonical_id: daoip-5:scf:project:flutter_wallet_sdk
+  - canonical_id: daoip-5:scf:project:flutter_stellar_sdk
     name: "Flutter Stellar SDK"
     proposal_pr_url:
     tansu_proposal_url:
     project_page_url:
-  - canonical_id:
+  - canonical_id: daoip-5:scf:project:stellar_ios_mac_sdk
     name: "iOS Stellar SDK"
     proposal_pr_url:
     tansu_proposal_url:
@@ -38,12 +38,12 @@ projects:
     proposal_pr_url:
     tansu_proposal_url:
     project_page_url:
-  - canonical_id: daoip-5:scf:project:beans_app
+  - canonical_id: daoip-5:scf:project:.net_stellar_sdk
     name: ".NET SDK"
     proposal_pr_url:
     tansu_proposal_url:
     project_page_url:
-  - canonical_id:
+  - canonical_id: daoip-5:scf:project:opengrants
     name: "OpenGrants"
     proposal_pr_url:
     tansu_proposal_url:
@@ -58,7 +58,7 @@ projects:
     proposal_pr_url:
     tansu_proposal_url:
     project_page_url:
-  - canonical_id:
+  - canonical_id: daoip-5:scf:project:scaffold_stellar
     name: "Scaffold Stellar"
     proposal_pr_url:
     tansu_proposal_url:
