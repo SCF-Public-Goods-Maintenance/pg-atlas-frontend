@@ -11,14 +11,14 @@ Built as free open-source software under the **Mozilla Public License 2.0**.
 ### Prerequisites
 
 - **Node.js** 18+ (recommend 20 LTS)
-- **npm** (or pnpm / yarn)
+- **PNPM**
 
 ### Setup
 
 ```bash
 git clone https://github.com/SCF-Public-Goods-Maintenance/pg-atlas-frontend.git
 cd pg-atlas-frontend
-npm install
+pnpm install
 ```
 
 ### Install pre-commit hooks
@@ -33,7 +33,7 @@ pre-commit install --install-hooks --hook-type pre-commit --hook-type commit-msg
 ### Run the app
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 The app will be available at `http://localhost:5173` (or the port Vite prints).
@@ -41,13 +41,13 @@ The app will be available at `http://localhost:5173` (or the port Vite prints).
 ### Lint and type-check
 
 ```bash
-npm run lint
-npm run build
+pnpm run lint
+pnpm run build
 ```
 
 `build` runs the TypeScript compiler and Vite build; a successful build implies type-checking passes.
 
 ## License
 
-This Source Code Form is subject to the terms of the **Mozilla Public License, v. 2.0**.  
+This Source Code Form is subject to the terms of the **Mozilla Public License, v. 2.0**.
 A copy of the MPL is in the [LICENSE](LICENSE) file in this repository.
