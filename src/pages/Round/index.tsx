@@ -62,7 +62,7 @@ function useRoundColumns() {
         cell: (info) => {
           const row = info.row.original;
           return (
-            <div className="flex flex-col">
+            <div className="flex flex-wrap items-center gap-2">
               {row.canonicalId ? (
                 <Link
                   to="/projects/$canonicalId"
@@ -74,6 +74,11 @@ function useRoundColumns() {
               ) : (
                 <span className="font-semibold text-surface-dark/60 dark:text-white/60">
                   {row.displayName}
+                </span>
+              )}
+              {!row.projectPageUrl && (
+                <span className="inline-flex items-center rounded-full border border-gray-200 px-2 py-0.5 text-xs font-medium text-surface-dark/70 dark:border-white/15 dark:text-white/60">
+                  New
                 </span>
               )}
             </div>
