@@ -1,7 +1,7 @@
 name: "Public Goods Award"
 year: 2026
 quarter: 2
-voting_closed: 2026-28-04
+voting_closed: 2026-04-28
 projects:
   - canonical_id: daoip-5:scf:project:.net_stellar_sdk
     name: ".NET SDK"

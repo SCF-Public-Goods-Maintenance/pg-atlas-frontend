@@ -1,113 +1,113 @@
 name: "Public Goods Award"
 year: 2026
 quarter: 3
-voting_closed:
+voting_closed: 2026-08-11
 projects:
   - canonical_id: daoip-5:scf:project:.net_stellar_sdk
     name: ".NET SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/125
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=1
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/stellar-net-sdk/
 
   - canonical_id: daoip-5:scf:project:flutter_stellar_sdk
     name: "Flutter Stellar SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/93
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=7
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/stellar-flutter-sdk/
 
   - canonical_id: daoip-5:scf:project:java_stellar_sdk
     name: "Java Stellar SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/94
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=15
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/java-stellar-sdk/
 
   - canonical_id: daoip-5:scf:project:kmp_stellar_sdk
     name: "KMP Stellar SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/121
-    tansu_proposal_url:
-    project_page_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=3
+    project_page_url: https://scf-public-goods-maintenance.github.io/projects/kmp-stellar-sdk/
 
   - canonical_id: daoip-5:scf:project:obsrvr_radar
     name: "OBSRVR Radar"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/110
-    tansu_proposal_url:
-    project_page_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=17
+    project_page_url: https://scf-public-goods-maintenance.github.io/projects/obsrvr-radar/
 
   - canonical_id: daoip-5:scf:project:opengrants
     name: "OpenGrants"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/126
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=13
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/opengrants/
 
   - canonical_id: daoip-5:scf:project:python_stellar_sdk
     name: "Python Stellar SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/95
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=14
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/py-stellar-base/
 
   - canonical_id: daoip-5:scf:project:refractorspace
     name: "RefractorSpace"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/116
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=5
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/refractorspace/
 
   - canonical_id: daoip-5:scf:project:scaffold_stellar
     name: "Stellar Scaffold"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/115
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=16
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/scaffold-stellar/
 
   - canonical_id: daoip-5:scf:project:solidity_contracts_on_soroban
     name: "Hyperledger Solang"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/123
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=2
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/hyperledger-solang/
 
   - canonical_id: daoip-5:scf:project:soroban_security_portal
     name: "Stellar Security Portal"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/104
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=11
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/soroban-security-portal/
 
   - canonical_id: daoip-5:scf:project:stellar_hardware_wallet_support
     name: "Stellar Hardware Wallet Support"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/89
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=12
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/stellar-hardware-wallet-support/
 
   - canonical_id: daoip-5:scf:project:stellar_ios_mac_sdk
     main_repo_id: pkg:github/Soneso/stellar-ios-mac-sdk
     name: "iOS Stellar SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/97
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=10
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/stellar-ios-mac-sdk/
 
   - canonical_id: daoip-5:scf:project:stellar_light
     name: "Stellar Light"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/101
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=18
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/stellarlight/
 
   - canonical_id: daoip-5:scf:project:stellar_php_sdk
     name: "Stellar PHP SDK"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/96
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=9
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/stellar-php-sdk/
 
   - canonical_id: daoip-5:scf:project:stellar_registry
     name: "Stellar Registry"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/117
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=4
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/stellar-registry/
 
   - canonical_id: daoip-5:scf:project:stellarchain.io
     name: "StellarChain"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/127
-    tansu_proposal_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=0
     project_page_url: https://scf-public-goods-maintenance.github.io/projects/stellarchain/
 
   - canonical_id: daoip-5:scf:project:tansu_-_soroban_versioning
     name: "Tansu"
     proposal_pr_url: https://github.com/SCF-Public-Goods-Maintenance/scf-public-goods-maintenance.github.io/pull/106
-    tansu_proposal_url:
-    project_page_url:
+    tansu_proposal_url: https://testnet.tansu.dev/proposal/?name=stellarpgq3&id=6
+    project_page_url: https://scf-public-goods-maintenance.github.io/projects/tansu-decentralized-project-governance-on-stellar/
