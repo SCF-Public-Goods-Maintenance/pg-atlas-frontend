@@ -30,7 +30,7 @@ const SOURCES: ReadonlyArray<SourceEntry> = [
       "Stellar Community Fund project information and Build Award submissions.",
     icon: ShieldCheck,
     kind: "canonical",
-    href: "https://scf.stellar.org",
+    href: "https://grants.daostar.org",
   },
   {
     label: "GitHub",
