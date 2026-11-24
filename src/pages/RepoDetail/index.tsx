@@ -1,9 +1,11 @@
-import { Suspense } from "react";
-import { Link, useParams } from "@tanstack/react-router";
+import { Suspense, useEffect } from "react";
+import { useQueryClient, useQueryErrorResetBoundary } from "@tanstack/react-query";
+import { Link, useNavigate, useParams } from "@tanstack/react-router";
 import { ArrowUpRight, FolderOpen } from "lucide-react";
 import type { RepoDetailResponse, RepoDependency, ProjectSummary } from "@pg-atlas/data-sdk";
 
 import {
+  repoKeys,
   useRepoDetailSuspense,
   useRepoDependsOnSuspense,
   useRepoHasDependentsSuspense,
@@ -22,13 +24,18 @@ import { RepoDetailErrorFallback } from "./components/RepoDetailErrorFallback";
 
 export default function RepoDetail() {
   const { canonicalId } = useParams({ from: "/repos/$canonicalId" });
+  const { reset: resetQueryError } = useQueryErrorResetBoundary();
   return (
     <ErrorBoundary
+      key={canonicalId}
       fallback={(error, reset) => (
         <RepoDetailErrorFallback
           canonicalId={canonicalId}
           error={error}
-          onRetry={reset}
+          onRetry={() => {
+            resetQueryError();
+            reset();
+          }}
         />
       )}
     >
@@ -42,11 +49,36 @@ export default function RepoDetail() {
 /* ── main content ─────────────────────────────────────────── */
 
 function RepoDetailContent({ canonicalId }: { canonicalId: string }) {
-  const repoQuery = useRepoDetailSuspense(canonicalId);
+  const { data: repo } = useRepoDetailSuspense(canonicalId);
+  const queryClient = useQueryClient();
+  const navigate = useNavigate({ from: "/repos/$canonicalId" });
+  const resolvedId = repo.canonical_id;
+
+  useEffect(() => {
+    if (canonicalId === resolvedId) return;
+
+    const resolvedKey = repoKeys.detail(resolvedId);
+    if (queryClient.getQueryData(resolvedKey) === undefined) {
+      queryClient.setQueryData(resolvedKey, repo);
+    }
+    void navigate({
+      to: "/repos/$canonicalId",
+      params: { canonicalId: resolvedId },
+      search: true,
+      hash: true,
+      replace: true,
+    });
+  }, [canonicalId, resolvedId, repo, queryClient, navigate]);
+
+  if (canonicalId !== resolvedId) return <RepoDetailSkeleton />;
+
+  return <RepoDetailPanels repo={repo} />;
+}
+
+function RepoDetailPanels({ repo }: { repo: RepoDetailResponse }) {
+  const canonicalId = repo.canonical_id;
   const dependsOnQuery = useRepoDependsOnSuspense(canonicalId);
   const hasDependentsQuery = useRepoHasDependentsSuspense(canonicalId);
-
-  const repo = repoQuery.data as RepoDetailResponse;
   const dependsOn = (dependsOnQuery.data ?? []) as RepoDependency[];
   const hasDependents = (hasDependentsQuery.data ?? []) as RepoDependency[];
 
