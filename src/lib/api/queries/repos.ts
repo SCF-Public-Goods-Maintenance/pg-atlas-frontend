@@ -60,12 +60,29 @@ export function useReposList(query: ListReposQuery = {}) {
 
 /* ── detail ────────────────────────────────────────────── */
 
+export class RepoDetailRequestError extends Error {
+  constructor(
+    readonly response: Response | undefined,
+    cause: unknown,
+  ) {
+    super(
+      response ? `HTTP ${response.status}` : "Could not reach PG Atlas",
+      { cause },
+    );
+  }
+}
+
 async function fetchRepo(canonicalId: string) {
-  const { data } = await getRepo({
+  const { data, error, response } = await getRepo({
     client,
     path: { canonical_id: canonicalId },
-    throwOnError: true,
+    throwOnError: false,
   });
+
+  if (data === undefined) {
+    throw new RepoDetailRequestError(response, error);
+  }
+
   return data;
 }
 
